@@ -1,6 +1,6 @@
 {
   "name": "strapi-next-launchpad-example",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Next.js Launchpad Example powered by Strapi",
   "type": "module",
   "scripts": {

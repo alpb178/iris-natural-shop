@@ -16,6 +16,7 @@ const config: Config = {
       colors: {
         charcoal: "#08090A",
         lightblack: "#1C1C1C",
+        primary: { DEFAULT: "#08090A" },
         secondary: "#E6E6E6",
         muted: "var(--neutral-200)",
       },
