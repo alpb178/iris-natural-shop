@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import React from "react";
 import { LinkProps } from "next/link"; // Or from your routing library
+import React from "react";
 
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   variant?: "simple" | "outline" | "primary" | "muted";
@@ -9,6 +9,7 @@ interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   children?: React.ReactNode;
   href?: LinkProps["href"];
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -31,9 +32,10 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <Tag
       className={cn(
-        "bg-secondary relative z-10 bg-transparent hover:border-secondary hover:bg-secondary/50  border border-transparent text-white text-sm md:text-sm transition font-medium duration-200  rounded-md px-4 py-2  flex items-center justify-center ",
+        "z-10 relative flex justify-center items-center bg-secondary bg-transparent hover:bg-secondary/50 px-4 py-2 border hover:border-secondary border-transparent rounded-md font-medium text-white text-sm md:text-sm transition duration-200",
         variantClass,
-        className
+        className,
+        props.disabled && "opacity-50 cursor-not-allowed"
       )}
       {...props}
     >

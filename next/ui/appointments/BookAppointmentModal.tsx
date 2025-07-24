@@ -1,12 +1,13 @@
 "use client";
 
+import { Button } from "@/components/elements/button";
+import { TextInput } from "@/components/form/text-input/TextInput";
 import {
   Modal,
   ModalBody,
   ModalContent,
   ModalTrigger,
 } from "@/components/ui/animated-modal";
-import { fetcher } from "@/lib/strapi/fetcher";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
@@ -36,32 +37,57 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
   }, [selectedDate]);
 
   const handleSubmit = async (values: any) => {
-    const { date, time } = values;
-    const data = { date, time };
+    try {
+      const appointmentData = {
+        date: dayjs(values.date).format("YYYY-MM-DD"),
+        time: values.time,
+        email: values.email,
+        name: values.username,
+      };
 
-    const response = await fetcher(`/api/appointments`, {
-      method: "POST",
-      data: { data },
-    });
+      const response = await fetch("/api/book", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(appointmentData),
+      });
 
-    console.log(response);
-    // close modal
-    onClick();
+      const result = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 409) {
+          // Handle conflict (appointment already exists or slot unavailable)
+          alert(result.error);
+        } else {
+          alert("Error booking appointment. Please try again.");
+        }
+        return;
+      }
+
+      console.log("Appointment response:", result);
+      alert("Appointment booked successfully!");
+      // close modal
+      onClick();
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      alert("Error booking appointment. Please try again.");
+    }
   };
 
   return (
     <Modal>
-      <ModalTrigger onClick={onClick}>Book appointment</ModalTrigger>
+      <ModalTrigger onClick={onClick}>Reservar una cita</ModalTrigger>
 
-      <ModalBody className="w-full max-w-4xl">
+      <ModalBody>
         <ModalContent>
           <h4 className="mb-8 font-bold text-neutral-600 text-lg md:text-2xl text-center">
-            Book appointment
+            Reservar una cita
           </h4>
 
           <FormProvider {...methods}>
-            <div className="flex items-center gap-6">
-              <div className="w-1/2">
+            <div className="flex gap-6 mb-6">
+              <div className="w-full">
                 <Calendar
                   onChange={(date) => {
                     methods.setValue("date", date as Date);
@@ -77,9 +103,9 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
                 />
               </div>
 
-              <div className="w-1/2">
+              <div className="w-full">
                 {availableSlots.length > 0 && (
-                  <div className="gap-2 grid grid-cols-2 mt-4">
+                  <div className="gap-2 grid grid-cols-2">
                     {availableSlots.map((slot) => (
                       <button
                         key={slot.toString()}
@@ -105,13 +131,17 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
               </div>
             </div>
 
-            <button
-              className="bg-black disabled:opacity-50 mt-4 px-4 py-2 rounded-md text-white text-sm disabled:cursor-not-allowed"
+            <TextInput name="username" label="Nombre Completo" required />
+
+            <TextInput name="email" label="Correo electrónico" required />
+
+            <Button
+              variant="muted"
               disabled={!selectedTime}
               onClick={methods.handleSubmit(handleSubmit)}
             >
-              Confirm Appointment
-            </button>
+              Reservar cita
+            </Button>
           </FormProvider>
         </ModalContent>
       </ModalBody>

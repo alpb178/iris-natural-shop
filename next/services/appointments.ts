@@ -1,8 +1,9 @@
+import { APPOINTMENTS_API_URL } from "@/lib/constants/endpoints";
 import { fetcher } from "@/lib/strapi/fetcher";
 
 export const getAppointments = async (date: string) => {
   const appointments = await fetcher(
-    `/api/appointments?populate=*&filters[date][$eq]=${date}`
+    `${APPOINTMENTS_API_URL}?populate=*&filters[date][$eq]=${date}`
   );
 
   return appointments;

@@ -1,7 +1,5 @@
-import React from "react";
-
-import { BlogLayout } from "@/components/blog-layout";
 import fetchContentType from "@/lib/strapi/fetchContentType";
+import { BlogLayout } from "@/ui/blog/blog-layout";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 import ClientSlugHandler from "../../ClientSlugHandler";
@@ -17,9 +15,9 @@ export default async function SingleArticlePage({
       filters: {
         slug: params.slug,
         locale: params.locale,
-      }
+      },
     },
-    true,
+    true
   );
 
   if (!article) {

@@ -1,8 +1,8 @@
 import "@/styles/calendar.scss";
-import "./globals.css";
+import "@/styles/globals.scss";
 
-import type { Viewport } from "next";
 import { Locale, i18n } from "@/i18n.config";
+import type { Viewport } from "next";
 import { SlugProvider } from "./context/SlugContext";
 
 export const viewport: Viewport = {

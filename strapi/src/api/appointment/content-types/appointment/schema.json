@@ -12,10 +12,27 @@
   "pluginOptions": {},
   "attributes": {
     "date": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "time": {
-      "type": "time"
+      "type": "time",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "aStatus": {
+      "type": "enumeration",
+      "enum": [
+        "canceled",
+        "confirmed",
+        "pending"
+      ]
     }
   }
 }
