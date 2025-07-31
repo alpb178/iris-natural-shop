@@ -7,6 +7,7 @@ import { generateMetadataObject } from "@/lib/shared/metadata";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { CartProvider } from "@/context/cart-context";
+import { ThemeProvider } from "@/context/theme-context";
 import { cn } from "@/lib/utils";
 import { ViewTransitions } from "next-view-transitions";
 import fetchContentType from "@/lib/strapi/fetchContentType";
@@ -53,16 +54,18 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <ViewTransitions>
         <CartProvider>
-          <body
-            className={cn(
-              inter.className,
-              "bg-charcoal antialiased h-full w-full"
-            )}
-          >
-            <Navbar data={pageData.navbar} locale={locale} />
-            {children}
-            <Footer data={pageData.footer} locale={locale} />
-          </body>
+          <ThemeProvider>
+            <body
+              className={cn(
+                inter.className,
+                "bg-background text-foreground antialiased h-full w-full"
+              )}
+            >
+              <Navbar data={pageData.navbar} locale={locale} />
+              {children}
+              <Footer data={pageData.footer} locale={locale} />
+            </body>
+          </ThemeProvider>
         </CartProvider>
       </ViewTransitions>
     </html>

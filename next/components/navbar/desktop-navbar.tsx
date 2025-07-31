@@ -2,6 +2,7 @@
 import { Button } from "@/components/elements/button";
 import { Logo } from "@/components/logo";
 import { useCart } from "@/context/cart-context";
+import { useTheme } from "@/context/theme-context";
 import { cn } from "@/lib/utils";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
 import {
@@ -41,6 +42,7 @@ export const DesktopNavbar = ({
   const [showBackground, setShowBackground] = useState(false);
 
   const { addToCart } = useCart();
+  const { theme, toggleTheme } = useTheme();
 
   useMotionValueEvent(scrollY, "change", (value) => {
     if (value > 100) {
@@ -56,7 +58,7 @@ export const DesktopNavbar = ({
       )}
       animate={{
         width: showBackground ? "80%" : "100%",
-        background: showBackground ? "var(--neutral-900)" : "transparent",
+        background: showBackground ? "hsl(var(--card))" : "transparent",
       }}
       transition={{
         duration: 0.4,
@@ -71,7 +73,7 @@ export const DesktopNavbar = ({
             transition={{
               duration: 1,
             }}
-            className="absolute inset-0 bg-neutral-900 rounded-full w-full h-full pointer-events-none [mask-image:linear-gradient(to_bottom,white,transparent,white)]"
+            className="absolute inset-0 bg-card rounded-full w-full h-full pointer-events-none [mask-image:linear-gradient(to_bottom,white,transparent,white)]"
           />
         )}
       </AnimatePresence>
@@ -104,6 +106,14 @@ export const DesktopNavbar = ({
             {item.text}
           </Button>
         ))}
+
+        <Button
+          variant="simple"
+          className="bg-white text-black hover:bg-gray-100"
+          onClick={toggleTheme}
+        >
+          {theme === "light" ? "🌙" : "☀️"} Cambiar tema
+        </Button>
 
         <BookAppointmentModal onClick={() => {}} />
       </div>

@@ -106,7 +106,7 @@ export const ModalBody = ({
           <motion.div
             ref={modalRef}
             className={cn(
-              "z-50 relative flex flex-col flex-1 bg-white m-4 border border-transparent md:rounded-2xl md:max-w-3xl min-h-[50%] max-h-[90%] overflow-hidden",
+              "z-50 relative flex flex-col flex-1 bg-background m-4 border border-transparent md:rounded-2xl md:max-w-3xl min-h-[50%] max-h-[90%] overflow-hidden",
               className
             )}
             initial={{
@@ -163,7 +163,7 @@ export const ModalFooter = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("flex justify-end bg-gray-100 p-4", className)}>
+    <div className={cn("flex justify-end bg-foreground p-4", className)}>
       {children}
     </div>
   );
@@ -183,7 +183,7 @@ const Overlay = ({ className }: { className?: string }) => {
         opacity: 0,
         backdropFilter: "blur(0px)",
       }}
-      className={`fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
+      className={`fixed inset-0 h-full w-full bg-foreground bg-opacity-50 z-50 ${className}`}
     ></motion.div>
   );
 };
@@ -205,7 +205,7 @@ const CloseIcon = () => {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-4 h-4 text-black group-hover:rotate-3 group-hover:scale-125 transition duration-200"
+        className="w-4 h-4 text-foreground group-hover:rotate-3 group-hover:scale-125 transition duration-200"
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M18 6l-12 12" />
