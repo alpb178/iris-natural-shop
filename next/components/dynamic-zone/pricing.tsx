@@ -11,11 +11,11 @@ import { Button } from "../elements/button";
 
 type Perks = {
   [key: string]: string;
-}
+};
 
 type CTA = {
   [key: string]: string;
-}
+};
 
 type Plan = {
   name: string;
@@ -28,7 +28,15 @@ type Plan = {
   CTA?: CTA | undefined;
 };
 
-export const Pricing = ({ heading, sub_heading, plans }: { heading: string, sub_heading: string, plans: any[] }) => {
+export const Pricing = ({
+  heading,
+  sub_heading,
+  plans,
+}: {
+  heading: string;
+  sub_heading: string;
+  plans: any[];
+}) => {
   const onClick = (plan: Plan) => {
     console.log("click", plan);
   };
@@ -36,12 +44,10 @@ export const Pricing = ({ heading, sub_heading, plans }: { heading: string, sub_
     <div className="pt-40">
       <Container>
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-          <IconReceipt2 className="h-6 w-6 text-white" />
+          <IconReceipt2 className="h-6 w-6 text-foreground" />
         </FeatureIconContainer>
         <Heading className="pt-4">{heading}</Heading>
-        <Subheading className="max-w-3xl mx-auto">
-          {sub_heading}
-        </Subheading>
+        <Subheading className="max-w-3xl mx-auto">{sub_heading}</Subheading>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto gap-4 py-20 lg:items-start">
           {plans.map((plan) => (
             <Card onClick={() => onClick(plan)} key={plan.name} plan={plan} />
@@ -56,24 +62,29 @@ const Card = ({ plan, onClick }: { plan: Plan; onClick: () => void }) => {
   return (
     <div
       className={cn(
-        "p-4 md:p-4 rounded-3xl bg-neutral-900 border-2 border-neutral-800",
-        plan.featured && "border-neutral-50 bg-neutral-100"
+        "p-4 md:p-4 rounded-3xl bg-card border-2 border-border",
+        plan.featured && "border-primary bg-background"
       )}
     >
       <div
         className={cn(
-          "p-4 bg-neutral-800 rounded-2xl shadow-[0px_-1px_0px_0px_var(--neutral-700)]",
-          plan.featured && "bg-white shadow-aceternity"
+          "p-4 bg-muted rounded-2xl shadow-[0px_-1px_0px_0px_var(--neutral-700)]",
+          plan.featured && "bg-background shadow-aceternity"
         )}
       >
         <div className="flex justify-between items-center">
-          <p className={cn("font-medium", plan.featured && "text-black")}>
+          <p
+            className={cn(
+              "font-medium text-card-foreground",
+              plan.featured && "text-foreground"
+            )}
+          >
             {plan.name}
           </p>
           {plan.featured && (
             <div
               className={cn(
-                "font-medium text-xs px-3 py-1 rounded-full relative bg-neutral-900"
+                "font-medium text-xs px-3 py-1 rounded-full relative bg-muted text-muted-foreground"
               )}
             >
               <div className="absolute inset-x-0 bottom-0 w-3/4 mx-auto h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
@@ -85,23 +96,26 @@ const Card = ({ plan, onClick }: { plan: Plan; onClick: () => void }) => {
           {plan.price && (
             <span
               className={cn(
-                "text-lg font-bold text-neutral-500",
-                plan.featured && "text-neutral-700"
+                "text-lg font-bold text-muted-foreground",
+                plan.featured && "text-muted-foreground"
               )}
             >
               $
             </span>
           )}
           <span
-            className={cn("text-4xl font-bold", plan.featured && "text-black")}
+            className={cn(
+              "text-4xl font-bold text-card-foreground",
+              plan.featured && "text-foreground"
+            )}
           >
             {plan.price || plan?.CTA?.text}
           </span>
           {plan.price && (
             <span
               className={cn(
-                "text-lg font-normal text-neutral-500 ml-2",
-                plan.featured && "text-neutral-700"
+                "text-lg font-normal text-muted-foreground ml-2",
+                plan.featured && "text-muted-foreground"
               )}
             >
               / launch
@@ -113,7 +127,7 @@ const Card = ({ plan, onClick }: { plan: Plan; onClick: () => void }) => {
           className={cn(
             "w-full mt-10 mb-4",
             plan.featured &&
-            "bg-black text-white hover:bg-black/80 hover:text-white"
+              "bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground"
           )}
           onClick={onClick}
         >
@@ -162,8 +176,8 @@ const Step = ({
       </div>
       <div
         className={cn(
-          "font-medium text-white text-sm",
-          featured && "text-black"
+          "font-medium text-card-foreground text-sm",
+          featured && "text-foreground"
         )}
       >
         {children}
@@ -175,25 +189,20 @@ const Step = ({
 const Divider = ({ featured }: { featured?: boolean }) => {
   return (
     <div className="relative">
+      <div className={cn("w-full h-px bg-border", featured && "bg-border")} />
       <div
-        className={cn("w-full h-px bg-neutral-950", featured && "bg-white")}
+        className={cn("w-full h-px bg-border/50", featured && "bg-border/50")}
       />
       <div
         className={cn(
-          "w-full h-px bg-neutral-800",
-          featured && "bg-neutral-200"
-        )}
-      />
-      <div
-        className={cn(
-          "absolute inset-0 h-5 w-5 m-auto rounded-xl bg-neutral-800 shadow-[0px_-1px_0px_0px_var(--neutral-700)] flex items-center justify-center",
-          featured && "bg-white shadow-aceternity"
+          "absolute inset-0 h-5 w-5 m-auto rounded-xl bg-muted shadow-[0px_-1px_0px_0px_var(--neutral-700)] flex items-center justify-center",
+          featured && "bg-background shadow-aceternity"
         )}
       >
         <IconPlus
           className={cn(
-            "h-3 w-3 [stroke-width:4px] text-neutral-300",
-            featured && "text-black"
+            "h-3 w-3 [stroke-width:4px] text-muted-foreground",
+            featured && "text-foreground"
           )}
         />
       </div>

@@ -17,7 +17,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
   const { addToCart } = useCart();
 
   return (
-    <div className="bg-gradient-to-b from-neutral-900 to-neutral-950 p-4 md:p-10 rounded-md">
+    <div className="bg-gradient-to-b from-background to-background p-4 md:p-10 rounded-md">
       <div className="gap-12 grid grid-cols-1 md:grid-cols-2">
         <div>
           {/* <AnimatePresence initial={false} mode="popLayout"> */}
@@ -67,10 +67,10 @@ export const SingleProduct = ({ product }: { product: Product }) => {
         </div>
         <div>
           <h2 className="mb-4 font-semibold text-2xl">{product.name}</h2>
-          <p className="bg-white mb-6 px-4 py-1 rounded-full w-fit text-black text-xs">
+          <p className="bg-foreground mb-6 px-4 py-1 rounded-full w-fit text-foreground text-xs">
             ${formatNumber(product.price)}
           </p>
-          <p className="mb-4 font-normal text-neutral-400 text-base">
+          <p className="mb-4 font-normal text-foreground text-base">
             {product.description}
           </p>
 
@@ -81,7 +81,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
                 <Step key={index}>{perk.text}</Step>
               ))}
           </ul>
-          <h3 className="mb-2 font-medium text-neutral-400 text-sm">
+          <h3 className="mb-2 font-medium text-foreground text-sm">
             Available for
           </h3>
           <ul className="flex flex-wrap gap-4 list-none">
@@ -89,14 +89,14 @@ export const SingleProduct = ({ product }: { product: Product }) => {
               product.plans.map((plan, index) => (
                 <li
                   key={index}
-                  className="bg-neutral-800 px-3 py-1 rounded-full font-medium text-white text-sm"
+                  className="bg-foreground px-3 py-1 rounded-full font-medium text-foreground text-sm"
                 >
                   {plan.name}
                 </li>
               ))}
           </ul>
 
-          <h3 className="mt-8 mb-2 font-medium text-neutral-400 text-sm">
+          <h3 className="mt-8 mb-2 font-medium text-foreground text-sm">
             Categories
           </h3>
           <ul className="flex flex-wrap gap-4">
@@ -104,7 +104,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
               product.categories?.map((category, idx) => (
                 <li
                   key={`category-${idx}`}
-                  className="bg-neutral-800 px-3 py-1 rounded-full font-medium text-white text-sm"
+                  className="bg-foreground px-3 py-1 rounded-full font-medium text-foreground text-sm"
                 >
                   {category.name}
                 </li>
@@ -121,8 +121,8 @@ export const SingleProduct = ({ product }: { product: Product }) => {
 const Divider = () => {
   return (
     <div className="relative">
-      <div className="bg-neutral-950 w-full h-px" />
-      <div className="bg-neutral-800 w-full h-px" />
+      <div className="bg-background w-full h-px" />
+      <div className="bg-background w-full h-px" />
     </div>
   );
 };
@@ -130,10 +130,10 @@ const Divider = () => {
 const Step = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex justify-start items-start gap-2 my-4">
-      <div className="flex flex-shrink-0 justify-center items-center bg-neutral-700 mt-0.5 rounded-full w-4 h-4">
-        <IconCheck className="w-3 h-3 text-neutral-300 [stroke-width:4px]" />
+      <div className="flex flex-shrink-0 justify-center items-center bg-foreground mt-0.5 rounded-full w-4 h-4">
+        <IconCheck className="w-3 h-3 text-foreground [stroke-width:4px]" />
       </div>
-      <div className="font-medium text-white text-sm">{children}</div>
+      <div className="font-medium text-foreground text-sm">{children}</div>
     </div>
   );
 };

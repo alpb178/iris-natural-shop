@@ -5,13 +5,19 @@ import { Link } from "next-view-transitions";
 import { Product } from "@/types/types";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 
-export const Featured = ({ products, locale }: { products: Product[], locale: string }) => {
+export const Featured = ({
+  products,
+  locale,
+}: {
+  products: Product[];
+  locale: string;
+}) => {
   return (
     <div className="py-20">
-      <h2 className="text-2xl md:text-4xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white mb-2">
+      <h2 className="text-2xl md:text-4xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-foreground via-foreground to-foreground mb-2">
         Featured
       </h2>
-      <p className="text-neutral-500 text-lg mt-4 mb-10">
+      <p className="text-foreground text-lg mt-4 mb-10">
         Pick from our most popular collection
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3  gap-10">
@@ -28,16 +34,22 @@ export const Featured = ({ products, locale }: { products: Product[], locale: st
   );
 };
 
-const FeaturedItem = ({ product, locale }: { product: Product, locale:string }) => {
+const FeaturedItem = ({
+  product,
+  locale,
+}: {
+  product: Product;
+  locale: string;
+}) => {
   return (
     <Link
       href={`/${locale}/products/${product.slug}` as never}
-      className="group border border-neutral-800 rounded-md overflow-hidden relative block"
+      className="group border border-foreground rounded-md overflow-hidden relative block"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black transition-all duration-200 z-30" />
-      <div className="absolute text-sm top-4 right-2 md:top-10 md:right-10 z-40 bg-white rounded-full pr-1 pl-4 py-1 text-black font-medium flex gap-4 items-center">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-foreground transition-all duration-200 z-30" />
+      <div className="absolute text-sm top-4 right-2 md:top-10 md:right-10 z-40 bg-foreground rounded-full pr-1 pl-4 py-1 text-foreground font-medium flex gap-4 items-center">
         <span>{product.name}</span>
-        <span className="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 text-white px-2 py-1 rounded-full">
+        <span className="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 text-foreground px-2 py-1 rounded-full">
           ${formatNumber(product.price)}
         </span>
       </div>
