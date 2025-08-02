@@ -26,21 +26,26 @@ jobs:
         port: ${{ secrets.VPS_PORT || 22 }}
         script: |
           # Navigate to project directory
-          cd ${{ secrets.PROJECT_PATH || '/opt/launchpad' }}
+          cd ${{ secrets.PROJECT_PATH || '/opt/alejandro-louro' }}
           
           # Determine branch and environment
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             BRANCH="main"
             ENV="production"
-            COMPOSE_FILE="docker-compose.prod.yml"
+            ENV_FILE="env.production"
+            IMAGE_TAG="latest"
           else
             BRANCH="dev"
             ENV="development"
-            COMPOSE_FILE="docker-compose.dev.yml"
+            ENV_FILE="env.development"
+            IMAGE_TAG="dev"
           fi
           
           # Pull latest changes
           git pull origin $BRANCH
+          
+          # Pull the latest Docker image
+          docker pull alegd/alejandro-louro-cms:$IMAGE_TAG
           
           # Copy environment file if it doesn't exist
           if [ ! -f .env ]; then
@@ -50,10 +55,10 @@ jobs:
           fi
           
           # Stop existing containers
-          docker-compose -f $COMPOSE_FILE down
+          docker-compose --env-file $ENV_FILE down
           
-          # Build and start containers
-          docker-compose -f $COMPOSE_FILE up -d --build
+          # Start containers
+          docker-compose --env-file $ENV_FILE up -d
           
           # Wait for services to be ready
           sleep 30
@@ -69,7 +74,7 @@ jobs:
             echo "✅ Strapi deployment successful for $ENV environment!"
           else
             echo "❌ Strapi health check failed"
-            docker-compose -f $COMPOSE_FILE logs strapi
+            docker-compose --env-file $ENV_FILE logs strapi
             exit 1
           fi
           

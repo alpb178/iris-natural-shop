@@ -10,7 +10,7 @@
     "strapi": "strapi",
     "deploy": "strapi deploy",
     "seed": "strapi import -f ./data/export_20250116105447.tar.gz",
-    "postinstall": "node ./scripts/updateUuid.js"
+    "postinstall": "node -e \"if(require('fs').existsSync('./scripts/updateUuid.js')) require('./scripts/updateUuid.js')\""
   },
   "devDependencies": {
     "@types/node": "^20",

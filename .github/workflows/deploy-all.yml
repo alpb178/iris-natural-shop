@@ -32,16 +32,16 @@ jobs:
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             BRANCH="main"
             ENV="production"
-            COMPOSE_FILE="docker-compose.prod.yml"
+            ENV_FILE="env.production"
           else
             BRANCH="dev"
             ENV="development"
-            COMPOSE_FILE="docker-compose.dev.yml"
+            ENV_FILE="env.development"
           fi
           
           git pull origin $BRANCH
-          docker-compose -f $COMPOSE_FILE down
-          docker-compose -f $COMPOSE_FILE up -d --build
+          docker-compose --env-file $ENV_FILE down
+          docker-compose --env-file $ENV_FILE up -d
           sleep 30
           # Check if Strapi is running (different ports for dev/prod)
           if [ "$ENV" = "production" ]; then
@@ -54,7 +54,7 @@ jobs:
             echo "✅ Strapi deployment successful for $ENV environment!"
           else
             echo "❌ Strapi health check failed"
-            docker-compose -f $COMPOSE_FILE logs strapi
+            docker-compose --env-file $ENV_FILE logs strapi
             exit 1
           fi
           docker image prune -f
