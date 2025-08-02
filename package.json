@@ -1,7 +1,7 @@
 {
-  "name": "strapi-next-launchpad-example",
+  "name": "alejandro-louro-website",
   "version": "0.1.0",
-  "description": "Next.js Launchpad Example powered by Strapi",
+  "description": "Alejandro Louro Website",
   "type": "module",
   "scripts": {
     "next": "yarn dev --prefix ../next/",

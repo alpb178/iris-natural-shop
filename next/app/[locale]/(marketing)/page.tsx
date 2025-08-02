@@ -1,12 +1,11 @@
-import { Metadata } from "next";
-
+import { generateMetadataObject } from "@/lib/shared/metadata";
 import PageContent from "@/lib/shared/PageContent";
 import fetchContentType from "@/lib/strapi/fetchContentType";
-import { generateMetadataObject } from "@/lib/shared/metadata";
+import { Metadata } from "next";
 import ClientSlugHandler from "./ClientSlugHandler";
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
@@ -15,9 +14,9 @@ export async function generateMetadata({
     {
       filters: {
         slug: "homepage",
-        locale: params.locale,
+        locale: params.locale
       },
-      populate: "seo.metaImage",
+      populate: "seo.metaImage"
     },
     true
   );
@@ -28,7 +27,7 @@ export async function generateMetadata({
 }
 
 export default async function HomePage({
-  params,
+  params
 }: {
   params: { locale: string };
 }) {
@@ -37,8 +36,8 @@ export default async function HomePage({
     {
       filters: {
         slug: "homepage",
-        locale: params.locale,
-      },
+        locale: params.locale
+      }
     },
     true
   );
