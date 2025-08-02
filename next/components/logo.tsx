@@ -1,27 +1,27 @@
-import React from "react";
-
-import { Link } from "next-view-transitions";
-import { BlurImage } from "./blur-image";
-
+import seoData from "@/lib/next-metadata";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { Image } from "@/types/types";
+import { Link } from "next-view-transitions";
+import { BlurImage } from "./blur-image";
 
 export const Logo = ({ image, locale }: { image?: Image; locale?: string }) => {
   if (image) {
     return (
       <Link
         href={`/${locale || "en"}`}
-        className="font-normal flex space-x-2 items-center text-sm mr-4  text-foreground   relative z-20"
+        className="z-20 relative flex items-center space-x-2 mr-4 font-normal text-foreground text-sm"
       >
         <BlurImage
           src={strapiImage(image?.url)}
           alt={image.alternativeText}
           width={200}
           height={200}
-          className="h-10 w-10 rounded-xl mr-2"
+          className="mr-2 rounded-xl w-10 h-10"
         />
 
-        <span className="text-foreground font-bold">LaunchPad</span>
+        <span className="font-bold text-foreground text-lg">
+          {seoData.openGraph.site_name}
+        </span>
       </Link>
     );
   }

@@ -1,111 +1,299 @@
-# LaunchPad - Official Strapi Demo
+# LaunchPad - Strapi + Next.js Project
 
-![LaunchPad](./LaunchPad.jpg)
+A full-stack application with Strapi CMS backend and Next.js frontend, configured for automated deployment using GitHub Actions.
 
-Welcome aboard **LaunchPad**, the official Strapi demo application, where we launch your content into the stratosphere at the speed of _"we-can't-even-measure-it!"_.
-This repository contains the following:
+## 🏗️ Architecture
 
-- A Strapi project with content-types and data already onboard
-- A Next.js client that's primed and ready to fetch the content from Strapi faster than you can say "blast off!"
+- **Backend**: Strapi CMS with PostgreSQL database
+- **Frontend**: Next.js with TypeScript and Tailwind CSS
+- **Deployment**:
+  - Strapi → VPS with Docker
+  - Next.js → Vercel
+- **CI/CD**: GitHub Actions for automated deployments
 
-## 🌌 Get started
+## 🚀 Quick Start
 
-Strap yourself in! You can get started with this project on your local machine by following the instructions below, or you can [request a private instance on our website](https://strapi.io/demo)
+### Prerequisites
 
-## 1. Clone Launchpad
+- **Node.js 22.x** (required for both Strapi and Next.js)
+- **Docker and Docker Compose** (for local development)
+- **Yarn** (recommended package manager)
 
-To infinity and beyond! 🚀 Clone the repo with this command:
+### Local Development
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <your-repo-url>
+   cd LaunchPad
+   ```
+
+2. **Start local development environment**
+
+   ```bash
+   # Start Strapi and PostgreSQL
+   docker-compose up -d
+
+   # Start Next.js development server
+   cd next
+   yarn install
+   yarn dev
+   ```
+
+3. **Access your applications**
+   - Strapi Admin: http://localhost:1337/admin
+   - Next.js App: http://localhost:3000
+
+### Production Deployment
+
+#### Prerequisites
+
+1. **VPS Server** (for Strapi)
+
+   - Ubuntu 20.04+ recommended
+   - Docker and Docker Compose installed
+   - Domain name pointing to your VPS
+
+2. **Vercel Account** (for Next.js)
+   - Vercel CLI installed
+   - Project created in Vercel dashboard
+
+#### Setup GitHub Secrets
+
+Add these secrets to your GitHub repository:
+
+**VPS Deployment Secrets:**
+
+- `VPS_HOST`: Your VPS IP address
+- `VPS_USERNAME`: SSH username
+- `VPS_SSH_KEY`: Private SSH key for VPS access
+- `VPS_PORT`: SSH port (default: 22)
+- `PROJECT_PATH`: Path to project on VPS (default: /opt/launchpad)
+
+**Vercel Deployment Secrets:**
+
+- `VERCEL_TOKEN`: Vercel API token
+- `VERCEL_ORG_ID`: Vercel organization ID
+- `VERCEL_PROJECT_ID`: Vercel project ID
+- `NEXT_PUBLIC_STRAPI_URL`: Your Strapi production URL
+
+**Optional:**
+
+- `SLACK_WEBHOOK_URL`: Slack webhook for deployment notifications
+
+#### Initial VPS Setup
+
+1. **SSH into your VPS**
+
+   ```bash
+   ssh user@your-vps-ip
+   ```
+
+2. **Install Docker and Docker Compose**
+
+   ```bash
+   # Install Docker
+   curl -fsSL https://get.docker.com -o get-docker.sh
+   sudo sh get-docker.sh
+
+   # Install Docker Compose
+   sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+   sudo chmod +x /usr/local/bin/docker-compose
+   ```
+
+3. **Clone the repository**
+
+   ```bash
+   sudo mkdir -p /opt/launchpad
+   sudo chown $USER:$USER /opt/launchpad
+   cd /opt/launchpad
+   git clone <your-repo-url> .
+   ```
+
+4. **Configure environment variables**
+
+   ```bash
+   cp env.example .env
+   # Edit .env with your production values
+   nano .env
+   ```
+
+5. **Generate secure secrets**
+
+   ```bash
+   node scripts/generate-secrets.js
+   # Copy the generated secrets to your .env file
+   ```
+
+6. **Update Nginx configuration**
+
+   ```bash
+   # Edit nginx/nginx.conf and replace 'your-domain.com' with your actual domain
+   nano nginx/nginx.conf
+   ```
+
+7. **Setup SSL certificates**
+
+   ```bash
+   # Create SSL directory
+   sudo mkdir -p nginx/ssl
+
+   # Generate self-signed certificate (replace with Let's Encrypt for production)
+   sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+     -keyout nginx/ssl/key.pem \
+     -out nginx/ssl/cert.pem
+   ```
+
+8. **Start the application**
+   ```bash
+   docker-compose -f docker-compose.prod.yml up -d
+   ```
+
+## 🔄 Automated Deployment
+
+The project includes three GitHub Actions workflows:
+
+1. **`deploy-strapi.yml`**: Deploys Strapi when changes are made to the `strapi/` directory
+2. **`deploy-nextjs.yml`**: Deploys Next.js when changes are made to the `next/` directory
+3. **`deploy-all.yml`**: Deploys both when changes affect the entire project
+
+### How it works:
+
+- Push to `main` branch triggers appropriate workflow based on changed files
+- Strapi deployment uses SSH to connect to your VPS and runs Docker commands
+- Next.js deployment builds and deploys to Vercel
+- Slack notifications are sent on deployment completion (if configured)
+
+## 📁 Project Structure
 
 ```
-git clone https://github.com/strapi/launchpad.git
+LaunchPad/
+├── strapi/                 # Strapi CMS backend
+│   ├── Dockerfile         # Production Dockerfile
+│   ├── Dockerfile.dev     # Development Dockerfile
+│   └── ...
+├── next/                  # Next.js frontend
+│   ├── vercel.json       # Vercel configuration
+│   └── ...
+├── nginx/                # Nginx configuration
+│   └── nginx.conf
+├── scripts/              # Utility scripts
+│   └── generate-secrets.js
+├── .github/workflows/    # GitHub Actions
+│   ├── deploy-strapi.yml
+│   ├── deploy-nextjs.yml
+│   └── deploy-all.yml
+├── docker-compose.yml    # Local development
+├── docker-compose.prod.yml # Production deployment
+└── env.example          # Environment variables template
 ```
 
-- Navigate to your project folder by running `cd launchpad`.
+## 🔧 Configuration
 
-## 2. Set up environment variables
+### Environment Variables
 
-Before you take off, set up the required environment variables for both Strapi and Next.js.
+Copy `env.example` to `.env` and configure:
 
-To create the Strapi .env file, copy the content of the `./strapi/.env.example` file into a new file named `./strapi/.env`, then modify the values to match your setup:
+```bash
+# Database
+DATABASE_NAME=strapi
+DATABASE_USERNAME=strapi
+DATABASE_PASSWORD=your_secure_password
 
-```sh
-cp ./strapi/.env.example ./strapi/.env
+# Strapi Security (generate with scripts/generate-secrets.js)
+JWT_SECRET=your-jwt-secret
+ADMIN_JWT_SECRET=your-admin-jwt-secret
+APP_KEYS=your-app-keys
+API_TOKEN_SALT=your-api-token-salt
+TRANSFER_TOKEN_SALT=your-transfer-token-salt
+
+# Optional: Cloudinary for file uploads
+CLOUDINARY_NAME=your-cloudinary-name
+CLOUDINARY_KEY=your-cloudinary-key
+CLOUDINARY_SECRET=your-cloudinary-secret
 ```
 
-Then do the same for the Next.js .env file, and modify it too:
+### Next.js Configuration
 
-```sh
-cp ./next/.env.example ./next/.env
+Update your Next.js app to use the production Strapi URL:
+
+```typescript
+// next/lib/constants/endpoints.ts
+export const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 ```
 
-## 3. Start Strapi
+## 🛠️ Development
 
-Take a deep breath. It's time to power up the Strapi engines. Navigate to your ./my-projects/launchpad/strapi folder by running:
+### Adding new features
 
-Navigate to your `./my-projects/launchpad/strapi` folder by running `cd strapi` from your command line.
+1. **Backend changes**: Work in `strapi/` directory
+2. **Frontend changes**: Work in `next/` directory
+3. **Infrastructure changes**: Modify Docker files and GitHub Actions
 
-- Run the following command in your `./launchpad/strapi` folder:
+### Database migrations
 
-```
-yarn && yarn seed && yarn develop
-```
-
-This will install dependencies, sprinkle in some data magic, and run the server. (You can run these commands separately, but why not be efficient?)
-
-## 4. Start Next.js
-
-We're almost ready for lift-off! Next.js is your sleek, futuristic interface for getting all that glorious content out into the world. 🚀
-
-Open a new terminal tab or window to leave Strapi running, and navigate to your `./my-projects/launchpad/next` folder by running `cd next`.
-
-- Run the following command in your `./launchpad/next` folder
-
-```
-yarn && yarn build && yarn start
+```bash
+# In strapi directory
+yarn strapi database:migrate
 ```
 
-This installs dependencies, builds your project, and starts your server. You’re now a spacefaring content master!
+### Backup and restore
 
-## Features Overview ✨
+```bash
+# Backup
+docker exec launchpad_postgres_prod pg_dump -U strapi strapi > backup.sql
 
-### User
+# Restore
+docker exec -i launchpad_postgres_prod psql -U strapi strapi < backup.sql
+```
 
-<br />
+## 📊 Monitoring
 
-**An intuitive, minimal editor** The editor allows you to pull in dynamic blocks of content. It’s 100% open-source, and it’s fully extensible.<br />
-**Media Library** Upload images, video or any files and crop and optimize their sizes, without quality loss.<br />
-**Flexible content management** Build any type of category, section, format or flow to adapt to your needs. <br />
-**Sort and Filter** Built-in sorting and filtering: you can manage thousands of entries without effort.<br />
-**User-friendly interface** The most user-friendly open-source interface on the market.<br />
-**SEO optimized** Easily manage your SEO metadata with a repeatable field and use our Media Library to add captions, notes, and custom filenames to optimize the SEO of media assets.<br /><br />
+- **Strapi Health Check**: `https://your-domain.com/health`
+- **Container Logs**: `docker-compose -f docker-compose.prod.yml logs -f`
+- **Database**: Connect to PostgreSQL on port 5432
 
-### Global
+## 🔒 Security
 
-<br />
+- All containers run as non-root users
+- Nginx includes security headers and rate limiting
+- SSL/TLS encryption for all traffic
+- Environment variables for sensitive data
+- Regular security updates via Docker image updates
 
-[Customizable API](https://strapi.io/features/customizable-api): Automatically build out the schema, models, controllers for your API from the editor. Get REST or GraphQL API out of the box without writing a single line of code.<br />
-[Media Library](https://strapi.io/features/media-library): The media library allows you to store your images, videos and files in your Strapi admin panel with many ways to visualize and manage them.<br />
-[Role-Based Access Control (RBAC)](https://strapi.io/features/custom-roles-and-permissions): Role-Based Access Control is a feature available in the Administration Panel settings that let your team members have access rights only to the information they need.<br />
-[Internationalization (i18n)](https://strapi.io/features/internationalization): Internationalization (i18n) lets you create many content versions, also called locales, in different languages and for different countries.<br />
-[Audit Logs](https://strapi.io/blog/reasons-and-best-practices-for-using-audit-logs-in-your-application)The Audit Logs section provides a searchable and filterable display of all activities performed by users of the Strapi application<br />
-[Data transfer](https://strapi.io/blog/importing-exporting-and-transferring-data-with-the-strapi-cli) Streams your data from one Strapi instance to another Strapi instance.<br />
-[Review Worfklows](https://docs.strapi.io/user-docs/settings/review-workflows) Create and manage any desired review stages for your content, enabling your team to collaborate in the content creation flow from draft to publication. <br />
+## 🆘 Troubleshooting
 
-## Resources
+### Common Issues
 
-[Docs](https://docs.strapi.io) • [Demo](https://strapi.io/demo) • [Forum](https://forum.strapi.io/) • [Discord](https://discord.strapi.io) • [Youtube](https://www.youtube.com/c/Strapi/featured) • [Strapi Design System](https://design-system.strapi.io/) • [Marketplace](https://market.strapi.io/) • [Cloud Free Trial](https://cloud.strapi.io)
+1. **Strapi won't start**
 
-## Todo
+   ```bash
+   docker-compose -f docker-compose.prod.yml logs strapi
+   ```
 
-- [ ] Implement the official Strapi SEO plugin
-- [ ] Implement the community Strapi preview plugin
-- [ ] Create localized content for the pricing plans and products
-- [ ] Populate creator fields when it'll work on Strapi 5 (article authors information are missing)
+2. **Database connection issues**
 
-## Customization
+   ```bash
+   docker-compose -f docker-compose.prod.yml exec postgres psql -U strapi -d strapi
+   ```
 
-- The Strapi application contains a custom population middleware in order to populate more data than what it is set by default. You can find it in the `./strapi/src/middlewares/deepPopulate.ts` file.
+3. **Nginx configuration errors**
+   ```bash
+   docker-compose -f docker-compose.prod.yml exec nginx nginx -t
+   ```
 
-- The Strapi application contains a postinstall script that will regenerate an uuid for the project in order to get some anonymous usage information concerning this demo. You can disable it by removing the uuid inside the `./strapi/packages.json` file.
+### Manual deployment
 
-- The Strapi application contains a patch for the @strapi/admin package. It is only necessary for the hosted demos since we automatically create the Super Admin users for them when they request this demo on our website.
+If GitHub Actions fail, you can deploy manually:
+
+```bash
+# On your VPS
+cd /opt/launchpad
+git pull origin main
+docker-compose -f docker-compose.prod.yml up -d --build
+```
+
+## 📝 License
+
+MIT License - see LICENSE file for details.

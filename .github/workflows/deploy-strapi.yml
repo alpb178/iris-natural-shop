@@ -1,0 +1,94 @@
+name: Deploy Strapi to VPS
+
+on:
+  push:
+    branches: [ main, dev ]
+    paths:
+      - 'strapi/**'
+      - 'docker-compose.prod.yml'
+      - 'nginx/**'
+      - '.github/workflows/deploy-strapi.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        script: |
+          # Navigate to project directory
+          cd ${{ secrets.PROJECT_PATH || '/opt/alejandro-louro' }}
+          
+          # Determine branch and environment
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            BRANCH="main"
+            ENV="production"
+            ENV_FILE="env.production"
+            IMAGE_TAG="latest"
+          else
+            BRANCH="dev"
+            ENV="development"
+            ENV_FILE="env.development"
+            IMAGE_TAG="dev"
+          fi
+          
+          # Pull latest changes
+          git pull origin $BRANCH
+          
+          # Pull the latest Docker image
+          docker pull alegd/alejandro-louro-cms:$IMAGE_TAG
+          
+          # Copy environment file if it doesn't exist
+          if [ ! -f .env ]; then
+            echo "Creating .env file from template..."
+            cp env.example .env
+            echo "⚠️  Please configure your .env file with proper values!"
+          fi
+          
+          # Stop existing containers
+          docker-compose --env-file $ENV_FILE down
+          
+          # Start containers
+          docker-compose --env-file $ENV_FILE up -d
+          
+          # Wait for services to be ready
+          sleep 30
+          
+          # Check if Strapi is running (different ports for dev/prod)
+          if [ "$ENV" = "production" ]; then
+            HEALTH_URL="http://localhost:1337/health"
+          else
+            HEALTH_URL="http://localhost:1338/health"
+          fi
+          
+          if curl -f $HEALTH_URL > /dev/null 2>&1; then
+            echo "✅ Strapi deployment successful for $ENV environment!"
+          else
+            echo "❌ Strapi health check failed"
+            docker-compose --env-file $ENV_FILE logs strapi
+            exit 1
+          fi
+          
+          # Clean up unused images
+          docker image prune -f
+          
+          echo "🎉 Strapi deployment completed!"
+
+    - name: Notify deployment status
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#deployments'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 

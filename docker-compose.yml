@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-strapi}
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-strapi}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  strapi:
+    image: alegd/alejandro-louro-cms:${IMAGE_TAG:-latest}
+    ports:
+      - "${STRAPI_PORT:-1337}:1337"
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT:-postgres}
+      DATABASE_HOST: postgres
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
+      DATABASE_NAME: ${DATABASE_NAME:-strapi}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi_password}
+      DATABASE_SSL: ${DATABASE_SSL:-false}
+      JWT_SECRET: ${JWT_SECRET:-your-jwt-secret-here}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-your-admin-jwt-secret-here}
+      APP_KEYS: ${APP_KEYS:-your-app-keys-here}
+      API_TOKEN_SALT: ${API_TOKEN_SALT:-your-api-token-salt-here}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:-your-transfer-token-salt-here}
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 1337
+      HOST: 0.0.0.0
+    # depends_on is not supported in Docker Swarm
+    # Docker Swarm handles service dependencies automatically
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  postgres_data:
+    driver: local
