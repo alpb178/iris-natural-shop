@@ -18,55 +18,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Create production environment file
-      if: github.ref == 'refs/heads/main'
-      uses: SpicyPizza/create-envfile@v2.0
-      with:
-        envkey_DB_CLIENT: ${{ secrets.DB_CLIENT }}
-        envkey_DB_HOST: ${{ secrets.DB_HOST }}
-        envkey_DB_PORT: ${{ secrets.DB_PORT }}
-        envkey_DB_NAME: ${{ secrets.DB_NAME }}
-        envkey_DB_USERNAME: ${{ secrets.DB_USERNAME }}
-        envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        envkey_DB_SSL: ${{ secrets.DB_SSL }}
-        envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        envkey_ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET }}
-        envkey_APP_KEYS: ${{ secrets.APP_KEYS }}
-        envkey_API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT }}
-        envkey_TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT }}
-        envkey_NODE_ENV: production
-        envkey_PORT: 1337
-        envkey_HOST: 0.0.0.0
-        envkey_URL: ${{ secrets.STRAPI_URL }}
-        envkey_CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
-        envkey_CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY }}
-        envkey_CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET }}
-        file_name: env.production
-
-    - name: Create development environment file
-      if: github.ref == 'refs/heads/dev'
-      uses: SpicyPizza/create-envfile@v2.0
-      with:
-        envkey_DB_CLIENT: ${{ secrets.DB_CLIENT_DEV }}
-        envkey_DB_HOST: ${{ secrets.DB_HOST_DEV }}
-        envkey_DB_PORT: ${{ secrets.DB_PORT_DEV }}
-        envkey_DB_NAME: ${{ secrets.DB_NAME_DEV }}
-        envkey_DB_USERNAME: ${{ secrets.DB_USERNAME_DEV }}
-        envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD_DEV }}
-        envkey_DB_SSL: ${{ secrets.DB_SSL_DEV }}
-        envkey_JWT_SECRET: ${{ secrets.JWT_SECRET_DEV }}
-        envkey_ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET_DEV }}
-        envkey_APP_KEYS: ${{ secrets.APP_KEYS_DEV }}
-        envkey_API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT_DEV }}
-        envkey_TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT_DEV }}
-        envkey_NODE_ENV: development
-        envkey_PORT: 1339
-        envkey_HOST: 0.0.0.0
-        envkey_URL: ${{ secrets.STRAPI_URL_DEV }}
-        envkey_CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME_DEV }}
-        envkey_CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY_DEV }}
-        envkey_CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET_DEV }}
-
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v1.0.3
       with:
@@ -74,44 +25,150 @@ jobs:
         username: ${{ secrets.VPS_USERNAME }}
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
+        envs: |
+          # Production environment variables
+          DB_CLIENT=${{ secrets.DB_CLIENT }}
+          DB_HOST=${{ secrets.DB_HOST }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_USERNAME=${{ secrets.DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          DB_SSL=${{ secrets.DB_SSL }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
+          APP_KEYS=${{ secrets.APP_KEYS }}
+          API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
+          TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
+          STRAPI_URL=${{ secrets.STRAPI_URL }}
+          CLOUDINARY_NAME=${{ secrets.CLOUDINARY_NAME }}
+          CLOUDINARY_KEY=${{ secrets.CLOUDINARY_KEY }}
+          CLOUDINARY_SECRET=${{ secrets.CLOUDINARY_SECRET }}
+          # Development environment variables
+          DB_CLIENT_DEV=${{ secrets.DB_CLIENT_DEV }}
+          DB_HOST_DEV=${{ secrets.DB_HOST_DEV }}
+          DB_PORT_DEV=${{ secrets.DB_PORT_DEV }}
+          DB_NAME_DEV=${{ secrets.DB_NAME_DEV }}
+          DB_USERNAME_DEV=${{ secrets.DB_USERNAME_DEV }}
+          DB_PASSWORD_DEV=${{ secrets.DB_PASSWORD_DEV }}
+          DB_SSL_DEV=${{ secrets.DB_SSL_DEV }}
+          JWT_SECRET_DEV=${{ secrets.JWT_SECRET_DEV }}
+          ADMIN_JWT_SECRET_DEV=${{ secrets.ADMIN_JWT_SECRET_DEV }}
+          APP_KEYS_DEV=${{ secrets.APP_KEYS_DEV }}
+          API_TOKEN_SALT_DEV=${{ secrets.API_TOKEN_SALT_DEV }}
+          TRANSFER_TOKEN_SALT_DEV=${{ secrets.TRANSFER_TOKEN_SALT_DEV }}
+          STRAPI_URL_DEV=${{ secrets.STRAPI_URL_DEV }}
+          CLOUDINARY_NAME_DEV=${{ secrets.CLOUDINARY_NAME_DEV }}
+          CLOUDINARY_KEY_DEV=${{ secrets.CLOUDINARY_KEY_DEV }}
+          CLOUDINARY_SECRET_DEV=${{ secrets.CLOUDINARY_SECRET_DEV }}
         script: |
+          # Set project path
+          PROJECT_PATH="${{ secrets.PROJECT_PATH || '/opt/alejandro-louro' }}"
+          
+          # Create project directory if it doesn't exist
+          if [ ! -d "$PROJECT_PATH" ]; then
+            echo "📁 Creating project directory: $PROJECT_PATH"
+            sudo mkdir -p "$PROJECT_PATH"
+            sudo chown $USER:$USER "$PROJECT_PATH"
+          fi
+          
           # Navigate to project directory
-          cd ${{ secrets.PROJECT_PATH || '/opt/alejandro-louro' }}
+          cd "$PROJECT_PATH"
           
           # Determine branch and environment
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             BRANCH="main"
             ENV="production"
-            DEPLOY_SCRIPT="./scripts/deploy-stack-prod.sh"
+            DEPLOY_SCRIPT="./scripts/deploy-prod.sh"
             STACK_NAME="alejandro-louro-prod"
             HEALTH_PORT="1337"
+            
+            # Set production environment variables
+            export DB_CLIENT="$DB_CLIENT"
+            export DB_HOST="$DB_HOST"
+            export DB_PORT="$DB_PORT"
+            export DB_NAME="$DB_NAME"
+            export DB_USERNAME="$DB_USERNAME"
+            export DB_PASSWORD="$DB_PASSWORD"
+            export DB_SSL="$DB_SSL"
+            export JWT_SECRET="$JWT_SECRET"
+            export ADMIN_JWT_SECRET="$ADMIN_JWT_SECRET"
+            export APP_KEYS="$APP_KEYS"
+            export API_TOKEN_SALT="$API_TOKEN_SALT"
+            export TRANSFER_TOKEN_SALT="$TRANSFER_TOKEN_SALT"
+            export NODE_ENV="production"
+            export PORT="1337"
+            export HOST="0.0.0.0"
+            export URL="$STRAPI_URL"
+            export CLOUDINARY_NAME="$CLOUDINARY_NAME"
+            export CLOUDINARY_KEY="$CLOUDINARY_KEY"
+            export CLOUDINARY_SECRET="$CLOUDINARY_SECRET"
           else
             BRANCH="dev"
             ENV="development"
-            DEPLOY_SCRIPT="./scripts/deploy-stack-simple.sh"
+            DEPLOY_SCRIPT="./scripts/deploy-dev.sh"
             STACK_NAME="alejandro-louro-dev"
             HEALTH_PORT="1339"
+            
+            # Set development environment variables
+            export DB_CLIENT="$DB_CLIENT_DEV"
+            export DB_HOST="$DB_HOST_DEV"
+            export DB_PORT="$DB_PORT_DEV"
+            export DB_NAME="$DB_NAME_DEV"
+            export DB_USERNAME="$DB_USERNAME_DEV"
+            export DB_PASSWORD="$DB_PASSWORD_DEV"
+            export DB_SSL="$DB_SSL_DEV"
+            export JWT_SECRET="$JWT_SECRET_DEV"
+            export ADMIN_JWT_SECRET="$ADMIN_JWT_SECRET_DEV"
+            export APP_KEYS="$APP_KEYS_DEV"
+            export API_TOKEN_SALT="$API_TOKEN_SALT_DEV"
+            export TRANSFER_TOKEN_SALT="$TRANSFER_TOKEN_SALT_DEV"
+            export NODE_ENV="development"
+            export PORT="1339"
+            export HOST="0.0.0.0"
+            export URL="$STRAPI_URL_DEV"
+            export CLOUDINARY_NAME="$CLOUDINARY_NAME_DEV"
+            export CLOUDINARY_KEY="$CLOUDINARY_KEY_DEV"
+            export CLOUDINARY_SECRET="$CLOUDINARY_SECRET_DEV"
           fi
           
           echo "🚀 Deploying to $ENV environment..."
           
-          # Pull latest changes
-          git pull origin $BRANCH
-          
-          # Make scripts executable
-          chmod +x scripts/*.sh
-          
-          # Copy the environment file created by GitHub Actions
-          if [ -f "$ENV_FILE" ]; then
-            echo "✅ Environment file $ENV_FILE found and ready for deployment"
-          else
-            echo "❌ Error: $ENV_FILE not found!"
-            exit 1
+          # Initialize git repository if it doesn't exist
+          if [ ! -d ".git" ]; then
+            echo "🔧 Initializing git repository..."
+            git init
+            git remote add origin https://github.com/${{ github.repository }}.git
           fi
           
+          # Pull latest changes
+          git fetch origin $BRANCH
+          git reset --hard origin/$BRANCH
+          
+          # Make scripts executable
+          if [ -d "scripts" ]; then
+            chmod +x scripts/*.sh
+          else
+            echo "⚠️  Scripts directory not found"
+          fi
+          
+          # Show environment variables for debugging
+          echo "📋 Environment variables:"
+          echo "DB_CLIENT: $DB_CLIENT"
+          echo "DB_HOST: $DB_HOST"
+          echo "DB_PORT: $DB_PORT"
+          echo "DB_NAME: $DB_NAME"
+          echo "DB_USERNAME: $DB_USERNAME"
+          echo "NODE_ENV: $NODE_ENV"
+          echo ""
+          
           # Deploy using the appropriate script
-          echo "📦 Running deployment script: $DEPLOY_SCRIPT"
-          $DEPLOY_SCRIPT
+          if [ -f "$DEPLOY_SCRIPT" ]; then
+            echo "📦 Running deployment script: $DEPLOY_SCRIPT"
+            $DEPLOY_SCRIPT
+          else
+            echo "❌ Error: Deployment script $DEPLOY_SCRIPT not found!"
+            exit 1
+          fi
           
           # Wait for services to be ready
           echo "⏳ Waiting for services to be ready..."
@@ -138,17 +195,17 @@ jobs:
           
           echo "🎉 Strapi deployment completed!"
 
-    - name: Notify deployment status
-      if: always()
-      uses: 8398a7/action-slack@v3
-      with:
-        status: ${{ job.status }}
-        channel: '#deployments'
-        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        text: |
-          🚀 Strapi deployment completed!
-          - Environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
-          - Status: ${{ job.status }}
-          - Branch: ${{ github.ref_name }}
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
+    # - name: Notify deployment status
+    #   if: always()
+    #   uses: 8398a7/action-slack@v3
+    #   with:
+    #     status: ${{ job.status }}
+    #     channel: '#deployments'
+    #     webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+    #     text: |
+    #       🚀 Strapi deployment completed!
+    #       - Environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
+    #       - Status: ${{ job.status }}
+    #       - Branch: ${{ github.ref_name }}
+    #   env:
+    #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
