@@ -66,7 +66,6 @@ jobs:
         envkey_CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME_DEV }}
         envkey_CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY_DEV }}
         envkey_CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET_DEV }}
-        file_name: env.dev
 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v1.0.3
@@ -83,14 +82,12 @@ jobs:
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             BRANCH="main"
             ENV="production"
-            ENV_FILE="env.production"
             DEPLOY_SCRIPT="./scripts/deploy-stack-prod.sh"
             STACK_NAME="alejandro-louro-prod"
             HEALTH_PORT="1337"
           else
             BRANCH="dev"
             ENV="development"
-            ENV_FILE="env.dev"
             DEPLOY_SCRIPT="./scripts/deploy-stack-simple.sh"
             STACK_NAME="alejandro-louro-dev"
             HEALTH_PORT="1339"
