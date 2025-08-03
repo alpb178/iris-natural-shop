@@ -1,19 +1,26 @@
-name: Deploy All (Strapi + Next.js)
+name: Quick Deploy
 
 on:
-  push:
-    branches: [ main, dev ]
-    paths:
-      - 'package.json'
-      - 'README.md'
-      - 'scripts/**'
-      - 'docker-compose.yml'
-      - '.github/workflows/deploy-all.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+        - development
+        - production
+      force_rebuild:
+        description: 'Force rebuild Docker image'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
-  deploy-strapi:
+  quick-deploy:
     runs-on: ubuntu-latest
-    name: Deploy Strapi to VPS
+    name: Quick Deploy to VPS
     
     steps:
     - name: Checkout code
@@ -29,26 +36,25 @@ jobs:
         script: |
           cd ${{ secrets.PROJECT_PATH || '/opt/alejandro-louro' }}
           
-          # Determine branch and environment
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            BRANCH="main"
-            ENV="production"
+          # Set environment based on input
+          ENV="${{ github.event.inputs.environment }}"
+          
+          if [ "$ENV" = "production" ]; then
             ENV_FILE="env.production"
             DEPLOY_SCRIPT="./scripts/deploy-stack-prod.sh"
             STACK_NAME="alejandro-louro-prod"
             HEALTH_PORT="1337"
           else
-            BRANCH="dev"
-            ENV="development"
             ENV_FILE="env.dev"
             DEPLOY_SCRIPT="./scripts/deploy-stack-simple.sh"
             STACK_NAME="alejandro-louro-dev"
             HEALTH_PORT="1339"
           fi
           
-          echo "🚀 Deploying to $ENV environment..."
+          echo "🚀 Quick deploying to $ENV environment..."
           
-          git pull origin $BRANCH
+          # Pull latest changes
+          git pull origin main
           
           # Make scripts executable
           chmod +x scripts/*.sh
@@ -60,6 +66,12 @@ jobs:
             cp env.example $ENV_FILE
             echo "⚠️  Please configure your $ENV_FILE with proper values!"
             exit 1
+          fi
+          
+          # Force rebuild if requested
+          if [ "${{ github.event.inputs.force_rebuild }}" = "true" ]; then
+            echo "🔄 Force rebuilding Docker image..."
+            docker pull alegd/alejandro-louro-cms:latest
           fi
           
           # Deploy using the appropriate script
@@ -74,7 +86,7 @@ jobs:
           HEALTH_URL="http://localhost:$HEALTH_PORT/health"
           
           if curl -f $HEALTH_URL > /dev/null 2>&1; then
-            echo "✅ Strapi deployment successful for $ENV environment!"
+            echo "✅ Quick deployment successful for $ENV environment!"
           else
             echo "❌ Strapi health check failed"
             echo "📋 Checking service logs..."
@@ -86,61 +98,20 @@ jobs:
           echo "📊 Final stack status:"
           docker stack services $STACK_NAME
           
-          # Clean up unused images
-          docker image prune -f
+          echo "🎉 Quick deployment completed!"
 
-  deploy-nextjs:
-    runs-on: ubuntu-latest
-    name: Deploy Next.js to Vercel
-    needs: deploy-strapi
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'yarn'
-        cache-dependency-path: next/yarn.lock
-
-    - name: Install dependencies
-      working-directory: ./next
-      run: yarn install --frozen-lockfile
-
-    - name: Build Next.js app
-      working-directory: ./next
-      run: yarn build
-      env:
-        NEXT_PUBLIC_STRAPI_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_URL }}
-
-    - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        working-directory: ./next
-        vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '--preview' }}
-
-  notify:
-    runs-on: ubuntu-latest
-    needs: [deploy-strapi, deploy-nextjs]
-    if: always()
-    
-    steps:
     - name: Notify deployment status
+      if: always()
       uses: 8398a7/action-slack@v3
       with:
-        status: ${{ needs.deploy-strapi.result == 'success' && needs.deploy-nextjs.result == 'success' && 'success' || 'failure' }}
+        status: ${{ job.status }}
         channel: '#deployments'
         webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         text: |
-          🚀 Full deployment completed!
-          - Environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
-          - Strapi: ${{ needs.deploy-strapi.result }}
-          - Next.js: ${{ needs.deploy-nextjs.result }}
-          - Branch: ${{ github.ref_name }}
+          ⚡ Quick deployment completed!
+          - Environment: ${{ github.event.inputs.environment }}
+          - Status: ${{ job.status }}
+          - Force Rebuild: ${{ github.event.inputs.force_rebuild }}
+          - Triggered by: ${{ github.actor }}
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 

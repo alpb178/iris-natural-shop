@@ -5,8 +5,9 @@ on:
     branches: [ main, dev ]
     paths:
       - 'strapi/**'
-      - 'docker-compose.prod.yml'
+      - 'docker-compose.yml'
       - 'nginx/**'
+      - 'scripts/**'
       - '.github/workflows/deploy-strapi.yml'
 
 jobs:
@@ -16,6 +17,56 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Create production environment file
+      if: github.ref == 'refs/heads/main'
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_DB_CLIENT: ${{ secrets.DB_CLIENT }}
+        envkey_DB_HOST: ${{ secrets.DB_HOST }}
+        envkey_DB_PORT: ${{ secrets.DB_PORT }}
+        envkey_DB_NAME: ${{ secrets.DB_NAME }}
+        envkey_DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        envkey_DB_SSL: ${{ secrets.DB_SSL }}
+        envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        envkey_ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET }}
+        envkey_APP_KEYS: ${{ secrets.APP_KEYS }}
+        envkey_API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT }}
+        envkey_TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT }}
+        envkey_NODE_ENV: production
+        envkey_PORT: 1337
+        envkey_HOST: 0.0.0.0
+        envkey_URL: ${{ secrets.STRAPI_URL }}
+        envkey_CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
+        envkey_CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY }}
+        envkey_CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET }}
+        file_name: env.production
+
+    - name: Create development environment file
+      if: github.ref == 'refs/heads/dev'
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_DB_CLIENT: ${{ secrets.DB_CLIENT_DEV }}
+        envkey_DB_HOST: ${{ secrets.DB_HOST_DEV }}
+        envkey_DB_PORT: ${{ secrets.DB_PORT_DEV }}
+        envkey_DB_NAME: ${{ secrets.DB_NAME_DEV }}
+        envkey_DB_USERNAME: ${{ secrets.DB_USERNAME_DEV }}
+        envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD_DEV }}
+        envkey_DB_SSL: ${{ secrets.DB_SSL_DEV }}
+        envkey_JWT_SECRET: ${{ secrets.JWT_SECRET_DEV }}
+        envkey_ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET_DEV }}
+        envkey_APP_KEYS: ${{ secrets.APP_KEYS_DEV }}
+        envkey_API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT_DEV }}
+        envkey_TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT_DEV }}
+        envkey_NODE_ENV: development
+        envkey_PORT: 1339
+        envkey_HOST: 0.0.0.0
+        envkey_URL: ${{ secrets.STRAPI_URL_DEV }}
+        envkey_CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME_DEV }}
+        envkey_CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY_DEV }}
+        envkey_CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET_DEV }}
+        file_name: env.dev
 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v1.0.3
@@ -33,50 +84,57 @@ jobs:
             BRANCH="main"
             ENV="production"
             ENV_FILE="env.production"
-            IMAGE_TAG="latest"
+            DEPLOY_SCRIPT="./scripts/deploy-stack-prod.sh"
+            STACK_NAME="alejandro-louro-prod"
+            HEALTH_PORT="1337"
           else
             BRANCH="dev"
             ENV="development"
-            ENV_FILE="env.development"
-            IMAGE_TAG="dev"
+            ENV_FILE="env.dev"
+            DEPLOY_SCRIPT="./scripts/deploy-stack-simple.sh"
+            STACK_NAME="alejandro-louro-dev"
+            HEALTH_PORT="1339"
           fi
+          
+          echo "🚀 Deploying to $ENV environment..."
           
           # Pull latest changes
           git pull origin $BRANCH
           
-          # Pull the latest Docker image
-          docker pull alegd/alejandro-louro-cms:$IMAGE_TAG
+          # Make scripts executable
+          chmod +x scripts/*.sh
           
-          # Copy environment file if it doesn't exist
-          if [ ! -f .env ]; then
-            echo "Creating .env file from template..."
-            cp env.example .env
-            echo "⚠️  Please configure your .env file with proper values!"
+          # Copy the environment file created by GitHub Actions
+          if [ -f "$ENV_FILE" ]; then
+            echo "✅ Environment file $ENV_FILE found and ready for deployment"
+          else
+            echo "❌ Error: $ENV_FILE not found!"
+            exit 1
           fi
           
-          # Stop existing containers
-          docker-compose --env-file $ENV_FILE down
-          
-          # Start containers
-          docker-compose --env-file $ENV_FILE up -d
+          # Deploy using the appropriate script
+          echo "📦 Running deployment script: $DEPLOY_SCRIPT"
+          $DEPLOY_SCRIPT
           
           # Wait for services to be ready
+          echo "⏳ Waiting for services to be ready..."
           sleep 30
           
-          # Check if Strapi is running (different ports for dev/prod)
-          if [ "$ENV" = "production" ]; then
-            HEALTH_URL="http://localhost:1337/health"
-          else
-            HEALTH_URL="http://localhost:1338/health"
-          fi
+          # Check if Strapi is running
+          HEALTH_URL="http://localhost:$HEALTH_PORT/health"
           
           if curl -f $HEALTH_URL > /dev/null 2>&1; then
             echo "✅ Strapi deployment successful for $ENV environment!"
           else
             echo "❌ Strapi health check failed"
-            docker-compose --env-file $ENV_FILE logs strapi
+            echo "📋 Checking service logs..."
+            docker service logs ${STACK_NAME}_strapi --tail=20
             exit 1
           fi
+          
+          # Show final status
+          echo "📊 Final stack status:"
+          docker stack services $STACK_NAME
           
           # Clean up unused images
           docker image prune -f
@@ -90,5 +148,10 @@ jobs:
         status: ${{ job.status }}
         channel: '#deployments'
         webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        text: |
+          🚀 Strapi deployment completed!
+          - Environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
+          - Status: ${{ job.status }}
+          - Branch: ${{ github.ref_name }}
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 

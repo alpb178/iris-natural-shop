@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# LaunchPad Setup Script
+# Alejandro Louro's CMS Setup Script
 # This script helps you set up the project for development and production
 
 set -e
 
-echo "🚀 Welcome to LaunchPad Setup!"
+echo "🚀 Welcome to Alejandro Louro's CMS Setup!"
 echo "================================"
 
 # Check if Docker is installed
@@ -27,7 +27,7 @@ echo "✅ Docker and Docker Compose are installed"
 # Generate secrets if they don't exist
 if [ ! -f .env ]; then
     echo "📝 Creating environment file..."
-    cp env.example .env
+    cp .env.dev .env
     
     echo "🔐 Generating secure secrets..."
     node scripts/generate-secrets.js > temp_secrets.txt

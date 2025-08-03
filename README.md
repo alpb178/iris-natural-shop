@@ -32,7 +32,7 @@ A full-stack application with Strapi CMS backend and Next.js frontend, configure
 
    ```bash
    # Start Strapi and PostgreSQL
-   docker-compose up -d
+   ./scripts/dev.sh
 
    # Start Next.js development server
    cd next
@@ -41,8 +41,28 @@ A full-stack application with Strapi CMS backend and Next.js frontend, configure
    ```
 
 3. **Access your applications**
-   - Strapi Admin: http://localhost:1337/admin
+   - Strapi Admin: http://localhost:1339/admin
    - Next.js App: http://localhost:3000
+
+### Deployment
+
+#### Development Deployment (VPS)
+
+```bash
+./scripts/deploy-stack-simple.sh
+```
+
+#### Production Deployment (VPS)
+
+```bash
+./scripts/deploy-stack-prod.sh
+```
+
+#### Check Status
+
+```bash
+./scripts/status.sh
+```
 
 ### Production Deployment
 
@@ -68,7 +88,7 @@ Add these secrets to your GitHub repository:
 - `VPS_USERNAME`: SSH username
 - `VPS_SSH_KEY`: Private SSH key for VPS access
 - `VPS_PORT`: SSH port (default: 22)
-- `PROJECT_PATH`: Path to project on VPS (default: /opt/launchpad)
+- `PROJECT_PATH`: Path to project on VPS (default: /opt/alejandro-louro-cms)
 
 **Vercel Deployment Secrets:**
 
@@ -104,16 +124,16 @@ Add these secrets to your GitHub repository:
 3. **Clone the repository**
 
    ```bash
-   sudo mkdir -p /opt/launchpad
-   sudo chown $USER:$USER /opt/launchpad
-   cd /opt/launchpad
+   sudo mkdir -p /opt/alejandro-louro-cms
+   sudo chown $USER:$USER /opt/alejandro-louro-cms
+   cd /opt/alejandro-louro-cms
    git clone <your-repo-url> .
    ```
 
 4. **Configure environment variables**
 
    ```bash
-   cp env.example .env
+   cp .env.dev .env
    # Edit .env with your production values
    nano .env
    ```
@@ -192,13 +212,13 @@ LaunchPad/
 
 ### Environment Variables
 
-Copy `env.example` to `.env` and configure:
+Copy `.env.dev` to `.env` and configure:
 
 ```bash
 # Database
-DATABASE_NAME=strapi
-DATABASE_USERNAME=strapi
-DATABASE_PASSWORD=your_secure_password
+DB_NAME=strapi
+DB_USERNAME=strapi
+DB_PASSWORD=your_secure_password
 
 # Strapi Security (generate with scripts/generate-secrets.js)
 JWT_SECRET=your-jwt-secret
@@ -289,7 +309,7 @@ If GitHub Actions fail, you can deploy manually:
 
 ```bash
 # On your VPS
-cd /opt/launchpad
+cd /opt/alejandro-louro-cms
 git pull origin main
 docker-compose -f docker-compose.prod.yml up -d --build
 ```
