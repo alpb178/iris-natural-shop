@@ -1,0 +1,152 @@
+name: Test Deployment Scripts
+
+on:
+  pull_request:
+    branches: [ main, dev ]
+    paths:
+      - 'scripts/**'
+      - 'docker-compose.yml'
+      - 'env.*'
+      - '.github/workflows/test-scripts.yml'
+
+jobs:
+  test-scripts:
+    runs-on: ubuntu-latest
+    name: Test Deployment Scripts
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Test script syntax
+      run: |
+        echo "🔍 Testing script syntax..."
+        
+        # Test all shell scripts
+        for script in scripts/*.sh; do
+          if [ -f "$script" ]; then
+            echo "Testing $script..."
+            bash -n "$script"
+            echo "✅ $script syntax is valid"
+          fi
+        done
+
+    - name: Validate environment files
+      run: |
+        echo "🔍 Validating environment files..."
+        
+        # Check if required env files exist
+        if [ ! -f "env.example" ]; then
+          echo "❌ env.example not found"
+          exit 1
+        fi
+        
+        if [ ! -f "env.dev" ]; then
+          echo "❌ env.dev not found"
+          exit 1
+        fi
+        
+        if [ ! -f "env.production" ]; then
+          echo "❌ env.production not found"
+          exit 1
+        fi
+        
+        echo "✅ All environment files exist"
+
+    - name: Validate docker-compose.yml
+      run: |
+        echo "🔍 Validating docker-compose.yml..."
+        
+        # Test docker-compose config
+        docker-compose config > /dev/null
+        echo "✅ docker-compose.yml is valid"
+
+    - name: Test environment variable loading
+      run: |
+        echo "🔍 Testing environment variable loading..."
+        
+        # Test dev environment
+        echo "Testing env.dev..."
+        if [ -f "env.dev" ]; then
+          # Source the file and check for required variables
+          set -a
+          source env.dev
+          set +a
+          
+          # Check required variables
+          required_vars=("DATABASE_CLIENT" "DATABASE_HOST" "DATABASE_PORT" "DATABASE_NAME" "DATABASE_USERNAME" "DATABASE_PASSWORD" "NODE_ENV")
+          
+          for var in "${required_vars[@]}"; do
+            if [ -z "${!var}" ]; then
+              echo "❌ Missing required variable: $var in env.dev"
+              exit 1
+            fi
+          done
+          
+          echo "✅ env.dev has all required variables"
+        fi
+        
+        # Test production environment
+        echo "Testing env.production..."
+        if [ -f "env.production" ]; then
+          # Source the file and check for required variables
+          set -a
+          source env.production
+          set +a
+          
+          # Check required variables
+          required_vars=("DATABASE_CLIENT" "DATABASE_HOST" "DATABASE_PORT" "DATABASE_NAME" "DATABASE_USERNAME" "DATABASE_PASSWORD" "NODE_ENV")
+          
+          for var in "${required_vars[@]}"; do
+            if [ -z "${!var}" ]; then
+              echo "❌ Missing required variable: $var in env.production"
+              exit 1
+            fi
+          done
+          
+          echo "✅ env.production has all required variables"
+        fi
+
+    - name: Test script permissions
+      run: |
+        echo "🔍 Testing script permissions..."
+        
+        # Check if scripts are executable
+        for script in scripts/*.sh; do
+          if [ -f "$script" ]; then
+            if [ ! -x "$script" ]; then
+              echo "❌ Script $script is not executable"
+              exit 1
+            fi
+            echo "✅ $script is executable"
+          fi
+        done
+
+    - name: Generate test report
+      run: |
+        echo "📊 Test Report"
+        echo "=============="
+        echo "✅ Script syntax validation: PASSED"
+        echo "✅ Environment files validation: PASSED"
+        echo "✅ Docker Compose validation: PASSED"
+        echo "✅ Environment variable validation: PASSED"
+        echo "✅ Script permissions validation: PASSED"
+        echo ""
+        echo "🎉 All tests passed!"
+
+    - name: Comment on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '✅ **Deployment Scripts Test Results**\n\nAll deployment scripts and configurations have been validated successfully!\n\n- ✅ Script syntax validation\n- ✅ Environment files validation\n- ✅ Docker Compose validation\n- ✅ Environment variable validation\n- ✅ Script permissions validation\n\nYour changes are ready for deployment! 🚀'
+          }) 

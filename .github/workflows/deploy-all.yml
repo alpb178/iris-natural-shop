@@ -7,6 +7,7 @@ on:
       - 'package.json'
       - 'README.md'
       - 'scripts/**'
+      - 'docker-compose.yml'
       - '.github/workflows/deploy-all.yml'
 
 jobs:
@@ -26,37 +27,66 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
         script: |
-          cd ${{ secrets.PROJECT_PATH || '/opt/launchpad' }}
+          cd ${{ secrets.PROJECT_PATH || '/opt/alejandro-louro' }}
           
           # Determine branch and environment
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             BRANCH="main"
             ENV="production"
             ENV_FILE="env.production"
+            DEPLOY_SCRIPT="./scripts/deploy-stack-prod.sh"
+            STACK_NAME="alejandro-louro-prod"
+            HEALTH_PORT="1337"
           else
             BRANCH="dev"
             ENV="development"
-            ENV_FILE="env.development"
+            ENV_FILE="env.dev"
+            DEPLOY_SCRIPT="./scripts/deploy-stack-simple.sh"
+            STACK_NAME="alejandro-louro-dev"
+            HEALTH_PORT="1339"
           fi
           
+          echo "🚀 Deploying to $ENV environment..."
+          
           git pull origin $BRANCH
-          docker-compose --env-file $ENV_FILE down
-          docker-compose --env-file $ENV_FILE up -d
-          sleep 30
-          # Check if Strapi is running (different ports for dev/prod)
-          if [ "$ENV" = "production" ]; then
-            HEALTH_URL="http://localhost:1337/health"
-          else
-            HEALTH_URL="http://localhost:1338/health"
+          
+          # Make scripts executable
+          chmod +x scripts/*.sh
+          
+          # Check if environment file exists
+          if [ ! -f $ENV_FILE ]; then
+            echo "❌ Error: $ENV_FILE not found!"
+            echo "Creating from template..."
+            cp env.example $ENV_FILE
+            echo "⚠️  Please configure your $ENV_FILE with proper values!"
+            exit 1
           fi
+          
+          # Deploy using the appropriate script
+          echo "📦 Running deployment script: $DEPLOY_SCRIPT"
+          $DEPLOY_SCRIPT
+          
+          # Wait for services to be ready
+          echo "⏳ Waiting for services to be ready..."
+          sleep 30
+          
+          # Check if Strapi is running
+          HEALTH_URL="http://localhost:$HEALTH_PORT/health"
           
           if curl -f $HEALTH_URL > /dev/null 2>&1; then
             echo "✅ Strapi deployment successful for $ENV environment!"
           else
             echo "❌ Strapi health check failed"
-            docker-compose --env-file $ENV_FILE logs strapi
+            echo "📋 Checking service logs..."
+            docker service logs ${STACK_NAME}_strapi --tail=20
             exit 1
           fi
+          
+          # Show final status
+          echo "📊 Final stack status:"
+          docker stack services $STACK_NAME
+          
+          # Clean up unused images
           docker image prune -f
 
   deploy-nextjs:
@@ -108,7 +138,9 @@ jobs:
         webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         text: |
           🚀 Full deployment completed!
+          - Environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
           - Strapi: ${{ needs.deploy-strapi.result }}
           - Next.js: ${{ needs.deploy-nextjs.result }}
+          - Branch: ${{ github.ref_name }}
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 

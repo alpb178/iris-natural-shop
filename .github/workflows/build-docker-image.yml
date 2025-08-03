@@ -34,6 +34,7 @@ jobs:
           type=ref,event=pr
           type=sha,prefix={{branch}}-
           type=raw,value=latest,enable={{is_default_branch}}
+          type=raw,value=dev,enable={{is_default_branch}}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
@@ -45,6 +46,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+        platforms: linux/amd64,linux/arm64
 
     - name: Notify build status
       if: always()
@@ -58,5 +60,6 @@ jobs:
           - Branch: ${{ github.ref_name }}
           - Status: ${{ job.status }}
           - Image: alegd/alejandro-louro-cms
+          - Tags: ${{ steps.meta.outputs.tags }}
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 

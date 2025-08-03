@@ -1,18 +1,26 @@
-name: Deploy Strapi to VPS
+name: Quick Deploy
 
 on:
-  push:
-    branches: [ main, dev ]
-    paths:
-      - 'strapi/**'
-      - 'docker-compose.yml'
-      - 'nginx/**'
-      - 'scripts/**'
-      - '.github/workflows/deploy-strapi.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+        - development
+        - production
+      force_rebuild:
+        description: 'Force rebuild Docker image'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
-  deploy:
+  quick-deploy:
     runs-on: ubuntu-latest
+    name: Quick Deploy to VPS
     
     steps:
     - name: Checkout code
@@ -26,30 +34,27 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
         script: |
-          # Navigate to project directory
           cd ${{ secrets.PROJECT_PATH || '/opt/alejandro-louro' }}
           
-          # Determine branch and environment
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            BRANCH="main"
-            ENV="production"
+          # Set environment based on input
+          ENV="${{ github.event.inputs.environment }}"
+          
+          if [ "$ENV" = "production" ]; then
             ENV_FILE="env.production"
             DEPLOY_SCRIPT="./scripts/deploy-stack-prod.sh"
             STACK_NAME="alejandro-louro-prod"
             HEALTH_PORT="1337"
           else
-            BRANCH="dev"
-            ENV="development"
             ENV_FILE="env.dev"
             DEPLOY_SCRIPT="./scripts/deploy-stack-simple.sh"
             STACK_NAME="alejandro-louro-dev"
             HEALTH_PORT="1339"
           fi
           
-          echo "🚀 Deploying to $ENV environment..."
+          echo "🚀 Quick deploying to $ENV environment..."
           
           # Pull latest changes
-          git pull origin $BRANCH
+          git pull origin main
           
           # Make scripts executable
           chmod +x scripts/*.sh
@@ -61,6 +66,12 @@ jobs:
             cp env.example $ENV_FILE
             echo "⚠️  Please configure your $ENV_FILE with proper values!"
             exit 1
+          fi
+          
+          # Force rebuild if requested
+          if [ "${{ github.event.inputs.force_rebuild }}" = "true" ]; then
+            echo "🔄 Force rebuilding Docker image..."
+            docker pull alegd/alejandro-louro-cms:latest
           fi
           
           # Deploy using the appropriate script
@@ -75,7 +86,7 @@ jobs:
           HEALTH_URL="http://localhost:$HEALTH_PORT/health"
           
           if curl -f $HEALTH_URL > /dev/null 2>&1; then
-            echo "✅ Strapi deployment successful for $ENV environment!"
+            echo "✅ Quick deployment successful for $ENV environment!"
           else
             echo "❌ Strapi health check failed"
             echo "📋 Checking service logs..."
@@ -87,10 +98,7 @@ jobs:
           echo "📊 Final stack status:"
           docker stack services $STACK_NAME
           
-          # Clean up unused images
-          docker image prune -f
-          
-          echo "🎉 Strapi deployment completed!"
+          echo "🎉 Quick deployment completed!"
 
     - name: Notify deployment status
       if: always()
@@ -100,9 +108,10 @@ jobs:
         channel: '#deployments'
         webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         text: |
-          🚀 Strapi deployment completed!
-          - Environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
+          ⚡ Quick deployment completed!
+          - Environment: ${{ github.event.inputs.environment }}
           - Status: ${{ job.status }}
-          - Branch: ${{ github.ref_name }}
+          - Force Rebuild: ${{ github.event.inputs.force_rebuild }}
+          - Triggered by: ${{ github.actor }}
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
