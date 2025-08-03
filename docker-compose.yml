@@ -4,13 +4,13 @@ services:
   postgres:
     image: postgres:15-alpine
     environment:
-      POSTGRES_DB: ${DATABASE_NAME:-strapi}
-      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi_password}
+      POSTGRES_DB: ${DB_NAME:-strapi}
+      POSTGRES_USER: ${DB_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-strapi_password}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-strapi}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-strapi}"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -21,16 +21,16 @@ services:
         condition: on-failure
 
   strapi:
-    image: alegd/alejandro-louro-cms:${IMAGE_TAG:-latest}
+    image: alegd/alejandro-louro-cms:latest
     ports:
       - "${STRAPI_PORT:-1337}:1337"
     environment:
-      DATABASE_CLIENT: ${DATABASE_CLIENT:-postgres}
-      DATABASE_HOST: postgres
-      DATABASE_PORT: ${DATABASE_PORT:-5432}
-      DATABASE_NAME: ${DATABASE_NAME:-strapi}
-      DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi_password}
+      DB_CLIENT: ${DB_CLIENT:-postgres}
+      DB_HOST: postgres
+      DB_PORT: ${DB_PORT:-5432}
+      DB_NAME: ${DB_NAME:-strapi}
+      DB_USERNAME: ${DB_USERNAME:-strapi}
+      DB_PASSWORD: ${DB_PASSWORD:-strapi_password}
       DATABASE_SSL: ${DATABASE_SSL:-false}
       JWT_SECRET: ${JWT_SECRET:-your-jwt-secret-here}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-your-admin-jwt-secret-here}

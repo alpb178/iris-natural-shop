@@ -26,12 +26,12 @@ done < env.production
 
 # Show environment variables for debugging
 echo "📋 Environment variables:"
-echo "DATABASE_CLIENT: $DATABASE_CLIENT"
-echo "DATABASE_HOST: $DATABASE_HOST"
-echo "DATABASE_PORT: $DATABASE_PORT"
-echo "DATABASE_NAME: $DATABASE_NAME"
-echo "DATABASE_USERNAME: $DATABASE_USERNAME"
-echo "DATABASE_PASSWORD: $DATABASE_PASSWORD"
+echo "DB_CLIENT: $DB_CLIENT"
+echo "DB_HOST: $DB_HOST"
+echo "DB_PORT: $DB_PORT"
+echo "DB_NAME: $DB_NAME"
+echo "DB_USERNAME: $DB_USERNAME"
+echo "DB_PASSWORD: $DB_PASSWORD"
 echo "NODE_ENV: $NODE_ENV"
 echo ""
 

@@ -18,6 +18,56 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Create production environment file
+      if: github.ref == 'refs/heads/main'
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_DB_CLIENT: ${{ secrets.DB_CLIENT }}
+        envkey_DB_HOST: ${{ secrets.DB_HOST }}
+        envkey_DB_PORT: ${{ secrets.DB_PORT }}
+        envkey_DB_NAME: ${{ secrets.DB_NAME }}
+        envkey_DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        envkey_DB_SSL: ${{ secrets.DB_SSL }}
+        envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        envkey_ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET }}
+        envkey_APP_KEYS: ${{ secrets.APP_KEYS }}
+        envkey_API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT }}
+        envkey_TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT }}
+        envkey_NODE_ENV: production
+        envkey_PORT: 1337
+        envkey_HOST: 0.0.0.0
+        envkey_URL: ${{ secrets.STRAPI_URL }}
+        envkey_CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
+        envkey_CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY }}
+        envkey_CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET }}
+        file_name: env.production
+
+    - name: Create development environment file
+      if: github.ref == 'refs/heads/dev'
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_DB_CLIENT: ${{ secrets.DB_CLIENT_DEV }}
+        envkey_DB_HOST: ${{ secrets.DB_HOST_DEV }}
+        envkey_DB_PORT: ${{ secrets.DB_PORT_DEV }}
+        envkey_DB_NAME: ${{ secrets.DB_NAME_DEV }}
+        envkey_DB_USERNAME: ${{ secrets.DB_USERNAME_DEV }}
+        envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD_DEV }}
+        envkey_DB_SSL: ${{ secrets.DB_SSL_DEV }}
+        envkey_JWT_SECRET: ${{ secrets.JWT_SECRET_DEV }}
+        envkey_ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET_DEV }}
+        envkey_APP_KEYS: ${{ secrets.APP_KEYS_DEV }}
+        envkey_API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT_DEV }}
+        envkey_TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT_DEV }}
+        envkey_NODE_ENV: development
+        envkey_PORT: 1339
+        envkey_HOST: 0.0.0.0
+        envkey_URL: ${{ secrets.STRAPI_URL_DEV }}
+        envkey_CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME_DEV }}
+        envkey_CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY_DEV }}
+        envkey_CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET_DEV }}
+        file_name: env.dev
+
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v1.0.3
       with:
@@ -54,12 +104,11 @@ jobs:
           # Make scripts executable
           chmod +x scripts/*.sh
           
-          # Check if environment file exists
-          if [ ! -f $ENV_FILE ]; then
+          # Copy the environment file created by GitHub Actions
+          if [ -f "$ENV_FILE" ]; then
+            echo "✅ Environment file $ENV_FILE found and ready for deployment"
+          else
             echo "❌ Error: $ENV_FILE not found!"
-            echo "Creating from template..."
-            cp env.example $ENV_FILE
-            echo "⚠️  Please configure your $ENV_FILE with proper values!"
             exit 1
           fi
           

@@ -1,16 +1,16 @@
 import path from "path";
 
 export default ({ env }) => {
-  const client = env("DATABASE_CLIENT", "sqlite");
+  const client = env("DB_CLIENT", "sqlite");
 
   const connections = {
     mysql: {
       connection: {
-        host: env("DATABASE_HOST", "localhost"),
-        port: env.int("DATABASE_PORT", 3306),
-        database: env("DATABASE_NAME", "strapi"),
-        user: env("DATABASE_USERNAME", "strapi"),
-        password: env("DATABASE_PASSWORD", "strapi"),
+        host: env("DB_HOST", "localhost"),
+        port: env.int("DB_PORT", 3306),
+        database: env("DB_NAME", "strapi"),
+        user: env("DB_USERNAME", "strapi"),
+        password: env("DB_PASSWORD", "strapi"),
         ssl: env.bool("DATABASE_SSL", false) && {
           key: env("DATABASE_SSL_KEY", undefined),
           cert: env("DATABASE_SSL_CERT", undefined),
@@ -31,11 +31,11 @@ export default ({ env }) => {
     postgres: {
       connection: {
         // connectionString: env("DATABASE_URL"),
-        host: env("DATABASE_HOST", "localhost"),
-        port: env.int("DATABASE_PORT", 5432),
-        database: env("DATABASE_NAME", "strapi"),
-        user: env("DATABASE_USERNAME", "strapi"),
-        password: env("DATABASE_PASSWORD", "strapi"),
+        host: env("DB_HOST", "localhost"),
+        port: env.int("DB_PORT", 5432),
+        database: env("DB_NAME", "strapi"),
+        user: env("DB_USERNAME", "strapi"),
+        password: env("DB_PASSWORD", "strapi"),
         ssl: env.bool("DATABASE_SSL", false) && {
           key: env("DATABASE_SSL_KEY", undefined),
           cert: env("DATABASE_SSL_CERT", undefined),
