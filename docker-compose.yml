@@ -40,8 +40,10 @@ services:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 1337
       HOST: 0.0.0.0
-    # depends_on is not supported in Docker Swarm
-    # Docker Swarm handles service dependencies automatically
+      CLOUDINARY_NAME: ${CLOUDINARY_NAME}
+      CLOUDINARY_KEY: ${CLOUDINARY_KEY}
+      CLOUDINARY_SECRET: ${CLOUDINARY_SECRET}
+
     deploy:
       replicas: 1
       restart_policy:

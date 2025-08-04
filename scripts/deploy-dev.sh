@@ -3,9 +3,9 @@
 # Simple Docker Stack Deployment Script
 echo "🚀 Starting LaunchPad Simple Stack Deployment..."
 
-# Check if env.development file exists
-if [ ! -f env.development ]; then
-    echo "❌ Error: env.development file not found!"
+# Check if .env.dev file exists
+if [ ! -f .env.dev ]; then
+    echo "❌ Error: .env.dev file not found!"
     exit 1
 fi
 
@@ -22,7 +22,7 @@ while IFS= read -r line; do
             export "$line"
         fi
     fi
-done < env.development
+done < .env.dev
 
 # Show environment variables for debugging
 echo "📋 Environment variables:"
