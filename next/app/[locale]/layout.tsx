@@ -1,26 +1,26 @@
 import React from "react";
 
+import { generateMetadataObject } from "@/lib/shared/metadata";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { generateMetadataObject } from "@/lib/shared/metadata";
 
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { CartProvider } from "@/context/cart-context";
 import { ThemeProvider } from "@/context/theme-context";
+import fetchContentType from "@/lib/strapi/fetchContentType";
 import { cn } from "@/lib/utils";
 import { ViewTransitions } from "next-view-transitions";
-import fetchContentType from "@/lib/strapi/fetchContentType";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800", "900"]
 });
 
 // Default Global SEO for pages without them
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { locale: string; slug: string };
 }): Promise<Metadata> {
@@ -28,7 +28,7 @@ export async function generateMetadata({
     "global",
     {
       filters: { locale: params.locale },
-      populate: "seo.metaImage",
+      populate: "seo.metaImage"
     },
     true
   );
@@ -40,7 +40,7 @@ export async function generateMetadata({
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params: { locale }
 }: {
   children: React.ReactNode;
   params: { locale: string };
@@ -50,6 +50,7 @@ export default async function LocaleLayout({
     { filters: { locale } },
     true
   );
+
   return (
     <html lang={locale}>
       <ViewTransitions>

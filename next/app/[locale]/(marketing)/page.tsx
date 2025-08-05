@@ -13,7 +13,7 @@ export async function generateMetadata({
     "pages",
     {
       filters: {
-        slug: "homepage",
+        slug: "home",
         locale: params.locale
       },
       populate: "seo.metaImage"
@@ -35,14 +35,14 @@ export default async function HomePage({
     "pages",
     {
       filters: {
-        slug: "homepage",
+        slug: "home",
         locale: params.locale
       }
     },
     true
   );
 
-  const localizedSlugs = pageData.localizations?.reduce(
+  const localizedSlugs = pageData?.localizations?.reduce(
     (acc: Record<string, string>, localization: any) => {
       acc[localization.locale] = "";
       return acc;

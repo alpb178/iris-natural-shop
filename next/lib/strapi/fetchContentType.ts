@@ -24,18 +24,17 @@ export function spreadStrapiData(data: StrapiResponse): StrapiData | null {
   if (!Array.isArray(data.data)) {
     return data.data;
   }
-  return null
+  return null;
 }
 
 export default async function fetchContentType(
   contentType: string,
   params: Record<string, unknown> = {},
-  spreadData?: boolean,
+  spreadData?: boolean
 ): Promise<any> {
-  const { isEnabled } = await draftMode()
+  const { isEnabled } = await draftMode();
 
   try {
-
     const queryParams = { ...params };
 
     if (isEnabled) {
@@ -47,17 +46,21 @@ export default async function fetchContentType(
 
     // Perform the fetch request with the provided query parameters
     const response = await fetch(`${url.href}?${qs.stringify(queryParams)}`, {
-      method: 'GET',
-      cache: 'no-store',
+      method: "GET",
+      cache: "no-store"
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch data from Strapi (url=${url.toString()}, status=${response.status})`);
+      throw new Error(
+        `Failed to fetch data from Strapi (url=${url.toString()}, status=${
+          response.status
+        })`
+      );
     }
     const jsonData: StrapiResponse = await response.json();
     return spreadData ? spreadStrapiData(jsonData) : jsonData;
   } catch (error) {
     // Log any errors that occur during the fetch process
-    console.error('FetchContentTypeError', error);
+    console.error("FetchContentTypeError", error);
   }
 }

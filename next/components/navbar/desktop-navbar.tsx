@@ -5,15 +5,10 @@ import { useCart } from "@/context/cart-context";
 import { useTheme } from "@/context/theme-context";
 import { cn } from "@/lib/utils";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from "framer-motion";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { MoonIcon, SunIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
 import { useState } from "react";
-import { LocaleSwitcher } from "../locale-switcher";
 import { NavbarItem } from "./navbar-item";
 
 type Props = {
@@ -35,7 +30,7 @@ export const DesktopNavbar = ({
   leftNavbarItems,
   rightNavbarItems,
   logo,
-  locale,
+  locale
 }: Props) => {
   const { scrollY } = useScroll();
 
@@ -54,29 +49,32 @@ export const DesktopNavbar = ({
   return (
     <motion.div
       className={cn(
-        "relative flex justify-between bg-transparent mx-auto px-4 py-3 rounded-md w-full transition duration-200"
+        "relative flex justify-between mx-auto px-4 py-3 rounded-2xl w-full transition duration-200",
+        showBackground && "bg-card/70",
+        "backdrop-blur-3xl"
       )}
       animate={{
-        width: showBackground ? "80%" : "100%",
-        background: showBackground ? "hsl(var(--card))" : "transparent",
+        width: showBackground ? "90%" : "100%"
       }}
       transition={{
-        duration: 0.4,
+        duration: 0.4
       }}
     >
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {showBackground && (
           <motion.div
             key={String(showBackground)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
-              duration: 1,
+              duration: 1
             }}
-            className="absolute inset-0 bg-card rounded-full w-full h-full pointer-events-none [mask-image:linear-gradient(to_bottom,white,transparent,white)]"
+            className={cn(
+              "absolute inset-0 bg-card/10 rounded-full w-full h-full pointer-events-none"
+            )}
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
       <div className="flex flex-row items-center gap-2">
         <Logo locale={locale} image={logo?.image} />
         <div className="flex items-center gap-1.5">
@@ -92,7 +90,7 @@ export const DesktopNavbar = ({
         </div>
       </div>
       <div className="flex items-center space-x-2">
-        <LocaleSwitcher currentLocale={locale} />
+        {/* <LocaleSwitcher currentLocale={locale} /> */}
 
         {rightNavbarItems.map((item, index) => (
           <Button
@@ -109,10 +107,10 @@ export const DesktopNavbar = ({
 
         <Button
           variant="simple"
-          className="bg-white text-black hover:bg-gray-100"
+          className="bg-white hover:bg-gray-100 text-black"
           onClick={toggleTheme}
         >
-          {theme === "light" ? "🌙" : "☀️"} Cambiar tema
+          {theme === "light" ? <MoonIcon /> : <SunIcon />}
         </Button>
 
         <BookAppointmentModal onClick={() => {}} />

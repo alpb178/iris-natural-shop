@@ -6,7 +6,7 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  ModalTrigger,
+  ModalTrigger
 } from "@/components/ui/animated-modal";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -42,15 +42,15 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
         date: dayjs(values.date).format("YYYY-MM-DD"),
         time: values.time,
         email: values.email,
-        name: values.username,
+        name: values.username
       };
 
       const response = await fetch("/api/book", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(appointmentData),
+        body: JSON.stringify(appointmentData)
       });
 
       const result = await response.json();
@@ -77,12 +77,12 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
 
   return (
     <Modal>
-      <ModalTrigger onClick={onClick}>Reservar una cita</ModalTrigger>
+      <ModalTrigger onClick={onClick}>Pide una cita</ModalTrigger>
 
       <ModalBody>
         <ModalContent>
           <h4 className="mb-8 font-bold text-neutral-600 text-lg md:text-2xl text-center">
-            Reservar una cita
+            Pide una cita
           </h4>
 
           <FormProvider {...methods}>

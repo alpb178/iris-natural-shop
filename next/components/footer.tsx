@@ -1,20 +1,19 @@
-import React from "react";
 import { Logo } from "@/components/logo";
 import { Link } from "next-view-transitions";
 
 export const Footer = async ({
   data,
-  locale,
+  locale
 }: {
   data: any;
   locale: string;
 }) => {
   return (
     <div className="relative">
-      <div className="border-t border-border px-8 pt-20 pb-32 relative bg-card">
-        <div className="max-w-7xl mx-auto text-sm text-muted-foreground flex sm:flex-row flex-col justify-between items-start ">
+      <div className="relative bg-card px-8 pt-20 pb-32 border-t border-border">
+        <div className="flex sm:flex-row flex-col justify-between items-start mx-auto px-4 max-w-7xl text-muted-foreground text-sm">
           <div>
-            <div className="mr-4  md:flex mb-4">
+            <div className="md:flex mr-4 mb-4">
               {data?.logo?.image && <Logo image={data?.logo?.image} />}
             </div>
             <div className="max-w-xs">{data?.description}</div>
@@ -67,7 +66,7 @@ export const Footer = async ({
               </a>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-10 items-start mt-10 md:mt-0">
+          <div className="items-start gap-10 grid grid-cols-3 mt-10 md:mt-0">
             <LinkSection links={data?.internal_links} locale={locale} />
             <LinkSection links={data?.policy_links} locale={locale} />
             <LinkSection links={data?.social_media_links} locale={locale} />
@@ -80,16 +79,16 @@ export const Footer = async ({
 
 const LinkSection = ({
   links,
-  locale,
+  locale
 }: {
   links: { text: string; URL: never | string }[];
   locale: string;
 }) => (
-  <div className="flex justify-center space-y-4 flex-col mt-4">
+  <div className="flex flex-col justify-center space-y-4 mt-4">
     {links.map((link) => (
       <Link
         key={link.text}
-        className="transition-colors hover:text-foreground text-muted-foreground text-xs sm:text-sm"
+        className="text-muted-foreground hover:text-foreground text-xs sm:text-sm transition-colors"
         href={`${link.URL.startsWith("http") ? "" : `/${locale}`}${link.URL}`}
       >
         {link.text}
