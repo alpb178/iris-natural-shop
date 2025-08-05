@@ -7,6 +7,7 @@ import { Heading } from "@/components/elements/heading";
 import { Subheading } from "@/components/elements/subheading";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
+import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 import { Article } from "@/types/types";
 import { BlogCard } from "@/ui/blog/blog-card";
 import { BlogPostRows } from "@/ui/blog/blog-post-rows";
@@ -53,12 +54,11 @@ export default async function Blog({
     false
   );
 
-  const localizedSlugs = blogPage.localizations?.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = "blog";
-      return acc;
-    },
-    { [params.locale]: "blog" }
+  const localizedSlugs = useLocalizedSlugs(
+    blogPage?.localizations,
+    params.locale,
+    "blog",
+    "blog"
   );
 
   return (

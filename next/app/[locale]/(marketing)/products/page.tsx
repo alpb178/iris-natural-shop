@@ -10,11 +10,12 @@ import { Subheading } from "@/components/elements/subheading";
 import { IconShoppingCartUp } from "@tabler/icons-react";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { generateMetadataObject } from "@/lib/shared/metadata";
+import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 
 import ClientSlugHandler from "../ClientSlugHandler";
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
@@ -22,9 +23,9 @@ export async function generateMetadata({
     "product-page",
     {
       filters: {
-        locale: params.locale,
+        locale: params.locale
       },
-      populate: "seo.metaImage",
+      populate: "seo.metaImage"
     },
     true
   );
@@ -35,7 +36,7 @@ export async function generateMetadata({
 }
 
 export default async function Products({
-  params,
+  params
 }: {
   params: { locale: string };
 }) {
@@ -44,19 +45,18 @@ export default async function Products({
     "product-page",
     {
       filters: {
-        locale: params.locale,
-      },
+        locale: params.locale
+      }
     },
     true
   );
   const products = await fetchContentType("products");
 
-  const localizedSlugs = productPage.localizations?.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = "products";
-      return acc;
-    },
-    { [params.locale]: "products" }
+  const localizedSlugs = useLocalizedSlugs(
+    productPage?.localizations,
+    params.locale,
+    "products",
+    "products"
   );
   const featured = products?.data.filter(
     (product: { featured: boolean }) => product.featured

@@ -1,0 +1,26 @@
+/**
+ * Custom hook to create localized slugs with fallback
+ * @param localizations - Array of localizations from Strapi
+ * @param currentLocale - Current locale
+ * @param currentSlug - Current slug
+ * @param defaultSlug - Default slug to use if no localizations available
+ * @returns Object with locale keys and their corresponding slugs
+ */
+export function useLocalizedSlugs(
+  localizations: any[] | undefined,
+  currentLocale: string,
+  currentSlug: string,
+  defaultSlug?: string
+): Record<string, string> {
+  if (!localizations || localizations.length === 0) {
+    return { [currentLocale]: defaultSlug || currentSlug };
+  }
+
+  return localizations.reduce(
+    (acc: Record<string, string>, localization: any) => {
+      acc[localization.locale] = localization.slug;
+      return acc;
+    },
+    { [currentLocale]: defaultSlug || currentSlug }
+  );
+}
