@@ -4,9 +4,9 @@ services:
   postgres:
     image: postgres:15-alpine
     environment:
-      POSTGRES_DB: ${DB_NAME:-strapi}
-      POSTGRES_USER: ${DB_USERNAME:-strapi}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-strapi_password}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -19,6 +19,9 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
   strapi:
     image: alegd/alejandro-louro-cms:latest
@@ -28,37 +31,43 @@ services:
       DB_CLIENT: ${DB_CLIENT:-postgres}
       DB_HOST: postgres
       DB_PORT: ${DB_PORT:-5432}
-      DB_NAME: ${DB_NAME:-strapi}
-      DB_USERNAME: ${DB_USERNAME:-strapi}
-      DB_PASSWORD: ${DB_PASSWORD:-strapi_password}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
       DATABASE_SSL: ${DATABASE_SSL:-false}
-      JWT_SECRET: ${JWT_SECRET:-your-jwt-secret-here}
-      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-your-admin-jwt-secret-here}
-      APP_KEYS: ${APP_KEYS:-your-app-keys-here}
-      API_TOKEN_SALT: ${API_TOKEN_SALT:-your-api-token-salt-here}
-      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:-your-transfer-token-salt-here}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 1337
       HOST: 0.0.0.0
-    # depends_on is not supported in Docker Swarm
-    # Docker Swarm handles service dependencies automatically
+      CLOUDINARY_NAME: ${CLOUDINARY_NAME}
+      CLOUDINARY_KEY: ${CLOUDINARY_KEY}
+      CLOUDINARY_SECRET: ${CLOUDINARY_SECRET}
+
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
   nginx:
     image: nginx:alpine
     ports:
       - "${NGINX_HTTP_PORT:-80}:80"
-      - "${NGINX_HTTPS_PORT:-443}:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl:/etc/nginx/ssl
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
 volumes:
   postgres_data:

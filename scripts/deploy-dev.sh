@@ -3,11 +3,37 @@
 # Simple Docker Stack Deployment Script
 echo "🚀 Starting LaunchPad Simple Stack Deployment..."
 
-# Check if env.development file exists
-if [ ! -f env.development ]; then
-    echo "❌ Error: env.development file not found!"
+# Check if .env file exists in strapi directory
+if [ ! -f strapi/.env ]; then
+    echo "❌ Error: strapi/.env file not found!"
     exit 1
 fi
+
+# Validate required environment variables
+echo "🔍 Validating required environment variables..."
+
+# Function to check if variable is set and not empty
+check_required_var() {
+    local var_name=$1
+    local var_value=$(grep "^${var_name}=" strapi/.env | cut -d'=' -f2)
+    
+    if [ -z "$var_value" ] || [ "$var_value" = "tobemodified" ] || [ "$var_value" = "toBeModified1,toBeModified2" ]; then
+        echo "❌ Error: ${var_name} is not properly set in strapi/.env"
+        echo "💡 Please set a secure value for ${var_name} in your strapi/.env file"
+        return 1
+    fi
+}
+
+# Check required variables
+required_vars=("DB_NAME" "DB_USERNAME" "DB_PASSWORD" "JWT_SECRET" "ADMIN_JWT_SECRET" "APP_KEYS" "API_TOKEN_SALT" "TRANSFER_TOKEN_SALT")
+
+for var in "${required_vars[@]}"; do
+    if ! check_required_var "$var"; then
+        exit 1
+    fi
+done
+
+echo "✅ All required environment variables are set"
 
 # Check if docker-compose.yml exists
 if [ ! -f docker-compose.yml ]; then
@@ -15,14 +41,14 @@ if [ ! -f docker-compose.yml ]; then
     exit 1
 fi
 
-# Load development environment variables
+# Load development environment variables from strapi/.env
 while IFS= read -r line; do
     if [[ -n "$line" && ! "$line" =~ ^[[:space:]]*# ]]; then
         if [[ "$line" == *"="* ]]; then
             export "$line"
         fi
     fi
-done < env.development
+done < strapi/.env
 
 # Show environment variables for debugging
 echo "📋 Environment variables:"

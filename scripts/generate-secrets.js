@@ -1,18 +1,34 @@
-const crypto = require("crypto");
+#!/usr/bin/env node
 
-function generateSecret(length = 32) {
+import crypto from "crypto";
+
+console.log("🔐 Generating secure secrets for Strapi...\n");
+
+// Generate random secrets
+const generateSecret = (length = 32) => {
   return crypto.randomBytes(length).toString("base64");
-}
+};
 
-function generateAppKeys(count = 2) {
-  return Array.from({ length: count }, () => generateSecret()).join(",");
-}
+const secrets = {
+  JWT_SECRET: generateSecret(32),
+  ADMIN_JWT_SECRET: generateSecret(32),
+  APP_KEYS: `${generateSecret(32)},${generateSecret(32)}`,
+  API_TOKEN_SALT: generateSecret(32),
+  TRANSFER_TOKEN_SALT: generateSecret(32),
+};
 
-console.log("Generated Strapi Security Keys:");
-console.log("================================");
-console.log(`JWT_SECRET=${generateSecret()}`);
-console.log(`ADMIN_JWT_SECRET=${generateSecret()}`);
-console.log(`APP_KEYS=${generateAppKeys()}`);
-console.log(`API_TOKEN_SALT=${generateSecret()}`);
-console.log(`TRANSFER_TOKEN_SALT=${generateSecret()}`);
-console.log("\nCopy these values to your .env file for production deployment.");
+console.log("📋 Generated secrets:");
+console.log("=====================================");
+
+Object.entries(secrets).forEach(([key, value]) => {
+  console.log(`${key}=${value}`);
+});
+
+console.log("\n📝 Copy these values to your .env.dev file");
+console.log(
+  "⚠️  Keep these secrets secure and never commit them to version control"
+);
+console.log(
+  "\n💡 You can also run this script and pipe it to update your .env.dev:"
+);
+console.log("   node scripts/generate-secrets.js >> .env.dev");

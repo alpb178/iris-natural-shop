@@ -1,11 +1,12 @@
 "use client";
+
+import { motion } from "framer-motion";
 import { DesktopNavbar } from "./desktop-navbar";
 import { MobileNavbar } from "./mobile-navbar";
-import { motion } from "framer-motion";
 
 export function Navbar({ data, locale }: { data: any; locale: string }) {
   return (
-    <motion.nav className="max-w-7xl  fixed top-4  mx-auto inset-x-0 z-50 w-[95%] lg:w-full">
+    <motion.nav className="top-4 z-50 fixed inset-x-0 mx-auto w-[95%] lg:w-full max-w-7xl">
       <div className="hidden lg:block w-full">
         {data?.left_navbar_items && (
           <DesktopNavbar
@@ -16,7 +17,7 @@ export function Navbar({ data, locale }: { data: any; locale: string }) {
           />
         )}
       </div>
-      <div className="flex h-full w-full items-center lg:hidden ">
+      <div className="lg:hidden flex items-center w-full h-full">
         {data?.left_navbar_items && (
           <MobileNavbar
             locale={locale}
