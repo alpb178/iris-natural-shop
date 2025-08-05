@@ -18,10 +18,10 @@ export interface Article {
   publishedAt: string;
   locale: string;
   image: Image;
-  categories: Category[]
+  categories: Category[];
 }
 
-export interface Product {
+export interface Service {
   id: number;
   name: string;
   slug: string;
@@ -32,4 +32,4 @@ export interface Product {
   featured?: boolean;
   images: any[];
   categories?: any[];
-};
+}
