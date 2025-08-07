@@ -1,11 +1,11 @@
 "use client";
 import { cn } from "@/lib/utils";
 import React, {
-  useState,
-  useEffect,
-  useRef,
   RefObject,
   useCallback,
+  useEffect,
+  useRef,
+  useState
 } from "react";
 
 interface StarProps {
@@ -31,7 +31,7 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
   twinkleProbability = 0.7,
   minTwinkleSpeed = 0.5,
   maxTwinkleSpeed = 1,
-  className,
+  className
 }) => {
   const [stars, setStars] = useState<StarProps[]>([]);
   const canvasRef: RefObject<HTMLCanvasElement> =
@@ -51,8 +51,8 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
           opacity: Math.random() * 0.5 + 0.5,
           twinkleSpeed: shouldTwinkle
             ? minTwinkleSpeed +
-            Math.random() * (maxTwinkleSpeed - minTwinkleSpeed)
-            : null,
+              Math.random() * (maxTwinkleSpeed - minTwinkleSpeed)
+            : null
         };
       });
     },
@@ -61,7 +61,7 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
       allStarsTwinkle,
       twinkleProbability,
       minTwinkleSpeed,
-      maxTwinkleSpeed,
+      maxTwinkleSpeed
     ]
   );
 
@@ -98,7 +98,7 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
     twinkleProbability,
     minTwinkleSpeed,
     maxTwinkleSpeed,
-    generateStars,
+    generateStars
   ]);
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
   return (
     <canvas
       ref={canvasRef}
-      className={cn("h-full w-full absolute inset-0", className)}
+      className={cn("absolute inset-0 w-full h-full", className)}
     />
   );
 };

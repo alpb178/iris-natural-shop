@@ -8,7 +8,7 @@ import Balancer from "react-wrap-balancer";
 
 export const BlogCard = ({
   article,
-  locale,
+  locale
 }: {
   article: Article;
   locale: string;
@@ -62,7 +62,7 @@ export const BlogCard = ({
           /> */}
           {/* <p className="font-normal text-muted text-sm">{article.author}</p> */}
           <div className="bg-neutral-300 rounded-full w-1 h-1"></div>
-          <p className="max-w-xl text-neutral-300 group-hover:text-white text-sm transition duration-200">
+          <p className="max-w-xl text-neutral-300 group-hover:text-foreground text-sm transition duration-200">
             {format(new Date(article.publishedAt), "MMMM dd, yyyy")}
           </p>
         </div>
@@ -73,7 +73,7 @@ export const BlogCard = ({
 
 export const BlogCardVertical = ({
   article,
-  locale,
+  locale
 }: {
   article: Article;
   locale: string;
@@ -127,7 +127,7 @@ export const BlogCardVertical = ({
           />
           <p className="font-normal text-muted text-sm">{article.author}</p> */}
           <div className="bg-neutral-300 rounded-full w-1 h-1"></div>
-          <p className="max-w-xl text-neutral-300 group-hover:text-white text-sm transition duration-200">
+          <p className="max-w-xl text-neutral-300 group-hover:text-foreground text-sm transition duration-200">
             {format(new Date(article.publishedAt), "MMMM dd, yyyy")}
           </p>
         </div>

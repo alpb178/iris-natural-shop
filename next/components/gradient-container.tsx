@@ -4,13 +4,13 @@ import {
   motion,
   useMotionValueEvent,
   useScroll,
-  useTransform,
+  useTransform
 } from "framer-motion";
 import React, { CSSProperties, useRef, useState } from "react";
 
 export const GradientContainer = ({
   children,
-  className,
+  className
 }: {
   children: React.ReactNode;
   className?: string;
@@ -18,7 +18,7 @@ export const GradientContainer = ({
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress, scrollY } = useScroll({
     target: ref,
-    offset: ["start end", "end end"],
+    offset: ["start end", "end end"]
   });
 
   const limitedScrollYProgress = useTransform(
@@ -42,10 +42,10 @@ export const GradientContainer = ({
         {
           "--top": "rgba(97, 106, 115, .12)",
           "--bottom": "transparent",
-          "--conic-size": "600px",
+          "--conic-size": "600px"
         } as CSSProperties
       }
-      className={cn("relative z-20", className)}
+      className={cn("z-20 relative", className)}
     >
       <motion.div
         className={`w-full h-[var(--conic-size)] mb-[calc(-1*var(--conic-size))] 
@@ -55,14 +55,14 @@ export const GradientContainer = ({
         after:inset-0
         after:bg-gradient-to-b
         after:from-transparent
-        after:to-[var(--charcoal)]
+        after:to-[var(--primary)]
         after:opacity-100
         `}
         style={{
           background: `conic-gradient(from 90deg at ${
             100 - percentage
           }% 0%, var(--top), var(--bottom) 180deg) 0% 0% / 50% 100% no-repeat, conic-gradient(from 270deg at ${percentage}% 0%, var(--bottom) 180deg, var(--top)) 100% 0% / 50% 100% no-repeat`,
-          opacity: 0.901567,
+          opacity: 0.901567
         }}
       />
       {children}

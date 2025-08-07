@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect, memo } from "react";
-import Image from "next/image";
-import { Transition } from "@headlessui/react";
-import { SparklesCore } from "../../ui/sparkles";
-import { cn } from "@/lib/utils";
 import { strapiImage } from "@/lib/strapi/strapiImage";
+import { cn } from "@/lib/utils";
+import { Transition } from "@headlessui/react";
+import Image from "next/image";
+import { memo, useEffect, useRef, useState } from "react";
+import { SparklesCore } from "../../ui/sparkles";
 
 export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
   const [active, setActive] = useState<number>(0);
@@ -47,10 +47,10 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
 
   return (
     <section>
-      <div className="max-w-3xl mx-auto  relative z-30 h-80">
+      <div className="z-30 relative mx-auto max-w-3xl h-80">
         <div className="relative pb-12 md:pb-20">
           {/* Particles animation */}
-          <div className="absolute left-1/2 -translate-x-1/2 -top-2 -z-10 w-80 h-20 -mt-6">
+          <div className="-top-2 left-1/2 -z-10 absolute -mt-6 w-80 h-20 -translate-x-1/2">
             <MemoizedSparklesCore
               id="new-particles"
               background="transparent"
@@ -58,7 +58,7 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
               maxSize={1}
               particleDensity={100}
               className="w-full h-full"
-              particleColor="#FFFFFF"
+              particleColor="var(--primary)"
             />
           </div>
 
@@ -66,7 +66,7 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
           <div className="text-center">
             {/* Testimonial image */}
             <div className="relative h-40 [mask-image:_linear-gradient(0deg,transparent,#FFFFFF_30%,#FFFFFF)] md:[mask-image:_linear-gradient(0deg,transparent,#FFFFFF_40%,#FFFFFF)]">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[480px] h-[480px] -z-10 pointer-events-none before:rounded-full rounded-full before:absolute before:inset-0 before:bg-gradient-to-b before:from-neutral-400/20 before:to-transparent before:to-20% after:rounded-full after:absolute after:inset-0 after:bg-neutral-900 after:m-px before:-z-20 after:-z-20">
+              <div className="top-0 left-1/2 -z-10 before:-z-20 after:-z-20 absolute before:absolute after:absolute before:inset-0 after:inset-0 after:bg-card after:dark:bg-neutral-900 before:bg-gradient-to-b before:from-neutral-400/20 before:to-20% before:to-transparent after:m-px rounded-full before:rounded-full after:rounded-full w-[480px] h-[480px] -translate-x-1/2 pointer-events-none">
                 {slicedTestimonials.map((item: any, index: number) => (
                   <Transition
                     key={index}
@@ -79,9 +79,9 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                     leaveTo="opacity-0 translate-x-20"
                     beforeEnter={() => heightFix()}
                   >
-                    <div className="absolute inset-0 h-full -z-10">
+                    <div className="-z-10 absolute inset-0 h-full">
                       <Image
-                        className="relative top-11 left-1/2 -translate-x-1/2 rounded-full"
+                        className="top-11 left-1/2 relative rounded-full -translate-x-1/2"
                         src={strapiImage(item.user.image.url)}
                         width={56}
                         height={56}
@@ -93,7 +93,7 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
               </div>
             </div>
             {/* Text */}
-            <div className="mb-10 transition-all duration-150 delay-300 ease-in-out px-8 sm:px-6">
+            <div className="mb-10 px-8 sm:px-6 transition-all duration-150 ease-in-out delay-300">
               <div className="relative flex flex-col" ref={testimonialsRef}>
                 {slicedTestimonials.map((item: any, index: number) => (
                   <Transition
@@ -107,7 +107,7 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                     leaveTo="opacity-0 translate-x-4"
                     beforeEnter={() => heightFix()}
                   >
-                    <div className="text-base md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200/60 via-neutral-200 to-neutral-200/60">
+                    <div className="bg-clip-text bg-gradient-to-r from-card-foreground/60 via-card-foreground to-card-foreground/60 font-bold text-transparent text-base md:text-xl">
                       {item.text}
                     </div>
                   </Transition>
@@ -119,9 +119,10 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
               {slicedTestimonials.map((item: any, index: number) => (
                 <button
                   className={cn(
-                    `px-2 py-1 rounded-full m-1.5 text-xs border border-transparent text-neutral-300 transition duration-150 ease-in-out [background:linear-gradient(theme(colors.neutral.900),_theme(colors.neutral.900))_padding-box,_conic-gradient(theme(colors.neutral.400),_theme(colors.neutral.700)_25%,_theme(colors.neutral.700)_75%,_theme(colors.neutral.400)_100%)_border-box] relative before:absolute before:inset-0 before:bg-neutral-800/30 before:rounded-full before:pointer-events-none ${active === index
-                      ? "border-secondary/50"
-                      : "border-transparent opacity-70"
+                    `px-2 py-1 rounded-full m-1.5 text-xs border border-transparent text-neutral-300 transition duration-150 ease-in-out [background:linear-gradient(theme(colors.neutral.900),_theme(colors.neutral.900))_padding-box,_conic-gradient(theme(colors.neutral.400),_theme(colors.neutral.700)_25%,_theme(colors.neutral.700)_75%,_theme(colors.neutral.400)_100%)_border-box] relative before:absolute before:inset-0 before:bg-neutral-800/30 before:rounded-full before:pointer-events-none ${
+                      active === index
+                        ? "border-secondary/50"
+                        : "border-transparent opacity-70"
                     }`
                   )}
                   key={index}
@@ -131,11 +132,11 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                   }}
                 >
                   <span className="relative">
-                    <span className="text-neutral-50 font-bold">
+                    <span className="font-bold text-neutral-50">
                       {item.user.firstname + item.user.lastname}
                     </span>{" "}
-                    <br className="block sm:hidden" />
-                    <span className="text-neutral-600 hidden sm:inline-block">
+                    <br className="sm:hidden block" />
+                    <span className="hidden sm:inline-block text-neutral-600">
                       -
                     </span>{" "}
                     <span className="hidden sm:inline-block">

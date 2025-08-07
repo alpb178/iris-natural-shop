@@ -1,6 +1,7 @@
 import "@/styles/calendar.scss";
 import "@/styles/globals.scss";
 
+import { cormorantGaramond, libreFranklin } from "@/components/fonts";
 import { Locale, i18n } from "@/i18n.config";
 import type { Viewport } from "next";
 import { SlugProvider } from "./context/SlugContext";
@@ -25,7 +26,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang={params.lang} suppressHydrationWarning>
-      <body suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`${cormorantGaramond.variable} ${libreFranklin.variable} `}
+      >
         <SlugProvider>{children}</SlugProvider>
       </body>
     </html>

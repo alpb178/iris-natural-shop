@@ -5,7 +5,12 @@ import { useCart } from "@/context/cart-context";
 import { useTheme } from "@/context/theme-context";
 import { cn } from "@/lib/utils";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll
+} from "framer-motion";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
 import { useState } from "react";
@@ -49,18 +54,17 @@ export const DesktopNavbar = ({
   return (
     <motion.div
       className={cn(
-        "relative flex justify-between mx-auto px-4 py-3 rounded-2xl w-full transition duration-200",
-        showBackground && "bg-card/70",
-        "backdrop-blur-3xl"
+        "relative flex justify-between bg-transparent mx-auto px-4 py-3 rounded-md w-full transition duration-200"
       )}
       animate={{
-        width: showBackground ? "90%" : "100%"
+        width: showBackground ? "80%" : "100%",
+        background: showBackground ? "hsl(var(--card))" : "transparent"
       }}
       transition={{
         duration: 0.4
       }}
     >
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {showBackground && (
           <motion.div
             key={String(showBackground)}
@@ -69,12 +73,10 @@ export const DesktopNavbar = ({
             transition={{
               duration: 1
             }}
-            className={cn(
-              "absolute inset-0 bg-card/10 rounded-full w-full h-full pointer-events-none"
-            )}
+            className="absolute inset-0 bg-card rounded-full w-full h-full pointer-events-none [mask-image:linear-gradient(to_bottom,white,transparent,white)]"
           />
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
       <div className="flex flex-row items-center gap-2">
         <Logo locale={locale} image={logo?.image} />
         <div className="flex items-center gap-1.5">
@@ -107,7 +109,7 @@ export const DesktopNavbar = ({
 
         <Button
           variant="simple"
-          className="bg-white hover:bg-gray-100 text-black"
+          className="bg-background text-foreground"
           onClick={toggleTheme}
         >
           {theme === "light" ? <MoonIcon /> : <SunIcon />}

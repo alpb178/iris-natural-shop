@@ -1,25 +1,24 @@
-import React from "react";
-import { Container } from "../../container";
-import { Heading } from "../../elements/heading";
-import { Subheading } from "../../elements/subheading";
-import { FeatureIconContainer } from "./feature-icon-container";
-import { GradientContainer } from "../../gradient-container";
+import { IconRocket } from "@tabler/icons-react";
 import {
   Card,
   CardDescription,
   CardSkeletonContainer,
-  CardTitle,
-} from "./card";
-import { IconRocket } from "@tabler/icons-react";
+  CardTitle
+} from "../../card/Card";
+import { Container } from "../../container";
+import { Heading } from "../../elements/heading";
+import { Subheading } from "../../elements/subheading";
+import { GradientContainer } from "../../gradient-container";
+import { FeatureIconContainer } from "./feature-icon-container";
 import { SkeletonOne } from "./skeletons/first";
+import { SkeletonFour } from "./skeletons/fourth";
 import { SkeletonTwo } from "./skeletons/second";
 import { SkeletonThree } from "./skeletons/third";
-import { SkeletonFour } from "./skeletons/fourth";
 
 const wordToNumber: { [key: string]: number } = {
   one: 1,
   two: 2,
-  three: 3,
+  three: 3
 };
 
 function convertWordToNumber(word: string) {
@@ -32,7 +31,7 @@ export const Features = ({
   globe_card,
   ray_card,
   graph_card,
-  social_media_card,
+  social_media_card
 }: {
   heading: string;
   sub_heading: string;
@@ -43,14 +42,14 @@ export const Features = ({
 }) => {
   return (
     <GradientContainer className="md:my-20">
-      <Container className="py-20 max-w-7xl mx-auto  relative z-40">
+      <Container className="z-40 relative mx-auto py-20 max-w-7xl">
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-          <IconRocket className="h-6 w-6 text-foreground" />
+          <IconRocket className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
         <Heading className="pt-4">{heading}</Heading>
-        <Subheading className="max-w-3xl mx-auto">{sub_heading}</Subheading>
+        <Subheading className="mx-auto max-w-3xl">{sub_heading}</Subheading>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 py-10">
+        <div className="gap-4 grid grid-cols-1 lg:grid-cols-3 py-10">
           {globe_card && (
             <Card
               className={`md:col-span-${
@@ -71,7 +70,7 @@ export const Features = ({
                 convertWordToNumber(ray_card?.span) || "1"
               }`}
             >
-              <CardSkeletonContainer className="max-w-[16rem] mx-auto">
+              <CardSkeletonContainer className="mx-auto max-w-[16rem]">
                 <SkeletonTwo />
               </CardSkeletonContainer>
               <CardTitle>{ray_card.title}</CardTitle>
@@ -87,7 +86,7 @@ export const Features = ({
             >
               <CardSkeletonContainer
                 showGradient={false}
-                className="max-w-[16rem] mx-auto"
+                className="mx-auto max-w-[16rem]"
               >
                 <SkeletonThree />
               </CardSkeletonContainer>

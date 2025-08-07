@@ -1,26 +1,31 @@
 "use client";
+import { strapiImage } from "@/lib/strapi/strapiImage";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
 import Marquee from "react-fast-marquee";
-import { strapiImage } from "@/lib/strapi/strapiImage";
+import { Card } from "../../card/Card";
 
-export const TestimonialsMarquee = ({ testimonials }: { testimonials: any }) => {
+export const TestimonialsMarquee = ({
+  testimonials
+}: {
+  testimonials: any;
+}) => {
   const levelOne = testimonials.slice(0, 8);
   const levelTwo = testimonials.slice(8, 16);
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="flex h-full relative">
-        <div className="h-full absolute w-20 left-0 inset-y-0 z-30 bg-gradient-to-r from-charcoal to-transparent" />
-        <div className="h-full absolute w-20 right-0 inset-y-0 z-30 bg-gradient-to-l from-charcoal to-transparent" />
+    <div className="mx-auto max-w-7xl">
+      <div className="relative flex h-full">
+        <div className="left-0 z-30 absolute inset-y-0 bg-gradient-to-r from-background to-transparent w-20 h-full" />
+        <div className="right-0 z-30 absolute inset-y-0 bg-gradient-to-l from-background to-transparent w-20 h-full" />
         <Marquee>
           {levelOne.map((testimonial: any, index: any) => (
             <Card
               key={`testimonial-${testimonial.id}-${index}`}
-              className="max-w-xl h-60 mx-4"
+              className="mx-4 max-w-xl h-60"
             >
               <Quote>{testimonial?.text}</Quote>
-              <div className="flex gap-2 items-center mt-8">
+              <div className="flex items-center gap-2 mt-8">
                 <Image
                   src={strapiImage(testimonial?.user?.image?.url)}
                   alt={`${testimonial.user.firstname} ${testimonial.user.lastname}`}
@@ -41,17 +46,17 @@ export const TestimonialsMarquee = ({ testimonials }: { testimonials: any }) => 
           ))}
         </Marquee>
       </div>
-      <div className="flex h-full relative mt-8">
-        <div className="h-full absolute w-20 left-0 inset-y-0 z-30 bg-gradient-to-r from-charcoal to-transparent" />
-        <div className="h-full absolute w-20 right-0 inset-y-0 z-30 bg-gradient-to-l from-charcoal to-transparent" />
+      <div className="relative flex mt-8 h-full">
+        <div className="left-0 z-30 absolute inset-y-0 bg-gradient-to-r from-background to-transparent w-20 h-full" />
+        <div className="right-0 z-30 absolute inset-y-0 bg-gradient-to-l from-background to-transparent w-20 h-full" />
         <Marquee direction="right" speed={20}>
           {levelTwo.map((testimonial: any, index: any) => (
             <Card
               key={`testimonial-${testimonial.id}-${index}`}
-              className="max-w-xl h-60 mx-4"
+              className="mx-4 max-w-xl h-60"
             >
               <Quote>{testimonial.text}</Quote>
-              <div className="flex gap-2 items-center mt-8">
+              <div className="flex items-center gap-2 mt-8">
                 <Image
                   src={strapiImage(testimonial?.user?.image?.url)}
                   alt={`${testimonial.user.firstname} ${testimonial.user.lastname}`}
@@ -72,37 +77,24 @@ export const TestimonialsMarquee = ({ testimonials }: { testimonials: any }) => 
           ))}
         </Marquee>
       </div>
-    </div>
-  );
-};
-export const Card = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <div
-      className={cn(
-        "p-8 rounded-xl border border-[rgba(255,255,255,0.10)] bg-[rgba(40,40,40,0.30)] shadow-[2px_4px_16px_0px_rgba(248,248,248,0.06)_inset] group",
-        className
-      )}
-    >
-      {children}
     </div>
   );
 };
 
 export const Quote = ({
   children,
-  className,
+  className
 }: {
   children: React.ReactNode;
   className?: string;
 }) => {
   return (
-    <h3 className={cn("text-base font-semibold text-white py-2", className)}>
+    <h3
+      className={cn(
+        "py-2 font-libre font-medium text-foreground text-base",
+        className
+      )}
+    >
       {children}
     </h3>
   );
@@ -110,14 +102,14 @@ export const Quote = ({
 
 export const QuoteDescription = ({
   children,
-  className,
+  className
 }: {
   children: React.ReactNode;
   className?: string;
 }) => {
   return (
     <p
-      className={cn("text-sm font-normal text-neutral-400 max-w-sm", className)}
+      className={cn("max-w-sm font-normal text-foreground text-sm", className)}
     >
       {children}
     </p>

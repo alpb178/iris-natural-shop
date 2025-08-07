@@ -1,22 +1,14 @@
-import React from "react";
-
-import { generateMetadataObject } from "@/lib/shared/metadata";
-import { Metadata } from "next";
-import { Inter } from "next/font/google";
-
+import { cormorantGaramond, libreFranklin } from "@/components/fonts";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { CartProvider } from "@/context/cart-context";
 import { ThemeProvider } from "@/context/theme-context";
+import { generateMetadataObject } from "@/lib/shared/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"]
-});
+import React from "react";
 
 // Default Global SEO for pages without them
 export async function generateMetadata({
@@ -58,7 +50,8 @@ export default async function LocaleLayout({
           <ThemeProvider>
             <body
               className={cn(
-                inter.className,
+                cormorantGaramond.variable,
+                libreFranklin.variable,
                 "bg-background text-foreground antialiased h-full w-full"
               )}
             >
