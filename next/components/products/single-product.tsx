@@ -3,14 +3,14 @@
 import { useCart } from "@/context/cart-context";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { cn, formatNumber } from "@/lib/utils";
-import { Product } from "@/types/types";
+import { Service } from "@/types/types";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
 import { IconCheck } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState } from "react";
 
-export const SingleProduct = ({ product }: { product: Product }) => {
+export const SingleProduct = ({ product }: { product: Service }) => {
   const [activeThumbnail, setActiveThumbnail] = useState(
     strapiImage(product.images[0].url)
   );
