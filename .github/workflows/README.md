@@ -30,7 +30,6 @@ This directory contains all the GitHub Actions workflows for the LaunchPad proje
 **Features**:
 
 - Deploys Strapi to VPS first
-- Then deploys Next.js to Vercel
 - Sequential deployment (Next.js waits for Strapi)
 - Comprehensive Slack notifications
 
@@ -90,13 +89,6 @@ This directory contains all the GitHub Actions workflows for the LaunchPad proje
 
 - `DOCKERHUB_USERNAME`: Docker Hub username
 - `DOCKERHUB_TOKEN`: Docker Hub access token
-
-### **Vercel Deployment Secrets**
-
-- `VERCEL_TOKEN`: Vercel API token
-- `VERCEL_ORG_ID`: Vercel organization ID
-- `VERCEL_PROJECT_ID`: Vercel project ID
-- `NEXT_PUBLIC_STRAPI_URL`: Your Strapi production URL
 
 ### **Optional**
 
