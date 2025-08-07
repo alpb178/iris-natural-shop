@@ -55,7 +55,6 @@ export default async function Products({
   const localizedSlugs = useLocalizedSlugs(
     productPage?.localizations,
     params.locale,
-    "products",
     "products"
   );
   const featured = products?.data.filter(

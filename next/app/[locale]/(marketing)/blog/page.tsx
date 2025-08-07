@@ -57,7 +57,6 @@ export default async function Blog({
   const localizedSlugs = useLocalizedSlugs(
     blogPage?.localizations,
     params.locale,
-    "blog",
     "blog"
   );
 
