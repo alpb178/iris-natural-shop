@@ -13,10 +13,10 @@ export const SkeletonThree = () => {
     await animate(
       ".message",
       {
-        scale: [0, 1],
+        scale: [0, 1]
       },
       {
-        duration: 0.4,
+        duration: 0.4
       }
     );
     setAnimating(false);
@@ -25,28 +25,28 @@ export const SkeletonThree = () => {
   return (
     <div
       ref={scope}
-      className="overflow-hidden h-full relative "
+      className="relative h-full overflow-hidden"
       onMouseEnter={enterAnimation}
     >
       <div className="flex justify-between gap-4">
         <div className="flex flex-col gap-1">
           <span className="font-medium">6,092</span>
-          <span className="text-xs text-neutral-500">Last Month</span>
+          <span className="text-neutral-500 text-xs">Last Month</span>
         </div>
         <div className="flex flex-col gap-1">
           <span className="font-medium">72K</span>
-          <span className="text-xs text-neutral-500">Modules delivered</span>
+          <span className="text-neutral-500 text-xs">Modules delivered</span>
         </div>
       </div>
-      <div className="flex flex-col gap-4 items-center justify-center h-full relative">
-        <div className="message z-40 absolute left-10 top-10 rounded-full px-4 py-2 shadow-[0px_0px_8px_0px_rgba(248,248,248,0.25)_inset,0px_32px_24px_-16px_rgba(0,0,0,0.40)_inset]">
+      <div className="relative flex flex-col justify-center items-center gap-4 h-full">
+        <div className="top-10 left-10 z-40 absolute shadow-[0px_0px_8px_0px_rgba(248,248,248,0.25)_inset,0px_32px_24px_-16px_rgba(0,0,0,0.40)_inset] px-4 py-2 rounded-full message">
           <p className="text-xs">
             <Cover>+8,008</Cover> launched
           </p>
         </div>
-        <div className="p-8 relative">
-          <div className="absolute inset-y-0 h-full w-20 right-16 z-30 bg-gradient-to-r from-transparent via-[#121213] via-[70%] to-[#121213]"></div>
-          <div className="absolute inset-y-0 h-full w-20 left-16 z-30 bg-gradient-to-l from-transparent via-[#121213] via-[70%] to-[#121213]"></div>
+        <div className="relative p-8">
+          <div className="right-16 z-30 absolute inset-y-0 bg-gradient-to-r from-transparent via-[#121213] via-[70%] to-[#121213] w-20 h-full"></div>
+          <div className="left-16 z-30 absolute inset-y-0 bg-gradient-to-l from-transparent via-[#121213] via-[70%] to-[#121213] w-20 h-full"></div>
           <svg
             width="335"
             height="163"
@@ -137,19 +137,19 @@ export const SkeletonThree = () => {
                   x1: "0%",
                   y1: "0%",
                   x2: "0%",
-                  y2: "0%",
+                  y2: "0%"
                 }}
                 animate={{
                   x1: "100%",
                   y1: "0%",
                   x2: "120%",
-                  y2: "0%",
+                  y2: "0%"
                 }}
                 id="gradient-3"
                 transition={{
                   duration: Math.random() * (7 - 2) + 2,
                   ease: "linear",
-                  repeat: Infinity,
+                  repeat: Infinity
                 }}
               >
                 <stop stopColor="#001AFF" stopOpacity={`0`} />
@@ -164,7 +164,7 @@ export const SkeletonThree = () => {
             viewBox="0 0 335 162"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute left-[2.1rem] top-8"
+            className="top-8 left-[2.1rem] absolute"
           >
             <path
               opacity="0.1"
@@ -193,7 +193,7 @@ export const SkeletonThree = () => {
             viewBox="0 0 36 320"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute inset-x-0 top-[4.2rem] h-1/2  w-full vertical-dots"
+            className="top-[4.2rem] absolute inset-x-0 w-full h-1/2 vertical-dots"
           >
             <path
               opacity="0.1"
@@ -320,7 +320,7 @@ export const SkeletonThree = () => {
             viewBox="0 0 19 19"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute inset-0 translate-x-4 m-auto h-4 w-4 cursor"
+            className="absolute inset-0 m-auto w-4 h-4 translate-x-4 cursor"
           >
             <path
               d="M3.08365 1.18326C2.89589 1.11581 2.70538 1.04739 2.54453 1.00558C2.39192 0.965918 2.09732 0.900171 1.78145 1.00956C1.41932 1.13497 1.13472 1.41956 1.00932 1.78169C0.899927 2.09756 0.965674 2.39216 1.00533 2.54477C1.04714 2.70562 1.11557 2.89613 1.18301 3.0839L5.9571 16.3833C6.04091 16.6168 6.12128 16.8408 6.2006 17.0133C6.26761 17.1591 6.42 17.4781 6.75133 17.6584C7.11364 17.8555 7.54987 17.8612 7.91722 17.6737C8.25317 17.5021 8.41388 17.1873 8.48469 17.0433C8.56852 16.8729 8.65474 16.6511 8.74464 16.4198L10.8936 10.8939L16.4196 8.74489C16.6509 8.655 16.8726 8.56879 17.043 8.48498C17.187 8.41416 17.5018 8.25346 17.6734 7.91751C17.8609 7.55016 17.8552 7.11392 17.6581 6.75162C17.4778 6.42029 17.1589 6.2679 17.0131 6.20089C16.8405 6.12157 16.6165 6.0412 16.383 5.9574L3.08365 1.18326Z"
@@ -339,7 +339,7 @@ export const SkeletonThree = () => {
 
 const Cover = ({
   children,
-  className,
+  className
 }: {
   children: React.ReactNode;
   className?: string;
@@ -347,7 +347,7 @@ const Cover = ({
   return (
     <span
       className={cn(
-        "border rounded-md px-1 py-0.5 mr-1 border-indigo-500 bg-indigo-500/10 text-white",
+        "bg-indigo-500/10 mr-1 px-1 py-0.5 border border-indigo-500 rounded-md text-foreground",
         className
       )}
     >

@@ -1,17 +1,16 @@
 "use client";
-import React from "react";
-import { TestimonialsSlider } from "./slider";
-import { FeatureIconContainer } from "../features/feature-icon-container";
+import { TbLocationBolt } from "react-icons/tb";
+import { AmbientColor } from "../../decorations/ambient-color";
 import { Heading } from "../../elements/heading";
 import { Subheading } from "../../elements/subheading";
-import { TbLocationBolt } from "react-icons/tb";
+import { FeatureIconContainer } from "../features/feature-icon-container";
+import { TestimonialsSlider } from "./slider";
 import { TestimonialsMarquee } from "./testimonials-marquee";
-import { AmbientColor } from "../../decorations/ambient-color";
 
 export const Testimonials = ({
   heading,
   sub_heading,
-  testimonials,
+  testimonials
 }: {
   heading: string;
   sub_heading: string;
@@ -22,7 +21,7 @@ export const Testimonials = ({
       <AmbientColor />
       <div className="pb-20">
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-          <TbLocationBolt className="h-6 w-6 text-foreground" />
+          <TbLocationBolt className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
         <Heading className="pt-4">{heading}</Heading>
         <Subheading>{sub_heading}</Subheading>
@@ -31,13 +30,13 @@ export const Testimonials = ({
       {testimonials && (
         <div className="relative md:py-20 pb-20">
           <TestimonialsSlider testimonials={testimonials} />
-          <div className="h-full w-full mt-20 bg-card ">
+          <div className="mt-20 w-full h-full">
             <TestimonialsMarquee testimonials={testimonials} />
           </div>
         </div>
       )}
 
-      <div className="absolute bottom-0 inset-x-0 h-40 w-full bg-gradient-to-t from-background to-transparent"></div>
+      <div className="bottom-0 absolute inset-x-0 bg-gradient-to-t from-background to-transparent w-full h-40"></div>
     </div>
   );
 };

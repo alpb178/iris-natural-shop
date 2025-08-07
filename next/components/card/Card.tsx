@@ -3,7 +3,7 @@ import React from "react";
 
 export const Card = ({
   className,
-  children,
+  children
 }: {
   className?: string;
   children: React.ReactNode;
@@ -11,7 +11,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "p-8 rounded-3xl border border-[rgba(255,255,255,0.10)] bg-[rgba(40,40,40,0.30)] shadow-[2px_4px_16px_0px_rgba(248,248,248,0.06)_inset] group",
+        "group bg-card shadow-[2px_4px_16px_0px_rgba(248,248,248,0.06)_inset] p-8 border border-border rounded-3xl",
         className
       )}
     >
@@ -22,13 +22,13 @@ export const Card = ({
 
 export const CardTitle = ({
   children,
-  className,
+  className
 }: {
   children: React.ReactNode;
   className?: string;
 }) => {
   return (
-    <h3 className={cn("text-lg font-semibold text-white py-2", className)}>
+    <h3 className={cn("py-2 font-semibold text-foreground text-lg", className)}>
       {children}
     </h3>
   );
@@ -36,14 +36,14 @@ export const CardTitle = ({
 
 export const CardDescription = ({
   children,
-  className,
+  className
 }: {
   children: React.ReactNode;
   className?: string;
 }) => {
   return (
     <p
-      className={cn("text-sm font-normal text-neutral-400 max-w-sm", className)}
+      className={cn("max-w-sm font-normal text-neutral-400 text-sm", className)}
     >
       {children}
     </p>
@@ -53,7 +53,7 @@ export const CardDescription = ({
 export const CardSkeletonContainer = ({
   className,
   children,
-  showGradient = true,
+  showGradient = true
 }: {
   className?: string;
   children: React.ReactNode;
@@ -62,7 +62,7 @@ export const CardSkeletonContainer = ({
   return (
     <div
       className={cn(
-        "h-[20rem] rounded-xl z-40",
+        "z-40 rounded-xl h-[20rem]",
         className,
         showGradient &&
           " bg-[rgba(40,40,40,0.30)] [mask-image:radial-gradient(50%_50%_at_50%_50%,white_0%,transparent_100%)]"

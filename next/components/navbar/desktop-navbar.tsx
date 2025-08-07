@@ -109,7 +109,7 @@ export const DesktopNavbar = ({
 
         <Button
           variant="simple"
-          className="bg-white hover:bg-gray-100 text-black"
+          className="bg-background text-foreground"
           onClick={toggleTheme}
         >
           {theme === "light" ? <MoonIcon /> : <SunIcon />}

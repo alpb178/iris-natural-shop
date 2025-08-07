@@ -1,24 +1,10 @@
 import "@/styles/calendar.scss";
 import "@/styles/globals.scss";
 
+import { cormorantGaramond, libreFranklin } from "@/components/fonts";
 import { Locale, i18n } from "@/i18n.config";
 import type { Viewport } from "next";
-import { Cormorant_Garamond, Libre_Franklin } from "next/font/google";
 import { SlugProvider } from "./context/SlugContext";
-
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-cormorant-garamond",
-  display: "swap"
-});
-
-const libreFranklin = Libre_Franklin({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-libre-franklin",
-  display: "swap"
-});
 
 export const viewport: Viewport = {
   themeColor: [

@@ -1,5 +1,5 @@
 .react-calendar {
-  @apply bg-white w-full max-w-xl text-charcoal;
+  @apply bg-white w-full max-w-xl text-foreground;
 }
 
 .react-calendar--doubleView .react-calendar__viewContainer {
@@ -107,7 +107,7 @@
 }
 
 button.react-calendar__tile--active {
-  @apply bg-primary text-white hover:text-white;
+  @apply bg-primary text-foreground hover:text-foreground;
 }
 
 .react-calendar__tile--active:enabled:hover,

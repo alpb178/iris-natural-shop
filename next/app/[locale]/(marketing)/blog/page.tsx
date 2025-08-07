@@ -15,7 +15,7 @@ import { IconClipboardText } from "@tabler/icons-react";
 import ClientSlugHandler from "../ClientSlugHandler";
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
@@ -23,7 +23,7 @@ export async function generateMetadata({
     "blog-page",
     {
       filters: { locale: params.locale },
-      populate: "seo.metaImage",
+      populate: "seo.metaImage"
     },
     true
   );
@@ -34,21 +34,21 @@ export async function generateMetadata({
 }
 
 export default async function Blog({
-  params,
+  params
 }: {
   params: { locale: string; slug: string };
 }) {
   const blogPage = await fetchContentType(
     "blog-page",
     {
-      filters: { locale: params.locale },
+      filters: { locale: params.locale }
     },
     true
   );
   const articles = await fetchContentType(
     "articles",
     {
-      filters: { locale: params.locale },
+      filters: { locale: params.locale }
     },
     false
   );
@@ -68,7 +68,7 @@ export default async function Blog({
       <Container className="flex flex-col justify-between items-center pb-20">
         <div className="z-20 relative py-10 md:pt-40">
           <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-            <IconClipboardText className="w-6 h-6 text-white" />
+            <IconClipboardText className="w-6 h-6 text-foreground" />
           </FeatureIconContainer>
           <Heading as="h1" className="mt-4">
             {blogPage.heading}

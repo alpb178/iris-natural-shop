@@ -1,30 +1,46 @@
 "use client";
-import React from "react";
 import { motion } from "framer-motion";
-import { Button } from "../elements/button";
-import { AmbientColor } from "../decorations/ambient-color";
-import { Container } from "../container";
 import Link from "next/link";
+import { Container } from "../container";
+import { AmbientColor } from "../decorations/ambient-color";
+import { Button } from "../elements/button";
 
-export const CTA = ({ heading, sub_heading, CTAs, locale }: { heading: string; sub_heading: string; CTAs: any[], locale: string }) => {
+export const CTA = ({
+  heading,
+  sub_heading,
+  CTAs,
+  locale
+}: {
+  heading: string;
+  sub_heading: string;
+  CTAs: any[];
+  locale: string;
+}) => {
   return (
     <div className="relative py-40">
       <AmbientColor />
-      <Container className="flex flex-col md:flex-row justify-between items-center w-full px-8">
+      <Container className="flex md:flex-row flex-col justify-between items-center px-8 w-full">
         <div className="flex flex-col">
-          <motion.h2 className="text-white text-xl text-center md:text-left md:text-3xl font-bold mx-auto md:mx-0 max-w-xl ">
+          <motion.h2 className="mx-auto md:mx-0 max-w-xl font-bold text-foreground text-xl md:text-3xl md:text-left text-center">
             {heading}
           </motion.h2>
-          <p className="max-w-md mt-8 text-center md:text-left text-sm md:text-base mx-auto md:mx-0 text-neutral-400">
+          <p className="mx-auto md:mx-0 mt-8 max-w-md text-neutral-400 text-sm md:text-base md:text-left text-center">
             {sub_heading}
           </p>
         </div>
         <div className="flex items-center gap-4">
-          {CTAs && CTAs.map((cta, index) => (
-            <Button as={Link} key={index} href={`/${locale}${cta.URL}`} variant={cta.variant} className="py-3">
-              {cta.text}
-            </Button>
-          ))}
+          {CTAs &&
+            CTAs.map((cta, index) => (
+              <Button
+                as={Link}
+                key={index}
+                href={`/${locale}${cta.URL}`}
+                variant={cta.variant}
+                className="py-3"
+              >
+                {cta.text}
+              </Button>
+            ))}
         </div>
       </Container>
     </div>
