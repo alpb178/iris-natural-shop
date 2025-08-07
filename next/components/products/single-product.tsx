@@ -30,7 +30,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
             transition={{
               type: "spring",
               stiffness: 260,
-              damping: 35,
+              damping: 35
             }}
           >
             <Image
@@ -45,7 +45,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
           {/* </AnimatePresence> */}
           <div className="flex justify-center items-center gap-4 mt-4">
             {product.images &&
-              product.images.map((image, index) => (
+              product.images.map((image: any, index: number) => (
                 <button
                   onClick={() => setActiveThumbnail(strapiImage(image.url))}
                   key={"product-image" + index}
@@ -59,7 +59,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
                     backgroundImage: `url(${strapiImage(image.url)})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
+                    backgroundRepeat: "no-repeat"
                   }}
                 ></button>
               ))}
@@ -67,7 +67,7 @@ export const SingleProduct = ({ product }: { product: Product }) => {
         </div>
         <div>
           <h2 className="mb-4 font-semibold text-2xl">{product.name}</h2>
-          <p className="bg-foreground mb-6 px-4 py-1 rounded-full w-fit text-foreground text-xs">
+          <p className=" mb-6 px-4 py-1 rounded-full w-fit text-foreground text-xs">
             ${formatNumber(product.price)}
           </p>
           <p className="mb-4 font-normal text-foreground text-base">
@@ -75,41 +75,6 @@ export const SingleProduct = ({ product }: { product: Product }) => {
           </p>
 
           <Divider />
-          <ul className="mb-6 list-disc list-inside">
-            {product.perks &&
-              product.perks.map((perk, index) => (
-                <Step key={index}>{perk.text}</Step>
-              ))}
-          </ul>
-          <h3 className="mb-2 font-medium text-foreground text-sm">
-            Available for
-          </h3>
-          <ul className="flex flex-wrap gap-4 list-none">
-            {product.plans &&
-              product.plans.map((plan, index) => (
-                <li
-                  key={index}
-                  className="bg-foreground px-3 py-1 rounded-full font-medium text-foreground text-sm"
-                >
-                  {plan.name}
-                </li>
-              ))}
-          </ul>
-
-          <h3 className="mt-8 mb-2 font-medium text-foreground text-sm">
-            Categories
-          </h3>
-          <ul className="flex flex-wrap gap-4">
-            {product.categories &&
-              product.categories?.map((category, idx) => (
-                <li
-                  key={`category-${idx}`}
-                  className="bg-foreground px-3 py-1 rounded-full font-medium text-foreground text-sm"
-                >
-                  {category.name}
-                </li>
-              ))}
-          </ul>
 
           <BookAppointmentModal onClick={() => addToCart(product)} />
         </div>

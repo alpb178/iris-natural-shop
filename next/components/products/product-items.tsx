@@ -55,8 +55,8 @@ const ProductItem = ({
         <Image
           src={strapiImage(service.images?.[0]?.url ?? "")}
           alt={service.name}
-          width={600}
-          height={600}
+          width={500}
+          height={500}
           className="h-full w-full object-cover group-hover:scale-105 transition duration-200"
         />
       </div>
@@ -66,7 +66,7 @@ const ProductItem = ({
           <span className="text-foreground text-base font-medium">
             {service.name}
           </span>
-          <span className="bg-foreground text-foreground shadow-derek text-xs px-2 py-1 rounded-full">
+          <span className=" text-foreground shadow-derek text-xs px-2 py-1 rounded-full">
             ${formatNumber(service.price)}
           </span>
         </div>
