@@ -18,7 +18,7 @@ export const Footer = async ({
             </div>
             <div className="max-w-xs">{data?.description}</div>
             <div className="mt-4">{data?.copyright}</div>
-            <div className="mt-10">
+            {/* <div className="mt-10">
               Designed and Developed by{" "}
               <a
                 className="text-foreground underline"
@@ -30,41 +30,7 @@ export const Footer = async ({
               <a className="text-foreground underline" href="https://strapi.io">
                 Strapi
               </a>
-            </div>
-            <div className="mt-2">
-              built with{" "}
-              <a className="text-foreground underline" href="https://strapi.io">
-                Strapi
-              </a>
-              ,{" "}
-              <a
-                className="text-foreground underline"
-                href="https://nextjs.org"
-              >
-                Next.js
-              </a>
-              ,{" "}
-              <a
-                className="text-foreground underline"
-                href="https://tailwindcss.com"
-              >
-                Tailwind CSS
-              </a>
-              ,{" "}
-              <a
-                className="text-foreground underline"
-                href="https://framer.com/motion"
-              >
-                Motion Animation Lib
-              </a>
-              , and{" "}
-              <a
-                className="text-foreground underline"
-                href="https://ui.aceternity.com"
-              >
-                Aceternity UI
-              </a>
-            </div>
+            </div> */}
           </div>
           <div className="items-start gap-10 grid grid-cols-3 mt-10 md:mt-0">
             <LinkSection links={data?.internal_links} locale={locale} />

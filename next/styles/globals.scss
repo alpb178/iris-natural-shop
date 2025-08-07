@@ -20,6 +20,28 @@ body {
 }
 
 @layer base {
+  // Apply fonts to headers and paragraphs
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-cormorant-garamond);
+  }
+
+  p,
+  span,
+  div,
+  li,
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-libre-franklin), sans-serif;
+  }
+
   :root {
     --background: 45 29% 97%; // #FAF9F6
     --foreground: 0 0% 11%; // #1C1C1C
@@ -45,14 +67,14 @@ body {
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
+    --border: 45 30% 85%; /* Light elegant sand-ish gold */
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --foreground: 45 29% 97%;
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -75,7 +97,7 @@ body {
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
+    --border: 45 25% 60%; /* Elegant sand gold for dark mode */
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }

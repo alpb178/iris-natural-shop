@@ -14,6 +14,10 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        cormorant: ["var(--font-cormorant-garamond)", "serif"],
+        libre: ["var(--font-libre-franklin)", "sans-serif"]
+      },
       colors: {
         charcoal: "#08090A",
         lightblack: "#1C1C1C",
