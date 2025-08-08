@@ -3,9 +3,11 @@ import { Button } from "@/components/elements/button";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { useMotionValueEvent, useScroll } from "framer-motion";
+import { MenuIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
 import { useState } from "react";
-import { IoIosClose, IoIosMenu } from "react-icons/io";
+import { CloseButton } from "../button/close-button/CloseButton";
+import { Modal } from "../modal/Modal";
 
 type Props = {
   leftNavbarItems: {
@@ -45,31 +47,34 @@ export const MobileNavbar = ({
   return (
     <div
       className={cn(
-        "flex justify-between items-center bg-transparent px-2.5 py-1.5 rounded-md w-full transition duration-200",
-        showBackground &&
-          " bg-card shadow-[0px_-2px_0px_0px_var(--neutral-800),0px_2px_0px_0px_var(--neutral-800)]"
+        "flex justify-between items-center bg-transparent px-2.5 py-2 rounded-md w-full transition duration-200",
+        showBackground && "bg-card/60 backdrop-blur-2xl"
       )}
     >
       <Logo image={logo?.image} />
 
-      <IoIosMenu
-        className="w-6 h-6 text-foreground"
+      <MenuIcon
+        className="w-8 h-8 text-foreground"
         onClick={() => setOpen(!open)}
       />
 
-      {open && (
-        <div className="z-50 fixed inset-0 flex flex-col justify-start items-start space-y-10 bg-background/95 backdrop-blur-2xl pt-5 text-xl transition duration-200">
-          <div className="flex justify-between items-center px-5 w-full">
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        hideCloseButton
+        position="right"
+        className="bg-card/60"
+      >
+        <>
+          <div className="flex justify-between items-center p-6 pt-4 w-full">
             <Logo locale={locale} image={logo?.image} />
             <div className="flex items-center space-x-2">
               {/* <LocaleSwitcher currentLocale={locale} /> */}
-              <IoIosClose
-                className="w-8 h-8 text-foreground"
-                onClick={() => setOpen(!open)}
-              />
+              <CloseButton onClick={() => setOpen(false)} />
             </div>
           </div>
-          <div className="flex flex-col justify-start items-start gap-[14px] px-8">
+
+          <div className="flex flex-col justify-start items-start gap-4 px-6">
             {leftNavbarItems.map((navItem: any, idx: number) => (
               <>
                 {navItem.children && navItem.children.length > 0 ? (
@@ -79,7 +84,7 @@ export const MobileNavbar = ({
                         key={`link=${idx}`}
                         href={`/${locale}${childNavItem.URL}`}
                         onClick={() => setOpen(false)}
-                        className="relative max-w-[15rem] text-2xl text-left"
+                        className="relative max-w-[15rem] text-2xl"
                       >
                         <span className="block text-foreground">
                           {childNavItem.text}
@@ -116,8 +121,8 @@ export const MobileNavbar = ({
               </Button>
             ))}
           </div>
-        </div>
-      )}
+        </>
+      </Modal>
     </div>
   );
 };

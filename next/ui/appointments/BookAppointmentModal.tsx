@@ -1,26 +1,53 @@
 "use client";
 
+import { Container } from "@/components/container/Container";
 import { Button } from "@/components/elements/button";
-import { TextInput } from "@/components/form/text-input/TextInput";
-import { Text } from "@/components/text/Text";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalTrigger
-} from "@/components/ui/animated-modal";
+import { Modal } from "@/components/modal/Modal";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import Calendar from "react-calendar";
 import { FormProvider, useForm } from "react-hook-form";
+import { Step1 } from "./Step1";
+import { Step2 } from "./Step2";
+import { Step3 } from "./Step3";
+
+type FormData = {
+  date: Date | null;
+  time: string | null;
+  name: string;
+  email: string;
+  phone: string;
+};
+
+type Step = 1 | 2 | 3;
 
 export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
+  const [currentStep, setCurrentStep] = useState<Step>(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitResult, setSubmitResult] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
+  const [slideDirection, setSlideDirection] = useState<"left" | "right">(
+    "right"
+  );
 
-  const methods = useForm();
+  const [open, setOpen] = useState(false);
+
+  const methods = useForm<FormData>({
+    defaultValues: {
+      date: null,
+      time: null,
+      name: "",
+      email: "",
+      phone: ""
+    }
+  });
 
   const selectedDate = methods.watch("date");
   const selectedTime = methods.watch("time");
+  const name = methods.watch("name");
+  const email = methods.watch("email");
 
   useEffect(() => {
     if (selectedDate) {
@@ -37,13 +64,31 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
     }
   }, [selectedDate]);
 
-  const handleSubmit = async (values: any) => {
+  const handleNext = () => {
+    setSlideDirection("right");
+    if (currentStep === 1 && selectedDate && selectedTime) {
+      setCurrentStep(2);
+    } else if (currentStep === 2 && name && email) {
+      setCurrentStep(3);
+    }
+  };
+
+  const handleBack = () => {
+    setSlideDirection("left");
+    if (currentStep > 1) {
+      setCurrentStep((prev) => (prev - 1) as Step);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
     try {
       const appointmentData = {
-        date: dayjs(values.date).format("YYYY-MM-DD"),
-        time: values.time,
-        email: values.email,
-        name: values.username
+        date: dayjs(selectedDate).format("YYYY-MM-DD"),
+        time: selectedTime,
+        email: email,
+        name: name,
+        phone: methods.getValues("phone")
       };
 
       const response = await fetch("/api/book", {
@@ -58,96 +103,98 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
 
       if (!response.ok) {
         if (response.status === 409) {
-          // Handle conflict (appointment already exists or slot unavailable)
-          alert(result.error);
+          setSubmitResult({
+            success: false,
+            message: result.error || "Esta cita ya no está disponible"
+          });
         } else {
-          alert("Error booking appointment. Please try again.");
+          setSubmitResult({
+            success: false,
+            message: "Error al reservar la cita. Por favor, inténtalo de nuevo."
+          });
         }
         return;
       }
 
-      console.log("Appointment response:", result);
-      alert("Appointment booked successfully!");
-      // close modal
-      onClick();
+      setSubmitResult({
+        success: true,
+        message: "¡Cita reservada exitosamente!"
+      });
     } catch (error) {
       console.error("Error booking appointment:", error);
-      alert("Error booking appointment. Please try again.");
+      setSubmitResult({
+        success: false,
+        message: "Error al reservar la cita. Por favor, inténtalo de nuevo."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleClose = () => {
+    if (submitResult?.success) {
+      onClick();
+    } else {
+      setCurrentStep(1);
+      setSubmitResult(null);
+      methods.reset();
+    }
+  };
+
+  const renderStepIndicator = () => (
+    <div className="mb-6">
+      <div className="bg-muted rounded-full w-full h-2">
+        <div
+          className="bg-primary rounded-full h-2 transition-all duration-500 ease-in-out"
+          style={{ width: `${(currentStep / 3) * 100}%` }}
+        />
+      </div>
+    </div>
+  );
+
+  const renderCurrentStep = () => {
+    const stepProps = {
+      onNext: handleNext,
+      onBack: handleBack,
+      methods,
+      selectedDate,
+      selectedTime,
+      availableSlots,
+      name,
+      email,
+      isSubmitting,
+      submitResult,
+      onSubmit: handleSubmit,
+      onClose: handleClose
+    };
+
+    switch (currentStep) {
+      case 1:
+        return <Step1 {...stepProps} />;
+      case 2:
+        return <Step2 {...stepProps} />;
+      case 3:
+        return <Step3 {...stepProps} />;
+      default:
+        return null;
     }
   };
 
   return (
-    <Modal>
-      <ModalTrigger onClick={onClick}>Pide una cita</ModalTrigger>
+    <>
+      <Button onClick={() => setOpen(true)}>Pide una cita</Button>
 
-      <ModalBody>
-        <ModalContent>
-          <Text
-            as="title"
-            content="Pide una cita"
-            className="mb-6 text-lg text-center"
-          />
+      <Modal open={open} onClose={() => setOpen(false)} position="center">
+        <Container>
+          {renderStepIndicator()}
 
           <FormProvider {...methods}>
-            <div className="flex gap-6 mb-6">
-              <div className="w-full">
-                <Calendar
-                  onChange={(date) => {
-                    methods.setValue("date", date as Date);
-                    methods.setValue("time", null);
-                  }}
-                  value={selectedDate}
-                  minDate={new Date()}
-                  maxDate={
-                    new Date(new Date().setDate(new Date().getDate() + 30))
-                  }
-                  minDetail="year"
-                  maxDetail="month"
-                />
-              </div>
-
-              <div className="w-full">
-                {availableSlots.length > 0 && (
-                  <div className="gap-2 grid grid-cols-2">
-                    {availableSlots.map((slot) => (
-                      <button
-                        key={slot.toString()}
-                        type="button"
-                        className={`px-3 py-2 rounded-lg border ${
-                          selectedTime?.toString() ===
-                          dayjs(slot).format("HH:mm:ss.SSS")
-                            ? "bg-black text-white"
-                            : "bg-white text-black"
-                        }`}
-                        onClick={() =>
-                          methods.setValue(
-                            "time",
-                            dayjs(slot).format("HH:mm:ss.SSS")
-                          )
-                        }
-                      >
-                        {dayjs(slot).format("HH:mm")}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+            <div className="relative overflow-hidden">
+              {renderCurrentStep()}
             </div>
-
-            <TextInput name="username" label="Nombre Completo" required />
-
-            <TextInput name="email" label="Correo electrónico" required />
-
-            <Button
-              variant="muted"
-              disabled={!selectedTime}
-              onClick={methods.handleSubmit(handleSubmit)}
-            >
-              Reservar cita
-            </Button>
           </FormProvider>
-        </ModalContent>
-      </ModalBody>
-    </Modal>
+        </Container>
+      </Modal>
+    </>
   );
 }
