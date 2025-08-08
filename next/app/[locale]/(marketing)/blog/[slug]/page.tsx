@@ -1,5 +1,5 @@
-import fetchContentType from "@/lib/strapi/fetchContentType";
 import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
+import fetchContentType from "@/lib/strapi/fetchContentType";
 import { BlogLayout } from "@/ui/blog/blog-layout";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
@@ -21,15 +21,15 @@ export default async function SingleArticlePage({
     true
   );
 
-  if (!article) {
-    return <div>Blog not found</div>;
-  }
-
   const localizedSlugs = useLocalizedSlugs(
     article?.localizations,
     params.locale,
     params.slug
   );
+
+  if (!article) {
+    return <div>Blog not found</div>;
+  }
 
   return (
     <BlogLayout article={article} locale={params.locale}>
