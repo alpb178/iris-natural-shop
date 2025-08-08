@@ -1,11 +1,12 @@
 import fetchContentType from "@/lib/strapi/fetchContentType";
+import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 import { BlogLayout } from "@/ui/blog/blog-layout";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 import ClientSlugHandler from "../../ClientSlugHandler";
 
 export default async function SingleArticlePage({
-  params,
+  params
 }: {
   params: { slug: string; locale: string };
 }) {
@@ -14,8 +15,8 @@ export default async function SingleArticlePage({
     {
       filters: {
         slug: params.slug,
-        locale: params.locale,
-      },
+        locale: params.locale
+      }
     },
     true
   );
@@ -24,12 +25,10 @@ export default async function SingleArticlePage({
     return <div>Blog not found</div>;
   }
 
-  const localizedSlugs = article.localizations?.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = localization.slug;
-      return acc;
-    },
-    { [params.locale]: params.slug }
+  const localizedSlugs = useLocalizedSlugs(
+    article?.localizations,
+    params.locale,
+    params.slug
   );
 
   return (

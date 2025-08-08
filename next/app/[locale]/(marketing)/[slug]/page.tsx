@@ -1,11 +1,12 @@
-import { Metadata } from 'next';
-import PageContent from '@/lib/shared/PageContent';
-import fetchContentType from '@/lib/strapi/fetchContentType';
-import { generateMetadataObject } from '@/lib/shared/metadata';
-import ClientSlugHandler from '../ClientSlugHandler';
+import { Metadata } from "next";
+import PageContent from "@/lib/shared/PageContent";
+import fetchContentType from "@/lib/strapi/fetchContentType";
+import { generateMetadataObject } from "@/lib/shared/metadata";
+import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
+import ClientSlugHandler from "../ClientSlugHandler";
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { locale: string; slug: string };
 }): Promise<Metadata> {
@@ -14,11 +15,11 @@ export async function generateMetadata({
     {
       filters: {
         slug: params.slug,
-        locale: params.locale,
+        locale: params.locale
       },
-      populate: "seo.metaImage",
+      populate: "seo.metaImage"
     },
-    true,
+    true
   );
 
   const seo = pageData?.seo;
@@ -26,24 +27,26 @@ export async function generateMetadata({
   return metadata;
 }
 
-export default async function Page({ params }: { params: { locale: string, slug: string } }) {
+export default async function Page({
+  params
+}: {
+  params: { locale: string; slug: string };
+}) {
   const pageData = await fetchContentType(
     "pages",
     {
       filters: {
         slug: params.slug,
-        locale: params.locale,
-      },
+        locale: params.locale
+      }
     },
-    true,
+    true
   );
 
-  const localizedSlugs = pageData.localizations?.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = localization.slug;
-      return acc;
-    },
-    { [params.locale]: params.slug }
+  const localizedSlugs = useLocalizedSlugs(
+    pageData?.localizations,
+    params.locale,
+    params.slug
   );
 
   return (
@@ -51,6 +54,5 @@ export default async function Page({ params }: { params: { locale: string, slug:
       <ClientSlugHandler localizedSlugs={localizedSlugs} />
       <PageContent pageData={pageData} />
     </>
-
   );
 }
