@@ -114,10 +114,10 @@ body {
 
 @layer base {
   .text-field {
-    @apply relative p-3 py-2 rounded-xl outline-none w-full text-gray-700 placeholder-gray-400;
+    @apply relative p-3 py-3 outline-none w-full text-foreground placeholder-gray-400;
 
     &.outlined {
-      @apply border border-gray-400 hover:border-primary text-gray-700;
+      @apply bg-foreground/5 border border-foreground/10 hover:border-primary;
     }
 
     &.contained {

@@ -3,6 +3,7 @@ import "@/styles/globals.scss";
 
 import { cormorantGaramond, libreFranklin } from "@/components/fonts";
 import { Locale, i18n } from "@/i18n.config";
+import { cn } from "@/lib/utils";
 import type { Viewport } from "next";
 import { SlugProvider } from "./context/SlugContext";
 
@@ -28,7 +29,11 @@ export default function RootLayout({
     <html lang={params.lang} suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${cormorantGaramond.variable} ${libreFranklin.variable} `}
+        className={cn(
+          cormorantGaramond.variable,
+          libreFranklin.variable,
+          "bg-background text-foreground antialiased h-full w-full"
+        )}
       >
         <SlugProvider>{children}</SlugProvider>
       </body>

@@ -7,7 +7,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
 import { Button } from "../elements/button";
 
@@ -43,7 +43,7 @@ export function Modal({ children }: { children: ReactNode }) {
 export const ModalTrigger = ({
   children,
   className,
-  onClick,
+  onClick
 }: {
   children: ReactNode;
   className?: string;
@@ -65,7 +65,7 @@ export const ModalTrigger = ({
 
 export const ModalBody = ({
   children,
-  className,
+  className
 }: {
   children: ReactNode;
   className?: string;
@@ -89,15 +89,15 @@ export const ModalBody = ({
       {open && (
         <motion.div
           initial={{
-            opacity: 0,
+            opacity: 0
           }}
           animate={{
             opacity: 1,
-            backdropFilter: "blur(10px)",
+            backdropFilter: "blur(10px)"
           }}
           exit={{
             opacity: 0,
-            backdropFilter: "blur(0px)",
+            backdropFilter: "blur(0px)"
           }}
           className="z-50 fixed inset-0 flex justify-center items-center w-full h-full [perspective:800px] [transform-style:preserve-3d]"
         >
@@ -106,30 +106,30 @@ export const ModalBody = ({
           <motion.div
             ref={modalRef}
             className={cn(
-              "z-50 relative flex flex-col flex-1 bg-background m-4 border border-transparent md:rounded-2xl md:max-w-3xl min-h-[50%] max-h-[90%] overflow-hidden",
+              "z-50 relative flex flex-col flex-1 bg-card m-4 border border-transparent md:rounded-2xl md:max-w-3xl min-h-[50%] max-h-[90%] overflow-hidden",
               className
             )}
             initial={{
               opacity: 0,
               scale: 0.5,
               rotateX: 40,
-              y: 40,
+              y: 40
             }}
             animate={{
               opacity: 1,
               scale: 1,
               rotateX: 0,
-              y: 0,
+              y: 0
             }}
             exit={{
               opacity: 0,
               scale: 0.8,
-              rotateX: 10,
+              rotateX: 10
             }}
             transition={{
               type: "spring",
               stiffness: 260,
-              damping: 35,
+              damping: 35
             }}
           >
             <CloseIcon />
@@ -143,7 +143,7 @@ export const ModalBody = ({
 
 export const ModalContent = ({
   children,
-  className,
+  className
 }: {
   children: ReactNode;
   className?: string;
@@ -157,7 +157,7 @@ export const ModalContent = ({
 
 export const ModalFooter = ({
   children,
-  className,
+  className
 }: {
   children: ReactNode;
   className?: string;
@@ -171,20 +171,9 @@ export const ModalFooter = ({
 
 const Overlay = ({ className }: { className?: string }) => {
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-        backdropFilter: "blur(10px)",
-      }}
-      exit={{
-        opacity: 0,
-        backdropFilter: "blur(0px)",
-      }}
-      className={`fixed inset-0 h-full w-full bg-foreground bg-opacity-50 z-50 ${className}`}
-    ></motion.div>
+    <div
+      className={`fixed inset-0 h-full w-full bg-background backdrop-blur-2xl opacity-50 z-50 ${className}`}
+    />
   );
 };
 

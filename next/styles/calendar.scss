@@ -1,5 +1,5 @@
 .react-calendar {
-  @apply bg-white w-full max-w-xl text-foreground;
+  @apply bg-card w-full max-w-xl text-foreground;
 }
 
 .react-calendar--doubleView .react-calendar__viewContainer {
@@ -43,15 +43,15 @@
 
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  @apply bg-foreground/10;
 }
 
 .react-calendar__navigation button[disabled] {
-  background-color: #f0f0f0;
+  @apply bg-foreground/10;
 }
 
 .react-calendar__month-view__weekdays {
-  @apply font-medium text-gray-800 text-sm lg:text-base text-center;
+  @apply font-medium text-foreground/75 text-sm lg:text-base text-center;
 }
 
 .react-calendar__month-view__weekdays abbr {
@@ -98,12 +98,12 @@
 }
 
 .react-calendar__tile--hasActive {
-  background: #76baff;
+  @apply bg-accent;
 }
 
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
-  background: #a9d4ff;
+  @apply bg-foreground/10;
 }
 
 button.react-calendar__tile--active {
@@ -112,8 +112,8 @@ button.react-calendar__tile--active {
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  @apply bg-primary;
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
-  background-color: #e6e6e6;
+  @apply bg-foreground/10;
 }

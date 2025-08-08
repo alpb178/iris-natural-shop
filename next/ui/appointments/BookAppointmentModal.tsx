@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/elements/button";
 import { TextInput } from "@/components/form/text-input/TextInput";
+import { Text } from "@/components/text/Text";
 import {
   Modal,
   ModalBody,
@@ -81,9 +82,11 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
 
       <ModalBody>
         <ModalContent>
-          <h4 className="mb-8 font-bold text-neutral-600 text-lg md:text-2xl text-center">
-            Pide una cita
-          </h4>
+          <Text
+            as="title"
+            content="Pide una cita"
+            className="mb-6 text-lg text-center"
+          />
 
           <FormProvider {...methods}>
             <div className="flex gap-6 mb-6">

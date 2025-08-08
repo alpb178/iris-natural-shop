@@ -6,10 +6,10 @@ export const Locales = { en: "English", es: "Español" };
 
 export const Currencies = [
   { value: "USD", label: "currencies.usd" },
-  { value: "EUR", label: "currencies.eur" },
+  { value: "EUR", label: "currencies.eur" }
 ];
 
-export const DEFAULT_INPUT_VARIANT = "contained";
+export const DEFAULT_INPUT_VARIANT = "outlined";
 
 export const COMPANY_NAME = "Alex";
 

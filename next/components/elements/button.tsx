@@ -21,18 +21,18 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const variantClass =
     variant === "simple"
-      ? "bg-transparent relative z-10 hover:border-border hover:bg-muted/10 border border-transparent text-foreground text-sm md:text-sm transition font-medium duration-200  px-4 py-2 flex items-center justify-center"
+      ? "bg-transparent relative z-10 hover:border-border hover:bg-muted/10 border border-transparent text-foreground  transition font-medium duration-200  px-4 py-2 flex items-center justify-center"
       : variant === "outline"
-      ? "bg-background relative z-10 hover:bg-muted hover:shadow-xl text-foreground border  hover:text-foreground text-sm md:text-sm transition font-medium duration-200  px-4 py-2 flex items-center justify-center"
+      ? "bg-background relative z-10 hover:bg-muted hover:shadow-xl text-foreground border  hover:text-foreground  transition font-medium duration-200  px-4 py-2 flex items-center justify-center"
       : variant === "primary"
-      ? "bg-primary relative z-10 hover:bg-primary/90 border border-primary text-primary-foreground text-sm md:text-sm transition font-medium duration-200 px-4 py-2 flex items-center justify-center hover:-translate-y-1 active:-translate-y-0"
+      ? "bg-primary relative z-10 hover:bg-primary/90 border border-primary text-primary-foreground  transition font-medium duration-200 px-4 py-2 flex items-center justify-center hover:-translate-y-1 active:-translate-y-0"
       : variant === "muted"
-      ? "bg-muted relative z-10 hover:bg-muted/80 border border-transparent text-muted-foreground text-sm md:text-sm transition font-medium duration-200  px-4 py-2 flex items-center justify-center shadow-[0px_1px_0px_0px_#FFFFFF20_inset]"
+      ? "bg-muted relative z-10 hover:bg-muted/80 border border-transparent text-muted-foreground  transition font-medium duration-200  px-4 py-2 flex items-center justify-center shadow-[0px_1px_0px_0px_#FFFFFF20_inset]"
       : "";
   return (
     <Tag
       className={cn(
-        "z-10 relative flex justify-center items-center px-4 py-2 border font-medium text-sm md:text-sm transition duration-200",
+        "z-10 relative flex justify-center items-center px-4 py-2 border font-medium transition duration-200",
         variantClass,
         className,
         props.disabled && "opacity-50 cursor-not-allowed"

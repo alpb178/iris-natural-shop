@@ -5,12 +5,7 @@ import { useCart } from "@/context/cart-context";
 import { useTheme } from "@/context/theme-context";
 import { cn } from "@/lib/utils";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll
-} from "framer-motion";
+import { useMotionValueEvent, useScroll } from "framer-motion";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
 import { useState } from "react";
@@ -52,19 +47,13 @@ export const DesktopNavbar = ({
     }
   });
   return (
-    <motion.div
+    <div
       className={cn(
-        "relative flex justify-between bg-transparent mx-auto px-4 py-3 rounded-md w-full transition duration-200"
+        "flex justify-between mx-auto px-4 py-3 rounded-md w-full transition duration-200",
+        showBackground ? "backdrop-blur-2xl bg-card/60" : "bg-transparent"
       )}
-      animate={{
-        width: showBackground ? "80%" : "100%",
-        background: showBackground ? "hsl(var(--card))" : "transparent"
-      }}
-      transition={{
-        duration: 0.4
-      }}
     >
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {showBackground && (
           <motion.div
             key={String(showBackground)}
@@ -76,7 +65,7 @@ export const DesktopNavbar = ({
             className="absolute inset-0 bg-card rounded-full w-full h-full pointer-events-none [mask-image:linear-gradient(to_bottom,white,transparent,white)]"
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
       <div className="flex flex-row items-center gap-2">
         <Logo locale={locale} image={logo?.image} />
         <div className="flex items-center gap-1.5">
@@ -117,6 +106,6 @@ export const DesktopNavbar = ({
 
         <BookAppointmentModal onClick={() => {}} />
       </div>
-    </motion.div>
+    </div>
   );
 };

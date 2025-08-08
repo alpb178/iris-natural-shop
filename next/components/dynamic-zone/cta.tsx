@@ -36,7 +36,6 @@ export const CTA = ({
                 key={index}
                 href={`/${locale}${cta.URL}`}
                 variant={cta.variant}
-                className="py-3"
               >
                 {cta.text}
               </Button>

@@ -56,7 +56,7 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
               background="transparent"
               minSize={0.4}
               maxSize={1}
-              particleDensity={100}
+              particleDensity={90}
               className="w-full h-full"
               particleColor="var(--primary)"
             />

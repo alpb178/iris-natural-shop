@@ -1,13 +1,11 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { Link } from "next-view-transitions";
-import { useState } from "react";
-import { IoIosMenu } from "react-icons/io";
-import { IoIosClose } from "react-icons/io";
 import { Button } from "@/components/elements/button";
 import { Logo } from "@/components/logo";
+import { cn } from "@/lib/utils";
 import { useMotionValueEvent, useScroll } from "framer-motion";
-import { LocaleSwitcher } from "../locale-switcher";
+import { Link } from "next-view-transitions";
+import { useState } from "react";
+import { IoIosClose, IoIosMenu } from "react-icons/io";
 
 type Props = {
   leftNavbarItems: {
@@ -28,7 +26,7 @@ export const MobileNavbar = ({
   leftNavbarItems,
   rightNavbarItems,
   logo,
-  locale,
+  locale
 }: Props) => {
   const [open, setOpen] = useState(false);
 
@@ -47,7 +45,7 @@ export const MobileNavbar = ({
   return (
     <div
       className={cn(
-        "flex justify-between bg-transparent items-center w-full rounded-md px-2.5 py-1.5 transition duration-200",
+        "flex justify-between items-center bg-transparent px-2.5 py-1.5 rounded-md w-full transition duration-200",
         showBackground &&
           " bg-card shadow-[0px_-2px_0px_0px_var(--neutral-800),0px_2px_0px_0px_var(--neutral-800)]"
       )}
@@ -55,23 +53,23 @@ export const MobileNavbar = ({
       <Logo image={logo?.image} />
 
       <IoIosMenu
-        className="text-foreground h-6 w-6"
+        className="w-6 h-6 text-foreground"
         onClick={() => setOpen(!open)}
       />
 
       {open && (
-        <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex flex-col items-start justify-start space-y-10 pt-5 text-xl transition duration-200">
-          <div className="flex items-center justify-between w-full px-5">
+        <div className="z-50 fixed inset-0 flex flex-col justify-start items-start space-y-10 bg-background/95 backdrop-blur-2xl pt-5 text-xl transition duration-200">
+          <div className="flex justify-between items-center px-5 w-full">
             <Logo locale={locale} image={logo?.image} />
             <div className="flex items-center space-x-2">
-              <LocaleSwitcher currentLocale={locale} />
+              {/* <LocaleSwitcher currentLocale={locale} /> */}
               <IoIosClose
-                className="h-8 w-8 text-foreground"
+                className="w-8 h-8 text-foreground"
                 onClick={() => setOpen(!open)}
               />
             </div>
           </div>
-          <div className="flex flex-col items-start justify-start gap-[14px] px-8">
+          <div className="flex flex-col justify-start items-start gap-[14px] px-8">
             {leftNavbarItems.map((navItem: any, idx: number) => (
               <>
                 {navItem.children && navItem.children.length > 0 ? (
@@ -81,7 +79,7 @@ export const MobileNavbar = ({
                         key={`link=${idx}`}
                         href={`/${locale}${childNavItem.URL}`}
                         onClick={() => setOpen(false)}
-                        className="relative max-w-[15rem] text-left text-2xl"
+                        className="relative max-w-[15rem] text-2xl text-left"
                       >
                         <span className="block text-foreground">
                           {childNavItem.text}
@@ -104,7 +102,7 @@ export const MobileNavbar = ({
               </>
             ))}
           </div>
-          <div className="flex flex-row w-full items-start gap-2.5  px-8 py-4 ">
+          <div className="flex flex-row items-start gap-2.5 px-8 py-4 w-full">
             {rightNavbarItems.map((item, index) => (
               <Button
                 key={item.text}

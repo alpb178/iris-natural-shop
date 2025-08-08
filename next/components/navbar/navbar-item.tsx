@@ -2,8 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { Link } from "next-view-transitions";
-import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
 
 type Props = {
   href: never;
@@ -18,7 +18,7 @@ export function NavbarItem({
   href,
   active,
   target,
-  className,
+  className
 }: Props) {
   const pathname = usePathname();
 
@@ -26,12 +26,12 @@ export function NavbarItem({
     <Link
       href={href}
       className={cn(
-        "flex items-center justify-center text-sm leading-[110%] px-4 py-2 rounded-md transition duration-200",
+        "flex justify-center items-center px-4 py-2 rounded-md leading-[110%] transition duration-200",
         "text-foreground hover:text-foreground/80",
-        "hover:bg-neutral-800/10 dark:hover:bg-neutral-800",
-        "hover:shadow-[0px_1px_0px_0px_var(--neutral-600)_inset]",
+        // "hover:bg-neutral-800/10 dark:hover:bg-neutral-800",
+        // "hover:shadow-[0px_1px_0px_0px_var(--neutral-600)_inset]",
         (active || pathname?.includes(href)) &&
-          "bg-transparent text-foreground",
+          "bg-transparent text-foreground ",
         className
       )}
       target={target}
