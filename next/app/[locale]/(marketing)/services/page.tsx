@@ -24,20 +24,23 @@ export async function generateMetadata({
   return metadata;
 }
 
-export default async function Products({
+export default async function Services({
   params
 }: {
   params: { locale: string };
 }) {
   const services = await fetchContentType("products");
 
-  console.log(services, "services");
-
   return (
     <div className="relative overflow-hidden w-full">
       <AmbientColor />
       <Container className="pt-10 pb-40">
-        <ProductItems services={services?.data} locale={params.locale} />
+        <ProductItems
+          services={services?.data}
+          locale={params.locale}
+          heading="Nuestros Servicios"
+          sub_heading="Descubre lo que podemos hacer por ti"
+        />
       </Container>
     </div>
   );

@@ -21,7 +21,7 @@ export const ProductItems = ({
       <h2 className="text-2xl md:text-4xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-foreground via-foreground to-foreground mb-2">
         {heading}
       </h2>
-      <p className="text-neutral-500 text-lg mt-4 mb-10">{sub_heading}</p>
+      <p className="text-muted-foreground text-lg mt-4 mb-10">{sub_heading}</p>
       <div className="grid grid-cols-1 md:grid-cols-3  gap-20">
         {services &&
           services.length > 0 &&
@@ -49,8 +49,8 @@ const ProductItem = ({
       href={`/${locale}/services/${service.slug}` as never}
       className="group relative block"
     >
-      <div className="relative border border-foreground  rounded-md overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-foreground transition-all duration-200 z-30" />
+      <div className="relative border border-border rounded-md overflow-hidden bg-card">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80 transition-all duration-200 z-30" />
 
         <Image
           src={strapiImage(service.images?.[0]?.url ?? "")}
@@ -66,11 +66,11 @@ const ProductItem = ({
           <span className="text-foreground text-base font-medium">
             {service.name}
           </span>
-          <span className=" text-foreground shadow-derek text-xs px-2 py-1 rounded-full">
+          <span className="text-foreground bg-primary/10 text-primary shadow-sm text-xs px-2 py-1 rounded-full">
             ${formatNumber(service.price)}
           </span>
         </div>
-        <p className="text-foreground text-sm mt-4">
+        <p className="text-muted-foreground text-sm mt-4">
           {truncate(service.description, 100)}
         </p>
       </div>
