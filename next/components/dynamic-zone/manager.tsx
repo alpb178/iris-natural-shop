@@ -61,6 +61,10 @@ const componentMapping: { [key: string]: any } = {
   "dynamic-zone.privacy-policy": dynamic(
     () => import("./privacy-policy").then((mod) => mod.PrivacyPolicy),
     { ssr: false }
+  ),
+  "dynamic-zone.story-panel": dynamic(
+    () => import("./story-panel").then((mod) => mod.StoryPanel),
+    { ssr: false }
   )
 };
 
