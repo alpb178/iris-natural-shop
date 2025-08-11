@@ -1,9 +1,10 @@
 "use client";
+
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Button } from "../button/Button";
 import { Container } from "../container";
 import { AmbientColor } from "../decorations/ambient-color";
-import { Button } from "../elements/button";
 
 export const CTA = ({
   heading,
@@ -36,9 +37,8 @@ export const CTA = ({
                 key={index}
                 href={`/${locale}${cta.URL}`}
                 variant={cta.variant}
-              >
-                {cta.text}
-              </Button>
+                label={cta.text}
+              />
             ))}
         </div>
       </Container>

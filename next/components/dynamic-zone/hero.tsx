@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Button } from "../button/Button";
 import { Cover } from "../decorations/cover";
 import ShootingStars from "../decorations/shooting-star";
 import StarBackground from "../decorations/star-background";
-import { Button } from "../elements/button";
 import { Heading } from "../elements/heading";
 import { Subheading } from "../elements/subheading";
 
@@ -48,9 +48,8 @@ export const Hero = ({
               as={Link}
               href={`/${locale}${cta.URL}`}
               {...(cta.variant && { variant: cta.variant })}
-            >
-              {cta.text}
-            </Button>
+              label={cta.text}
+            />
           ))}
       </div>
       <div className="bottom-0 absolute inset-x-0 bg-gradient-to-t from-background to-transparent w-full h-80" />

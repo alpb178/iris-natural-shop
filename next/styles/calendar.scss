@@ -89,7 +89,7 @@
 }
 
 .react-calendar__tile--now {
-  @apply border border-primary;
+  @apply border border-foreground;
 }
 
 .react-calendar__tile--now:enabled:hover,

@@ -1,10 +1,10 @@
 "use client";
-import { Button } from "@/components/elements/button";
+
+import { Button } from "@/components/button/Button";
 import { TextInput } from "@/components/form/text-input/TextInput";
 import { Text } from "@/components/text/Text";
-import { StepProps } from "./BookAppointmentModal";
+import { StepProps } from "./StepProps";
 
-// Step 2: User Information
 export const Step2 = ({ onNext, onBack, methods, name, email }: StepProps) => {
   return (
     <div className="slide-in-from-right-4 space-y-6 animate-in duration-300">
@@ -21,10 +21,10 @@ export const Step2 = ({ onNext, onBack, methods, name, email }: StepProps) => {
       </div>
 
       <div className="flex justify-between">
-        <Button variant="muted" onClick={onBack}>
+        <Button variant="outline" onClick={onBack}>
           Anterior
         </Button>
-        <Button variant="muted" disabled={!name || !email} onClick={onNext}>
+        <Button variant="solid" disabled={!name || !email} onClick={onNext}>
           Siguiente
         </Button>
       </div>

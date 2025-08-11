@@ -1,5 +1,5 @@
 .base {
-  @apply flex justify-center items-center aria-disabled:opacity-50 active:opacity-50 hover:shadow-black/25 hover:shadow-md active:shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 overflow-hidden font-medium transition duration-300 ease-in-out aria-disabled:cursor-not-allowed;
+  @apply flex justify-center items-center aria-disabled:opacity-50  hover:shadow-black/25 hover:shadow-md active:shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 overflow-hidden font-medium transition duration-300 ease-in-out aria-disabled:cursor-not-allowed;
 
   .icon_n_label {
     @apply justify-between space-x-6;
@@ -7,7 +7,7 @@
 }
 
 .sm {
-  @apply p-2 px-4 rounded-xl text-sm;
+  @apply p-2 px-4 text-sm;
 
   .icon_n_label {
     @apply justify-between space-x-4;
@@ -19,11 +19,11 @@
 }
 
 .md {
-  @apply p-2.5 px-6 rounded-xl max-w-xl;
+  @apply p-2.5 px-6 max-w-xl;
 }
 
 .lg {
-  @apply p-6 rounded-xl max-w-lg;
+  @apply p-6 max-w-lg;
 }
 
 .link {
@@ -31,10 +31,10 @@
 }
 
 .solid {
-  @apply bg-primary/75 hover:bg-primary/80 border border-gray-900 text-gray-900 hover:text-gray-900;
+  @apply bg-primary shadow-black hover:shadow-lg text-foreground transition-all hover:-translate-y-1 active:-translate-y-0 duration-200 ease-in-out;
 
   &.primary {
-    @apply bg-primary hover:bg-primary/10 hover:border-gray-900 text-gray-900 hover:text-primary;
+    @apply bg-primary hover:bg-primary/10 hover:border-gray-900 text-gray-900;
   }
 
   &.secondary {
@@ -51,7 +51,7 @@
 }
 
 .outline {
-  @apply bg-white border border-gray-700 text-gray-700;
+  @apply bg-card shadow-black hover:shadow-lg border border-gray-700 text-foreground hover:-translate-y-1 active:-translate-y-0;
 
   &.primary {
     @apply border-primary text-primary;

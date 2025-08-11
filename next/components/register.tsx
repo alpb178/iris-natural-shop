@@ -1,10 +1,11 @@
 "use client";
+
 import {
   IconBrandGithubFilled,
   IconBrandGoogleFilled
 } from "@tabler/icons-react";
+import { Button } from "./button/Button";
 import { Container } from "./container";
-import { Button } from "./elements/button";
 import { Logo } from "./logo";
 
 export const Register = () => {
@@ -26,7 +27,7 @@ export const Register = () => {
           placeholder="Password"
           className="bg-primary mb-4 pl-4 border border-neutral-800 rounded-md outline-none focus:outline-none active:outline-none focus:ring-2 focus:ring-neutral-800 w-full h-10 text-foreground text-sm placeholder-neutral-500"
         />
-        <Button variant="muted" type="submit" className="py-3 w-full">
+        <Button variant="solid" type="submit" className="py-3 w-full">
           <span className="text-sm">Sign up</span>
         </Button>
       </form>

@@ -1,7 +1,7 @@
 "use client";
 
+import { Button } from "@/components/button/Button";
 import { Container } from "@/components/container/Container";
-import { Button } from "@/components/elements/button";
 import { Modal } from "@/components/modal/Modal";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -36,7 +36,7 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
 
   const methods = useForm<FormData>({
     defaultValues: {
-      date: null,
+      date: new Date(new Date().setDate(new Date().getDate() + 1)),
       time: null,
       name: "",
       email: "",
@@ -182,9 +182,15 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Pide una cita</Button>
+      <Button onClick={() => setOpen(true)} label="Pide una cita" />
 
-      <Modal open={open} onClose={() => setOpen(false)} position="center">
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        position="center"
+        className="bg-card"
+        title="Pide una cita"
+      >
         <Container>
           {renderStepIndicator()}
 

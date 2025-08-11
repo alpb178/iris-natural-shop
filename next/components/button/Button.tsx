@@ -1,16 +1,19 @@
-import clsx from 'clsx';
-import { Loader } from '../loader/Loader';
-import styles from './Button.module.scss';
+import clsx from "clsx";
+import { LinkProps } from "next/link";
+import { Loader } from "../loader/Loader";
+import styles from "./Button.module.scss";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  as?: React.ElementType;
   children?: React.ReactNode;
-  color?: 'primary' | 'secondary' | 'danger' | 'black';
+  color?: "primary" | "secondary" | "danger" | "black";
   icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: "left" | "right";
   label?: string;
   loading?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'flat' | 'outline' | 'solid' | 'link';
+  size?: "sm" | "md" | "lg";
+  variant?: "flat" | "outline" | "solid" | "link";
+  href?: LinkProps["href"];
 }
 
 export function Button({
@@ -18,13 +21,13 @@ export function Button({
   className,
   color,
   icon,
-  iconPosition = 'right',
+  iconPosition = "right",
   label,
   loading,
-  size = 'md',
+  size = "md",
   disabled,
-  type = 'button',
-  variant = 'solid',
+  type = "button",
+  variant = "solid",
   ...rest
 }: Readonly<ButtonProps>) {
   return (
@@ -35,8 +38,8 @@ export function Button({
         styles[size],
         styles[variant],
         color && styles[color],
-        loading && 'relative',
-        disabled && 'opacity-50 cursor-not-allowed hover:bg-gray-400'
+        loading && "relative",
+        disabled && "opacity-50 cursor-not-allowed hover:bg-gray-400 "
       )}
       name={label}
       disabled={disabled ?? loading}
@@ -44,20 +47,20 @@ export function Button({
       {...rest}
     >
       {loading && (
-        <div className="absolute inset-0 bg-white">
+        <div className="absolute inset-0 bg-card">
           <Loader />
         </div>
       )}
 
       <div
         className={clsx(
-          'flex items-center w-full',
-          icon && label ? styles.icon_n_label : 'justify-center'
+          "flex items-center w-full",
+          icon && label ? styles.icon_n_label : "justify-center"
         )}
       >
-        {icon && iconPosition === 'left' && <span>{icon}</span>}
+        {icon && iconPosition === "left" && <span>{icon}</span>}
         <span>{label}</span>
-        {icon && iconPosition === 'right' && <span>{icon}</span>}
+        {icon && iconPosition === "right" && <span>{icon}</span>}
       </div>
 
       {children}

@@ -1,11 +1,12 @@
 "use client";
-import { Button } from "@/components/elements/button";
+
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { MenuIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
 import { useState } from "react";
+import { Button } from "../button/Button";
 import { CloseButton } from "../button/close-button/CloseButton";
 import { Modal } from "../modal/Modal";
 
@@ -112,7 +113,7 @@ export const MobileNavbar = ({
               <Button
                 key={item.text}
                 variant={
-                  index === rightNavbarItems.length - 1 ? "primary" : "simple"
+                  index === rightNavbarItems.length - 1 ? "solid" : "outline"
                 }
                 as={Link}
                 href={`/${locale}${item.URL}`}

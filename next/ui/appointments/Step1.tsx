@@ -1,4 +1,4 @@
-import { Button } from "@/components/elements/button";
+import { Button } from "@/components/button/Button";
 import { Text } from "@/components/text/Text";
 import dayjs from "dayjs";
 import { Calendar } from "react-calendar";
@@ -61,7 +61,7 @@ export const Step1 = ({
 
       <div className="flex justify-end">
         <Button
-          variant="muted"
+          variant="solid"
           disabled={!selectedDate || !selectedTime}
           onClick={onNext}
         >

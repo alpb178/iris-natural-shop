@@ -3,15 +3,13 @@
 import ShootingStars from "@/components/decorations/shooting-star";
 import StarBackground from "@/components/decorations/star-background";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
-
 import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX
 } from "@tabler/icons-react";
 import Link from "next/link";
-
-import { Button } from "../elements/button";
+import { Button } from "../button/Button";
 
 export function FormNextToSection({
   heading,

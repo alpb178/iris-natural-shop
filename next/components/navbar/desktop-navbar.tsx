@@ -1,5 +1,6 @@
 "use client";
-import { Button } from "@/components/elements/button";
+
+import { Button } from "@/components/button/Button";
 import { Logo } from "@/components/logo";
 import { useCart } from "@/context/cart-context";
 import { useTheme } from "@/context/theme-context";
@@ -9,6 +10,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
 import { useState } from "react";
+import { IconButton } from "../button/icon-button/IconButton";
 import { NavbarItem } from "./navbar-item";
 
 type Props = {
@@ -50,7 +52,7 @@ export const DesktopNavbar = ({
     <div
       className={cn(
         "flex justify-between mx-auto px-4 py-3 rounded-md w-full transition duration-200",
-        showBackground ? "backdrop-blur-2xl bg-card/60" : "bg-transparent"
+        showBackground ? "backdrop-blur-2xl bg-card/65" : "bg-transparent"
       )}
     >
       {/* <AnimatePresence>
@@ -87,22 +89,19 @@ export const DesktopNavbar = ({
           <Button
             key={item.text}
             variant={
-              index === rightNavbarItems.length - 1 ? "primary" : "simple"
+              index === rightNavbarItems.length - 1 ? "solid" : "outline"
             }
             as={Link}
             href={`/${locale}${item.URL}`}
-          >
-            {item.text}
-          </Button>
+            label={item.text}
+          />
         ))}
 
-        <Button
-          variant="simple"
+        <IconButton
           className="bg-background text-foreground"
           onClick={toggleTheme}
-        >
-          {theme === "light" ? <MoonIcon /> : <SunIcon />}
-        </Button>
+          icon={theme === "light" ? <MoonIcon /> : <SunIcon />}
+        />
 
         <BookAppointmentModal onClick={() => {}} />
       </div>

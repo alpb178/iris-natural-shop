@@ -1,8 +1,9 @@
 "use client";
-import { Button } from "@/components/elements/button";
+
+import { Button } from "@/components/button/Button";
 import { Text } from "@/components/text/Text";
 import dayjs from "dayjs";
-import { StepProps } from "./BookAppointmentModal";
+import { StepProps } from "./StepProps";
 
 // Step 3: Summary and Confirmation
 export const Step3 = ({
@@ -68,17 +69,17 @@ export const Step3 = ({
             {submitResult.message}
           </div>
           <div className="flex justify-center">
-            <Button variant="muted" onClick={onClose}>
+            <Button variant="outline" onClick={onClose}>
               {submitResult.success ? "Cerrar" : "Intentar de nuevo"}
             </Button>
           </div>
         </div>
       ) : (
         <div className="flex justify-between">
-          <Button variant="muted" onClick={onBack}>
+          <Button variant="outline" onClick={onBack}>
             Anterior
           </Button>
-          <Button variant="muted" disabled={isSubmitting} onClick={onSubmit}>
+          <Button variant="solid" disabled={isSubmitting} onClick={onSubmit}>
             {isSubmitting ? "Reservando..." : "Confirmar cita"}
           </Button>
         </div>
