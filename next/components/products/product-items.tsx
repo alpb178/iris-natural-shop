@@ -44,6 +44,8 @@ const ProductItem = ({
   service: Service;
   locale: string;
 }) => {
+  console.log(service, "sw");
+
   return (
     <Link
       href={`/${locale}/services/${service.slug}` as never}
@@ -66,7 +68,7 @@ const ProductItem = ({
           <span className="text-foreground text-base font-medium">
             {service.name}
           </span>
-          <span className="text-foreground bg-primary/10 text-primary shadow-sm text-xs px-2 py-1 rounded-full">
+          <span className="text-foreground bg-primary/10 shadow-sm text-xs px-2 py-1 rounded-full">
             ${formatNumber(service.price)}
           </span>
         </div>

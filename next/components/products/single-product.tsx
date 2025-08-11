@@ -1,11 +1,9 @@
 "use client";
 
-import { useCart } from "@/context/cart-context";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { cn, formatNumber } from "@/lib/utils";
 import { Service } from "@/types/types";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
-import { IconCheck } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -14,7 +12,6 @@ export const SingleProduct = ({ product }: { product: Service }) => {
   const [activeThumbnail, setActiveThumbnail] = useState(
     strapiImage(product.images[0].url)
   );
-  const { addToCart } = useCart();
 
   return (
     <div className="bg-gradient-to-b from-background to-background p-4 md:p-10 rounded-md">
@@ -77,7 +74,7 @@ export const SingleProduct = ({ product }: { product: Service }) => {
 
           <Divider />
 
-          <BookAppointmentModal onClick={() => addToCart(product)} />
+          <BookAppointmentModal />
         </div>
       </div>
     </div>
@@ -88,17 +85,6 @@ const Divider = () => {
   return (
     <div className="relative my-6">
       <div className="bg-border w-full h-px" />
-    </div>
-  );
-};
-
-const Step = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="flex justify-start items-start gap-2 my-4">
-      <div className="flex flex-shrink-0 justify-center items-center bg-primary mt-0.5 rounded-full w-4 h-4">
-        <IconCheck className="w-3 h-3 text-primary-foreground [stroke-width:4px]" />
-      </div>
-      <div className="font-medium text-foreground text-sm">{children}</div>
     </div>
   );
 };
