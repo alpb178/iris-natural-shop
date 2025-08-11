@@ -31,7 +31,7 @@
 }
 
 .solid {
-  @apply bg-primary shadow-black hover:shadow-lg text-foreground transition-all hover:-translate-y-1 active:-translate-y-0 duration-200 ease-in-out;
+  @apply bg-foreground shadow-black hover:shadow-lg text-background transition-all hover:-translate-y-1 active:-translate-y-0 duration-200 ease-in-out;
 
   &.primary {
     @apply bg-primary hover:bg-primary/10 hover:border-gray-900 text-gray-900;

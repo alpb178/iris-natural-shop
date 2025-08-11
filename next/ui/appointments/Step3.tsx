@@ -69,19 +69,21 @@ export const Step3 = ({
             {submitResult.message}
           </div>
           <div className="flex justify-center">
-            <Button variant="outline" onClick={onClose}>
-              {submitResult.success ? "Cerrar" : "Intentar de nuevo"}
-            </Button>
+            <Button
+              variant="outline"
+              onClick={onClose}
+              label={submitResult.success ? "Cerrar" : "Intentar de nuevo"}
+            />
           </div>
         </div>
       ) : (
         <div className="flex justify-between">
-          <Button variant="outline" onClick={onBack}>
-            Anterior
-          </Button>
-          <Button variant="solid" disabled={isSubmitting} onClick={onSubmit}>
-            {isSubmitting ? "Reservando..." : "Confirmar cita"}
-          </Button>
+          <Button variant="outline" onClick={onBack} label="Anterior" />
+          <Button
+            disabled={isSubmitting}
+            onClick={onSubmit}
+            label={isSubmitting ? "Enviando..." : "Enviar petición"}
+          />
         </div>
       )}
     </div>

@@ -2,6 +2,7 @@
 
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
+import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { MenuIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
@@ -55,7 +56,7 @@ export const MobileNavbar = ({
       <Logo image={logo?.image} />
 
       <MenuIcon
-        className="w-8 h-8 text-foreground"
+        className="size-8 text-foreground"
         onClick={() => setOpen(!open)}
       />
 
@@ -85,7 +86,7 @@ export const MobileNavbar = ({
                         key={`link=${idx}`}
                         href={`/${locale}${childNavItem.URL}`}
                         onClick={() => setOpen(false)}
-                        className="relative max-w-[15rem] text-2xl"
+                        className="relative max-w-[15rem] text-xl"
                       >
                         <span className="block text-foreground">
                           {childNavItem.text}
@@ -100,7 +101,7 @@ export const MobileNavbar = ({
                     onClick={() => setOpen(false)}
                     className="relative"
                   >
-                    <span className="block text-[26px] text-foreground">
+                    <span className="block text-foreground text-xl">
                       {navItem.text}
                     </span>
                   </Link>
@@ -108,7 +109,8 @@ export const MobileNavbar = ({
               </>
             ))}
           </div>
-          <div className="flex flex-row items-start gap-2.5 px-8 py-4 w-full">
+
+          <div className="flex flex-row items-start gap-2.5 px-6 py-8 w-full">
             {rightNavbarItems.map((item, index) => (
               <Button
                 key={item.text}
@@ -117,10 +119,11 @@ export const MobileNavbar = ({
                 }
                 as={Link}
                 href={`/${locale}${item.URL}`}
-              >
-                {item.text}
-              </Button>
+                label={item.text}
+              />
             ))}
+
+            <BookAppointmentModal />
           </div>
         </>
       </Modal>

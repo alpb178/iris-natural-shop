@@ -2,7 +2,7 @@ import { CloseButton } from "@/components/button/close-button/CloseButton";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import clsx from "clsx";
 import { Container } from "../container/Container";
-import { Heading } from "../text/heading/Heading";
+import { Text } from "../text/Text";
 import styles from "./Modal.module.scss";
 import { ModalProps } from "./Modal.props";
 
@@ -20,7 +20,7 @@ export function Modal(props: Readonly<ModalProps>) {
   return (
     <Dialog open={open} as="div" className={styles.dialog} onClose={onClose}>
       <div className="z-50 fixed inset-0">
-        <div className="flex justify-center items-center bg-black/20 backdrop-blur-2xl h-full">
+        <div className="flex justify-center items-center bg-black/20 backdrop-blur-2xl h-screen">
           <DialogPanel
             transition
             className={clsx(
@@ -31,10 +31,10 @@ export function Modal(props: Readonly<ModalProps>) {
           >
             <div className={styles.header}>
               {position !== "bottom" ? (
-                <Container>
+                <Container className="pb-2">
                   <div className="flex items-center space-x-4">
                     {!hideCloseButton && <CloseButton onClick={onClose} />}
-                    {title && <Heading content={title} />}
+                    {title && <Text as="title" content={title} />}
                   </div>
                 </Container>
               ) : (
@@ -44,7 +44,7 @@ export function Modal(props: Readonly<ModalProps>) {
                   </div>
 
                   <Container className="pb-0">
-                    {title && <Heading content={title} />}
+                    {title && <Text as="title" content={title} />}
                   </Container>
                 </>
               )}

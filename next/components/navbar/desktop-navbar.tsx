@@ -103,7 +103,7 @@ export const DesktopNavbar = ({
           icon={theme === "light" ? <MoonIcon /> : <SunIcon />}
         />
 
-        <BookAppointmentModal onClick={() => {}} />
+        <BookAppointmentModal />
       </div>
     </div>
   );

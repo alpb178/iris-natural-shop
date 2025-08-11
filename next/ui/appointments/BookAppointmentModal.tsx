@@ -20,7 +20,7 @@ type FormData = {
 
 type Step = 1 | 2 | 3;
 
-export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
+export function BookAppointmentModal() {
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
   const [currentStep, setCurrentStep] = useState<Step>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -133,8 +133,7 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
 
   const handleClose = () => {
     if (submitResult?.success) {
-      onClick();
-    } else {
+      setOpen(false);
       setCurrentStep(1);
       setSubmitResult(null);
       methods.reset();
@@ -143,9 +142,9 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
 
   const renderStepIndicator = () => (
     <div className="mb-6">
-      <div className="bg-muted rounded-full w-full h-2">
+      <div className="bg-muted rounded-full w-full h-1.5">
         <div
-          className="bg-primary rounded-full h-2 transition-all duration-500 ease-in-out"
+          className="bg-foreground rounded-full h-1.5 transition-all duration-500 ease-in-out"
           style={{ width: `${(currentStep / 3) * 100}%` }}
         />
       </div>
@@ -182,14 +181,14 @@ export function BookAppointmentModal({ onClick }: { onClick: () => void }) {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} label="Pide una cita" />
+      <Button onClick={() => setOpen(true)} label="Pedir cita" />
 
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        position="center"
+        position="right"
         className="bg-card"
-        title="Pide una cita"
+        title="Pedir cita"
       >
         <Container>
           {renderStepIndicator()}

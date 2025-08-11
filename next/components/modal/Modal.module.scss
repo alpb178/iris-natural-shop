@@ -11,10 +11,6 @@
     .header {
       @apply shadow-lg border-b;
     }
-
-    .content {
-      @apply pt-6 h-full overflow-y-auto;
-    }
   }
 
   .bottom {
@@ -30,14 +26,10 @@
   }
 
   .left {
-    @apply left-0 fixed mx-auto xs:max-w-xl h-screen xs:h-full data-[closed]:-translate-x-full;
+    @apply left-0 fixed mx-auto xs:max-w-md h-screen xs:h-full data-[closed]:-translate-x-full;
   }
 
   .right {
-    @apply right-0 fixed mx-auto xs:max-w-xl h-screen xs:h-full data-[closed]:translate-x-full;
-
-    .content {
-      @apply pt-6 h-full overflow-y-auto;
-    }
+    @apply right-0 fixed mx-auto xs:max-w-md h-screen xs:h-full overflow-y-auto data-[closed]:translate-x-full;
   }
 }

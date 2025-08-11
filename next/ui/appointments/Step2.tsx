@@ -21,12 +21,8 @@ export const Step2 = ({ onNext, onBack, methods, name, email }: StepProps) => {
       </div>
 
       <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack}>
-          Anterior
-        </Button>
-        <Button variant="solid" disabled={!name || !email} onClick={onNext}>
-          Siguiente
-        </Button>
+        <Button variant="outline" onClick={onBack} label="Anterior" />
+        <Button disabled={!name || !email} onClick={onNext} label="Siguiente" />
       </div>
     </div>
   );
