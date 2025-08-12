@@ -61,6 +61,10 @@ const componentMapping: { [key: string]: any } = {
   "dynamic-zone.rich-text": dynamic(
     () => import("./rich-text").then((mod) => mod.RichText),
     { ssr: false }
+  ),
+  "dynamic-zone.story-panel": dynamic(
+    () => import("./story-panel").then((mod) => mod.StoryPanel),
+    { ssr: false }
   )
 };
 
