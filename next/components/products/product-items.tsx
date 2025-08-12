@@ -56,7 +56,7 @@ const ProductItem = ({
           alt={service.name}
           width={500}
           height={500}
-          className="w-full h-full object-cover group-hover:scale-105 transition duration-200"
+          className="w-full h-80 object-cover group-hover:scale-105 transition duration-200"
         />
       </div>
 

@@ -47,13 +47,13 @@ echo "🔨 Building new Docker image..."
 # Generate timestamp for image tag
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 IMAGE_NAME="alegd/alejandro-louro-cms"
-TAG="dev_${TIMESTAMP}"
 LATEST_TAG="latest"
 
 # Build the new image
 echo "📦 Building image: ${IMAGE_NAME}:${TAG}"
+echo "🔧 Building for platform: linux/amd64 (compatible with remote x86_64 host)"
 cd strapi
-docker build -t ${IMAGE_NAME}:${TAG} -t ${IMAGE_NAME}:${LATEST_TAG} .
+# docker build --platform linux/amd64 --no-cache -t ${IMAGE_NAME}:${LATEST_TAG} .
 
 if [ $? -ne 0 ]; then
     echo "❌ Error: Docker build failed!"
@@ -134,6 +134,14 @@ echo "✅ Docker Stack deployed!"
 echo "📊 Stack services:"
 docker stack services $STACK_NAME
 
+# Wait for services to be ready and check status
+echo "⏳ Waiting for services to be ready..."
+sleep 10
+
+# Check service status again
+echo "📊 Final service status:"
+docker stack services $STACK_NAME
+
 # Get server IP (cross-platform)
 SERVER_IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -n 1)
 if [ -z "$SERVER_IP" ]; then
@@ -142,8 +150,8 @@ fi
 
 echo ""
 echo "🌐 Access your applications:"
-echo "   - Strapi Admin: http://$SERVER_IP:1339/admin"
-echo "   - Strapi API: http://$SERVER_IP:1339/api"
+echo "   - Strapi Admin: http://$SERVER_IP:${STRAPI_PORT:-1337}/admin"
+echo "   - Strapi API: http://$SERVER_IP:${STRAPI_PORT:-1337}/api"
 echo "   - PostgreSQL: Internal only (not exposed externally)"
 echo ""
 echo "📋 Useful commands:"
