@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
   // Fetch appointments for the date
   const { data: appointments } = await getAppointments(date);
-  console.log("Taken slots:", appointments);
+
   // Generate all possible slots
   const slots: string[] = [];
   const start = dayjs(date).hour(WORKING_HOURS.start).minute(0).second(0);

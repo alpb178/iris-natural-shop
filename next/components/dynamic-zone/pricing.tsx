@@ -40,6 +40,7 @@ export const Pricing = ({
   const onClick = (plan: Plan) => {
     console.log("click", plan);
   };
+
   return (
     <div className="pt-40">
       <Container>

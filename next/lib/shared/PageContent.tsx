@@ -4,9 +4,8 @@ import DynamicZoneManager from "@/components/dynamic-zone/manager";
 export default function PageContent({ pageData }: { pageData: any }) {
   const dynamicZone = pageData?.dynamic_zone;
 
-  console.log(dynamicZone, "sw");
   return (
-    <div className="relative overflow-hidden w-full">
+    <div className="relative w-full overflow-hidden">
       <AmbientColor />
       {dynamicZone && (
         <DynamicZoneManager

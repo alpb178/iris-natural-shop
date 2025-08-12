@@ -41,6 +41,42 @@ if [ ! -f docker-compose.yml ]; then
     exit 1
 fi
 
+# Build and push new Docker image
+echo "🔨 Building new Docker image..."
+
+# Generate timestamp for image tag
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+IMAGE_NAME="alegd/alejandro-louro-cms"
+TAG="dev_${TIMESTAMP}"
+LATEST_TAG="latest"
+
+# Build the new image
+echo "📦 Building image: ${IMAGE_NAME}:${TAG}"
+cd strapi
+docker build -t ${IMAGE_NAME}:${TAG} -t ${IMAGE_NAME}:${LATEST_TAG} .
+
+if [ $? -ne 0 ]; then
+    echo "❌ Error: Docker build failed!"
+    exit 1
+fi
+
+echo "✅ Docker image built successfully"
+
+# Push the new image to Docker Hub
+echo "🚀 Pushing image to Docker Hub..."
+docker push ${IMAGE_NAME}:${TAG}
+docker push ${IMAGE_NAME}:${LATEST_TAG}
+
+if [ $? -ne 0 ]; then
+    echo "❌ Error: Docker push failed!"
+    exit 1
+fi
+
+echo "✅ Docker image pushed successfully: ${IMAGE_NAME}:${TAG}"
+
+# Go back to root directory
+cd ..
+
 # Load development environment variables from strapi/.env
 while IFS= read -r line; do
     if [[ -n "$line" && ! "$line" =~ ^[[:space:]]*# ]]; then
@@ -74,9 +110,9 @@ if ! docker info | grep -q "Swarm: active"; then
     docker swarm init
 fi
 
-# Pull the latest image from Docker Hub
+# Pull the latest image from Docker Hub (now using our newly built image)
 echo "📥 Pulling latest image from Docker Hub..."
-docker pull alegd/alejandro-louro-cms:latest
+docker pull ${IMAGE_NAME}:${LATEST_TAG}
 
 # Remove existing stack if it exists
 echo "Removing existing stack if it exists..."
@@ -114,4 +150,6 @@ echo "📋 Useful commands:"
 echo "   - View stack services: docker stack services $STACK_NAME"
 echo "   - View service logs: docker service logs ${STACK_NAME}_strapi"
 echo "   - Remove stack: docker stack rm $STACK_NAME"
-echo "   - Update stack: ./scripts/deploy-stack-simple.sh" 
+echo "   - Update stack: ./scripts/deploy-stack-simple.sh"
+echo ""
+echo "🐳 New Docker image deployed: ${IMAGE_NAME}:${TAG}" 

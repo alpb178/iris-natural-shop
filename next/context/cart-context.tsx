@@ -1,17 +1,18 @@
 "use client";
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { Product } from "@/types/types";
+
+import { Service } from "@/types/types";
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 type CartItem = {
-  product: Product;
+  service: Service;
   quantity: number;
 };
 
 type CartContextType = {
   items: CartItem[];
-  updateQuantity: (product: Product, quantity: number) => void;
-  addToCart: (product: Product) => void;
-  removeFromCart: (productId: number) => void;
+  updateQuantity: (service: Service, quantity: number) => void;
+  addToCart: (service: Service) => void;
+  removeFromCart: (serviceId: number) => void;
   clearCart: () => void;
   getCartTotal: () => number;
 };
@@ -19,29 +20,29 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addToCart = useCallback((product: Product) => {
+  const addToCart = useCallback((service: Service) => {
     setItems((prevItems) => {
       const existingItem = prevItems.find(
-        (item) => item.product.id === product.id
+        (item) => item.service.id === service.id
       );
       if (existingItem) {
         return prevItems.map((item) =>
-          item.product.id === product.id
+          item.service.id === service.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prevItems, { product, quantity: 1 }];
+      return [...prevItems, { service, quantity: 1 }];
     });
   }, []);
 
-  const removeFromCart = useCallback((productId: number) => {
+  const removeFromCart = useCallback((serviceId: number) => {
     setItems((prevItems) =>
-      prevItems.filter((item) => item.product.id !== productId)
+      prevItems.filter((item) => item.service.id !== serviceId)
     );
   }, []);
 
@@ -49,17 +50,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     setItems([]);
   }, []);
 
-  const updateQuantity = useCallback((product: Product, quantity: number) => {
+  const updateQuantity = useCallback((service: Service, quantity: number) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
-        item.product.id === product.id ? { ...item, quantity } : item
+        item.service.id === service.id ? { ...item, quantity } : item
       )
     );
   }, []);
 
   const getCartTotal = useCallback(() => {
     return items.reduce(
-      (total, item) => total + item.product.price * item.quantity,
+      (total, item) => total + item.service.price * item.quantity,
       0
     );
   }, [items]);
@@ -72,7 +73,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         removeFromCart,
         clearCart,
         getCartTotal,
-        updateQuantity,
+        updateQuantity
       }}
     >
       {children}

@@ -224,16 +224,6 @@ export interface DynamicZoneRelatedProducts extends Struct.ComponentSchema {
   };
 }
 
-export interface DynamicZoneStoryPanel extends Struct.ComponentSchema {
-  collectionName: 'components_dynamic_zone_story_panels';
-  info: {
-    displayName: 'Story_Panel';
-  };
-  attributes: {
-    storys: Schema.Attribute.Component<'shared.story-panel-shared', true>;
-  };
-}
-
 export interface DynamicZoneRichText extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_rich_texts';
   info: {
@@ -241,6 +231,16 @@ export interface DynamicZoneRichText extends Struct.ComponentSchema {
   };
   attributes: {
     text_description: Schema.Attribute.Component<'shared.rich-text', true>;
+  };
+}
+
+export interface DynamicZoneStoryPanel extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_story_panels';
+  info: {
+    displayName: 'Story_Panel';
+  };
+  attributes: {
+    storys: Schema.Attribute.Component<'shared.story-panel-shared', true>;
   };
 }
 
@@ -566,8 +566,8 @@ declare module '@strapi/strapi' {
       'dynamic-zone.pricing': DynamicZonePricing;
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'dynamic-zone.related-products': DynamicZoneRelatedProducts;
-      'dynamic-zone.story-panel': DynamicZoneStoryPanel;
       'dynamic-zone.rich-text': DynamicZoneRichText;
+      'dynamic-zone.story-panel': DynamicZoneStoryPanel;
       'dynamic-zone.testimonials': DynamicZoneTestimonials;
       'global.footer': GlobalFooter;
       'global.navbar': GlobalNavbar;

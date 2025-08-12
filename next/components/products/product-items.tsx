@@ -1,9 +1,8 @@
-import React from "react";
-import { Service } from "@/types/types";
-import Image from "next/image";
-import { formatNumber, truncate } from "@/lib/utils";
-import { Link } from "next-view-transitions";
 import { strapiImage } from "@/lib/strapi/strapiImage";
+import { formatNumber, truncate } from "@/lib/utils";
+import { Service } from "@/types/types";
+import { Link } from "next-view-transitions";
+import Image from "next/image";
 
 export const ProductItems = ({
   heading = "Servicios",
@@ -18,11 +17,11 @@ export const ProductItems = ({
 }) => {
   return (
     <div className="py-20">
-      <h2 className="text-2xl md:text-4xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-foreground via-foreground to-foreground mb-2">
+      <h2 className="bg-clip-text bg-gradient-to-b from-foreground via-foreground to-foreground mb-2 font-medium text-transparent text-2xl md:text-4xl">
         {heading}
       </h2>
-      <p className="text-muted-foreground text-lg mt-4 mb-10">{sub_heading}</p>
-      <div className="grid grid-cols-1 md:grid-cols-3  gap-20">
+      <p className="mt-4 mb-10 text-muted-foreground text-lg">{sub_heading}</p>
+      <div className="gap-20 grid grid-cols-1 md:grid-cols-3">
         {services &&
           services.length > 0 &&
           services.map((service) => (
@@ -44,35 +43,33 @@ const ProductItem = ({
   service: Service;
   locale: string;
 }) => {
-  console.log(service, "sw");
-
   return (
     <Link
       href={`/${locale}/services/${service.slug}` as never}
-      className="group relative block"
+      className="group block relative"
     >
-      <div className="relative border border-border rounded-md overflow-hidden bg-card">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80 transition-all duration-200 z-30" />
+      <div className="relative bg-card border border-border rounded-md overflow-hidden">
+        <div className="z-30 absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80 transition-all duration-200" />
 
         <Image
           src={strapiImage(service.images?.[0]?.url ?? "")}
           alt={service.name}
           width={500}
           height={500}
-          className="h-full w-full object-cover group-hover:scale-105 transition duration-200"
+          className="w-full h-full object-cover group-hover:scale-105 transition duration-200"
         />
       </div>
 
       <div className="mt-8">
         <div className="flex justify-between">
-          <span className="text-foreground text-base font-medium">
+          <span className="font-medium text-foreground text-base">
             {service.name}
           </span>
-          <span className="text-foreground bg-primary/10 shadow-sm text-xs px-2 py-1 rounded-full">
+          <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-foreground text-xs">
             ${formatNumber(service.price)}
           </span>
         </div>
-        <p className="text-muted-foreground text-sm mt-4">
+        <p className="mt-4 text-muted-foreground text-sm">
           {truncate(service.description, 100)}
         </p>
       </div>

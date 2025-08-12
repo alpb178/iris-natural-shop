@@ -6,11 +6,11 @@ import { Service } from "@/types/types";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 
-export const SingleProduct = ({ product }: { product: Service }) => {
+export const SingleService = ({ service }: { service: Service }) => {
   const [activeThumbnail, setActiveThumbnail] = useState(
-    strapiImage(product.images[0].url)
+    strapiImage(service.images[0].url)
   );
 
   return (
@@ -31,7 +31,7 @@ export const SingleProduct = ({ product }: { product: Service }) => {
           >
             <Image
               src={activeThumbnail}
-              alt={product.name}
+              alt={service.name}
               width={600}
               height={600}
               className="rounded-lg object-cover"
@@ -39,13 +39,13 @@ export const SingleProduct = ({ product }: { product: Service }) => {
           </motion.div>
 
           <div className="flex justify-center items-center gap-4 mt-4">
-            {product.images &&
-              product.images.map((image: any, index: number) => (
+            {service.images &&
+              service.images.map((image: any, index: number) => (
                 <button
                   onClick={() => setActiveThumbnail(strapiImage(image.url))}
-                  key={"product-image" + index}
+                  key={"service-image" + index}
                   className={cn(
-                    "rounded-xl w-20 h-20 border-2 transition-colors",
+                    "border-2 rounded-xl w-20 h-20 transition-colors",
                     activeThumbnail === strapiImage(image.url)
                       ? "border-primary ring-2 ring-primary/20"
                       : "border-border hover:border-primary/50"
@@ -62,14 +62,14 @@ export const SingleProduct = ({ product }: { product: Service }) => {
         </div>
 
         <div>
-          <h2 className="mb-4 font-semibold text-2xl text-foreground">
-            {product.name}
+          <h2 className="mb-4 font-semibold text-foreground text-2xl">
+            {service.name}
           </h2>
-          <p className="mb-6 px-4 py-1 rounded-full w-fit bg-primary/10 text-primary text-xs font-medium">
-            ${formatNumber(product.price)}
+          <p className="bg-primary/10 mb-6 px-4 py-1 rounded-full w-fit font-medium text-primary text-xs">
+            ${formatNumber(service.price)}
           </p>
           <p className="mb-4 font-normal text-muted-foreground text-base leading-relaxed">
-            {product.description}
+            {service.description}
           </p>
 
           <Divider />
