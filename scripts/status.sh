@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# LaunchPad Status Script
-echo "📊 LaunchPad Status Report"
+echo "📊 Status Report"
 echo "=========================="
 
 # Check if we're connected to remote

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Simple Docker Stack Deployment Script
-echo "🚀 Starting LaunchPad Simple Stack Deployment..."
+echo "🚀 Starting Stack Deployment..."
+docker context use default
 
 # Check if .env file exists in strapi directory
 if [ ! -f strapi/.env ]; then

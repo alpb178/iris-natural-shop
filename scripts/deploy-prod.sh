@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Production Docker Stack Deployment Script
-echo "🚀 Starting LaunchPad Production Stack Deployment..."
+echo "🚀 Starting Production Stack Deployment..."
 
 # Check if env.production file exists
 if [ ! -f env.production ]; then

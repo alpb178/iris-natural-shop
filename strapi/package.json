@@ -2,7 +2,7 @@
   "name": "alejandro-louro-cms",
   "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application",
+  "description": "Alejandro Louro CMS",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
@@ -37,10 +37,10 @@
     "uuid": "^10.0.0"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Alejandro Guerra"
   },
   "strapi": {
-    "uuid": "LAUNCHPAD-LOCAL-75907f75-5738-46f3-ab82-fdde61567cc3"
+    "uuid": "ALEJANDRO-LOURO-75907f75-5738-46f3-ab82-fdde61567cc3"
   },
   "engines": {
     "node": ">=22.0.0 <=22.x.x",

@@ -4,7 +4,7 @@ const seoData = {
   image: "https://ui.aceternity.com/banner.png",
   openGraph: {
     type: "website",
-    title: `LaunchPad - Your content delivery partner for large scale applications`,
+    title: `Alejandro Louro. Espacio para la identidad.`,
     url: "https://ui.aceternity.com", // TODO: Fix this
     description: `A platform integrating Aceternity with Strapi for seamless content management.`,
     locale: "en_EN",
