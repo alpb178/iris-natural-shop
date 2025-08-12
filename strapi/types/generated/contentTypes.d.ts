@@ -489,7 +489,7 @@ export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
   collectionName: 'blog_pages';
   info: {
     description: '';
-    displayName: '/blog';
+    displayName: 'Blog';
     pluralName: 'blog-pages';
     singularName: 'blog-page';
   };
@@ -560,7 +560,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
     description: '';
-    displayName: 'Categories';
+    displayName: 'Categor\u00EDas';
     pluralName: 'categories';
     singularName: 'category';
   };
@@ -706,7 +706,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
     description: '';
-    displayName: 'Pages';
+    displayName: 'P\u00E1ginas';
     pluralName: 'pages';
     singularName: 'page';
   };
@@ -802,7 +802,7 @@ export interface ApiPlanPlan extends Struct.CollectionTypeSchema {
 export interface ApiProductPageProductPage extends Struct.SingleTypeSchema {
   collectionName: 'product_pages';
   info: {
-    displayName: '/products';
+    displayName: 'P\u00E1gina de Servicios';
     pluralName: 'product-pages';
     singularName: 'product-page';
   };
@@ -873,7 +873,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
     description: '';
-    displayName: 'Products';
+    displayName: 'Servicios';
     pluralName: 'products';
     singularName: 'product';
   };

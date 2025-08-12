@@ -1,6 +1,6 @@
+import { Service } from "@/definitions/Service";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { formatNumber, truncate } from "@/lib/utils";
-import { Service } from "@/types/types";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 

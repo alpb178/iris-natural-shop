@@ -4,7 +4,7 @@
   "info": {
     "singularName": "product",
     "pluralName": "products",
-    "displayName": "Products",
+    "displayName": "Servicios",
     "description": ""
   },
   "options": {
@@ -22,7 +22,6 @@
       "type": "string"
     },
     "slug": {
-      "pluginOptions": {},
       "type": "uid",
       "targetField": "name"
     },
@@ -38,8 +37,8 @@
     },
     "perks": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.perks"
+      "component": "shared.perks",
+      "repeatable": true
     },
     "plans": {
       "type": "relation",

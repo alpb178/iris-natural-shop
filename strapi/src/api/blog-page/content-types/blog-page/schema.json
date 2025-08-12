@@ -4,7 +4,7 @@
   "info": {
     "singularName": "blog-page",
     "pluralName": "blog-pages",
-    "displayName": "/blog",
+    "displayName": "Blog",
     "description": ""
   },
   "options": {
@@ -18,13 +18,13 @@
   "attributes": {
     "seo": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "repeatable": false
     },
     "heading": {
       "type": "string",
@@ -44,6 +44,11 @@
     },
     "dynamic_zone": {
       "type": "dynamiczone",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "components": [
         "dynamic-zone.testimonials",
         "dynamic-zone.related-products",
@@ -57,12 +62,7 @@
         "dynamic-zone.faq",
         "dynamic-zone.cta",
         "dynamic-zone.brands"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      ]
     }
   }
 }

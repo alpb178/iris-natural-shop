@@ -1,12 +1,12 @@
+import { Image } from "@/definitions/Image";
 import seoData from "@/lib/next-metadata";
-import { Image } from "@/types/types";
 import { Link } from "next-view-transitions";
 
 export const Logo = ({ image, locale }: { image?: Image; locale?: string }) => {
   if (image) {
     return (
       <Link
-        href={`/${locale || "en"}`}
+        href={`/${locale || "es"}`}
         className="z-20 relative flex items-center space-x-2 mr-4 font-normal text-foreground text-sm"
       >
         {/* <BlurImage

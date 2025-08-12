@@ -1,7 +1,7 @@
 import { BlurImage } from "@/components/blur-image";
+import { Article } from "@/definitions/Article";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { truncate } from "@/lib/utils";
-import { Article } from "@/types/types";
 import { format } from "date-fns";
 import { Link } from "next-view-transitions";
 import Balancer from "react-wrap-balancer";

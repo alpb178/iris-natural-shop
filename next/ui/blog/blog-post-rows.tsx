@@ -1,6 +1,6 @@
 "use client";
+import { Article } from "@/definitions/Article";
 import { truncate } from "@/lib/utils";
-import { Article } from "@/types/types";
 import { format } from "date-fns";
 import FuzzySearch from "fuzzy-search";
 import { Link } from "next-view-transitions";

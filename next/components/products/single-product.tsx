@@ -1,8 +1,8 @@
 "use client";
 
+import { Service } from "@/definitions/Service";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { cn, formatNumber } from "@/lib/utils";
-import { Service } from "@/types/types";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
 import { motion } from "framer-motion";
 import Image from "next/image";

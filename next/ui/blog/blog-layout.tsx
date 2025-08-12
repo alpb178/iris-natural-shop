@@ -1,5 +1,5 @@
+import { Article } from "@/definitions/Article";
 import { strapiImage } from "@/lib/strapi/strapiImage";
-import { Article } from "@/types/types";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { format } from "date-fns";
 import { Link } from "next-view-transitions";
@@ -10,7 +10,7 @@ import DynamicZoneManager from "../../components/dynamic-zone/manager";
 export async function BlogLayout({
   article,
   locale,
-  children,
+  children
 }: {
   article: Article;
   locale: string;

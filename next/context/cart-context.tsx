@@ -1,6 +1,6 @@
 "use client";
 
-import { Service } from "@/types/types";
+import { Service } from "@/definitions/Service";
 import React, { createContext, useCallback, useContext, useState } from "react";
 
 type CartItem = {
