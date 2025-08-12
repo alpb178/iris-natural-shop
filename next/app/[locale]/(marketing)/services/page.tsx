@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 
-import { AmbientColor } from "@/components/decorations/ambient-color";
 import { Container } from "@/components/container";
+import { AmbientColor } from "@/components/decorations/ambient-color";
 import { ProductItems } from "@/components/products/product-items";
-import fetchContentType from "@/lib/strapi/fetchContentType";
 import { generateMetadataObject } from "@/lib/shared/metadata";
+import fetchContentType from "@/lib/strapi/fetchContentType";
 
 export async function generateMetadata({
   params
@@ -32,7 +32,7 @@ export default async function Services({
   const services = await fetchContentType("products");
 
   return (
-    <div className="relative overflow-hidden w-full">
+    <div className="relative w-full overflow-hidden">
       <AmbientColor />
       <Container className="pt-10 pb-40">
         <ProductItems
