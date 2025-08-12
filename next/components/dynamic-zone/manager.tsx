@@ -57,10 +57,6 @@ const componentMapping: { [key: string]: any } = {
   "dynamic-zone.related-articles": dynamic(
     () => import("./related-articles").then((mod) => mod.RelatedArticles),
     { ssr: false }
-  ),
-  "dynamic-zone.privacy-policy": dynamic(
-    () => import("./privacy-policy").then((mod) => mod.PrivacyPolicy),
-    { ssr: false }
   )
 };
 
