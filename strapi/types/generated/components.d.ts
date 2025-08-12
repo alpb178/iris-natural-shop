@@ -234,6 +234,16 @@ export interface DynamicZoneStoryPanel extends Struct.ComponentSchema {
   };
 }
 
+export interface DynamicZoneRichText extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_rich_texts';
+  info: {
+    displayName: 'Rich_text';
+  };
+  attributes: {
+    text_description: Schema.Attribute.Component<'shared.rich-text', true>;
+  };
+}
+
 export interface DynamicZoneTestimonials extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_testimonials';
   info: {
@@ -435,6 +445,17 @@ export interface SharedPerks extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedRichText extends Struct.ComponentSchema {
+  collectionName: 'components_shared_rich_texts';
+  info: {
+    displayName: 'Rich_text';
+  };
+  attributes: {
+    description: Schema.Attribute.Blocks;
+    tittle: Schema.Attribute.String;
+  };
+}
+
 export interface SharedSection extends Struct.ComponentSchema {
   collectionName: 'components_shared_sections';
   info: {
@@ -546,6 +567,7 @@ declare module '@strapi/strapi' {
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'dynamic-zone.related-products': DynamicZoneRelatedProducts;
       'dynamic-zone.story-panel': DynamicZoneStoryPanel;
+      'dynamic-zone.rich-text': DynamicZoneRichText;
       'dynamic-zone.testimonials': DynamicZoneTestimonials;
       'global.footer': GlobalFooter;
       'global.navbar': GlobalNavbar;
@@ -558,6 +580,7 @@ declare module '@strapi/strapi' {
       'shared.launches': SharedLaunches;
       'shared.link': SharedLink;
       'shared.perks': SharedPerks;
+      'shared.rich-text': SharedRichText;
       'shared.section': SharedSection;
       'shared.seo': SharedSeo;
       'shared.social-media-icon-links': SharedSocialMediaIconLinks;

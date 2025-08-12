@@ -735,6 +735,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'dynamic-zone.form-next-to-section',
         'dynamic-zone.faq',
         'dynamic-zone.story-panel',
+        'dynamic-zone.rich-text',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

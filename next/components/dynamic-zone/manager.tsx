@@ -58,8 +58,8 @@ const componentMapping: { [key: string]: any } = {
     () => import("./related-articles").then((mod) => mod.RelatedArticles),
     { ssr: false }
   ),
-  "dynamic-zone.privacy-policy": dynamic(
-    () => import("./privacy-policy").then((mod) => mod.PrivacyPolicy),
+  "dynamic-zone.rich-text": dynamic(
+    () => import("./rich-text").then((mod) => mod.RichText),
     { ssr: false }
   ),
   "dynamic-zone.story-panel": dynamic(
