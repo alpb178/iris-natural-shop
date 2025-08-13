@@ -1,8 +1,9 @@
+import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
+import { HOME_PAGE } from "@/lib/constants/pages";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 import PageContent from "@/lib/shared/PageContent";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { Metadata } from "next";
-import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 import ClientSlugHandler from "./ClientSlugHandler";
 
 export async function generateMetadata({
@@ -14,7 +15,7 @@ export async function generateMetadata({
     "pages",
     {
       filters: {
-        slug: "home",
+        slug: HOME_PAGE,
         locale: params.locale
       },
       populate: "seo.metaImage"
@@ -36,7 +37,7 @@ export default async function HomePage({
     "pages",
     {
       filters: {
-        slug: "home",
+        slug: HOME_PAGE,
         locale: params.locale
       }
     },

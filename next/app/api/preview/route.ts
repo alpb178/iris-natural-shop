@@ -1,3 +1,4 @@
+import { HOME_PAGE } from "@/lib/constants/pages";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -19,7 +20,7 @@ export const GET = async (request: Request) => {
   let slugToReturn = `/${locale}/${contentType}`;
 
   if (contentType === "page" || contentType === "global") {
-    if (slug && slug !== "home") {
+    if (slug && slug !== HOME_PAGE) {
       slugToReturn = `/${locale}/${slug}`;
     } else {
       slugToReturn = `/${locale}`;

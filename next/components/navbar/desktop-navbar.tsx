@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/button/Button";
 import { Logo } from "@/components/logo";
-import { useCart } from "@/context/cart-context";
 import { useTheme } from "@/context/theme-context";
 import { cn } from "@/lib/utils";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
@@ -38,7 +37,6 @@ export const DesktopNavbar = ({
 
   const [showBackground, setShowBackground] = useState(false);
 
-  const { addToCart } = useCart();
   const { theme, toggleTheme } = useTheme();
 
   useMotionValueEvent(scrollY, "change", (value) => {
@@ -51,8 +49,8 @@ export const DesktopNavbar = ({
   return (
     <div
       className={cn(
-        "flex justify-between mx-auto px-4 py-3 rounded-md w-full transition duration-200",
-        showBackground ? "backdrop-blur-2xl bg-card/65" : "bg-transparent"
+        "flex justify-between mx-auto px-4 py-3 w-full transition duration-200",
+        showBackground ? "backdrop-blur-xl bg-card/70" : "bg-background"
       )}
     >
       {/* <AnimatePresence>
@@ -68,9 +66,8 @@ export const DesktopNavbar = ({
           />
         )}
       </AnimatePresence> */}
-      <div className="flex flex-row items-center gap-2">
-        <Logo locale={locale} image={logo?.image} />
-        <div className="flex items-center gap-1.5">
+      <div className="flex flex-row items-center gap-2 w-full">
+        <div className="flex items-center gap-1.5 w-full">
           {leftNavbarItems.map((item) => (
             <NavbarItem
               href={`/${locale}${item.URL}` as never}
@@ -82,7 +79,10 @@ export const DesktopNavbar = ({
           ))}
         </div>
       </div>
-      <div className="flex items-center space-x-2">
+
+      <Logo locale={locale} image={logo?.image} />
+
+      <div className="flex justify-end items-center space-x-2 w-full">
         {/* <LocaleSwitcher currentLocale={locale} /> */}
 
         {rightNavbarItems.map((item, index) => (

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../button/Button";
 import { Cover } from "../decorations/cover";
@@ -9,27 +10,76 @@ import StarBackground from "../decorations/star-background";
 import { Heading } from "../elements/heading";
 import { Subheading } from "../elements/subheading";
 
+interface BackgroundMedia {
+  id: number;
+  url: string;
+  mime: string;
+  alternativeText?: string;
+  width?: number;
+  height?: number;
+}
+
 export const Hero = ({
   heading,
   sub_heading,
+  backgroundMedia,
   CTAs,
   locale
 }: {
   heading: string;
   sub_heading: string;
+  backgroundMedia?: BackgroundMedia;
   CTAs: any[];
   locale: string;
 }) => {
+  const isVideo = backgroundMedia?.mime?.startsWith("video/");
+  const isImage = backgroundMedia?.mime?.startsWith("image/");
+
   return (
     <div className="relative flex flex-col justify-center items-center h-screen overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-      >
-        <StarBackground />
-        <ShootingStars />
-      </motion.div>
+      {/* Background Media */}
+      {backgroundMedia && (
+        <div className="absolute inset-0 w-full h-full">
+          {isVideo ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              poster={backgroundMedia.url}
+            >
+              <source src={backgroundMedia.url} type={backgroundMedia.mime} />
+              Your browser does not support the video tag.
+            </video>
+          ) : isImage ? (
+            <Image
+              src={backgroundMedia.url}
+              alt={backgroundMedia.alternativeText || "Hero background"}
+              fill
+              className="object-cover"
+              priority
+              quality={90}
+            />
+          ) : null}
+
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/30" />
+        </div>
+      )}
+
+      {/* Fallback to star background if no media */}
+      {!backgroundMedia && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <StarBackground />
+          <ShootingStars />
+        </motion.div>
+      )}
+
       <Heading
         as="h1"
         className="z-10 relative mx-auto mt-6 py-6 max-w-7xl font-semibold text-4xl md:text-4xl lg:text-8xl text-center"
@@ -52,7 +102,7 @@ export const Hero = ({
             />
           ))}
       </div>
-      <div className="bottom-0 absolute inset-x-0 bg-gradient-to-t from-background to-transparent w-full h-80" />
+      <div className="bottom-0 absolute inset-x-0 bg-gradient-to-t from-black/50 to-transparent w-full h-80" />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { MobileNavbar } from "./mobile-navbar";
 
 export function Navbar({ data, locale }: { data: any; locale: string }) {
   return (
-    <motion.nav className="top-4 z-50 fixed inset-x-0 mx-auto w-[95%] lg:w-full max-w-7xl">
+    <motion.nav className="top-0 z-50 fixed inset-x-0 mx-auto w-full">
       <div className="hidden lg:block w-full">
         {data?.left_navbar_items && (
           <DesktopNavbar

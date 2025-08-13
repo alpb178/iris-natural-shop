@@ -7,7 +7,7 @@ export const Logo = ({ image, locale }: { image?: Image; locale?: string }) => {
     return (
       <Link
         href={`/${locale || "es"}`}
-        className="z-20 relative flex items-center space-x-2 mr-4 font-normal text-foreground text-sm"
+        className="z-20 relative flex items-center space-x-2 mr-4 min-w-max font-normal text-foreground text-sm"
       >
         {/* <BlurImage
           src={strapiImage(image?.url)}
@@ -17,7 +17,7 @@ export const Logo = ({ image, locale }: { image?: Image; locale?: string }) => {
           className="mr-2 rounded-xl w-10 h-10"
         /> */}
 
-        <span className="font-bold text-foreground xs:text-xl text-2xl">
+        <span className="font-bold text-foreground text-2xl">
           {seoData.openGraph.site_name}
         </span>
       </Link>
