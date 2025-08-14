@@ -1,9 +1,10 @@
 "use client";
+
+import { Text } from "@/components/text/Text";
 import { StickyScroll } from "@/components/ui/sticky-scroll";
 import { IconRocket } from "@tabler/icons-react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
-import { Heading } from "../elements/heading";
 import { Subheading } from "../elements/subheading";
 import { FeatureIconContainer } from "./features/feature-icon-container";
 
@@ -33,7 +34,7 @@ export const Launches = ({
   });
   const backgrounds = [
     "var(--background)",
-    "var(--zinc-900)",
+    "var(--primary)",
     "var(--background)"
   ];
 
@@ -70,7 +71,7 @@ export const Launches = ({
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
           <IconRocket className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
-        <Heading className="mt-4">{heading}</Heading>
+        <Text as="title" className="mt-4 text-center" content={heading} />
         <Subheading>{sub_heading}</Subheading>
       </div>
       <StickyScroll content={launchesWithDecoration} />

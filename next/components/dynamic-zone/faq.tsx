@@ -1,32 +1,30 @@
 import { Container } from "@/components/container";
-import { Heading } from "@/components/elements/heading";
-import { FeatureIconContainer } from "./features/feature-icon-container";
 import { IconHelpHexagonFilled } from "@tabler/icons-react";
+import { Text } from "../text/Text";
+import { FeatureIconContainer } from "./features/feature-icon-container";
 
 export const FAQ = ({
   heading,
   sub_heading,
-  faqs,
+  faqs
 }: {
   heading: string;
   sub_heading: string;
   faqs: any[];
 }) => {
   return (
-    <Container className="flex flex-col items-center justify-between pb-20">
-      <div className="relative z-20 py-10 md:pt-40">
+    <Container className="flex flex-col justify-between items-center pb-20">
+      <div className="z-20 relative py-10 md:pt-40">
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-          <IconHelpHexagonFilled className="h-6 w-6 text-foreground" />
+          <IconHelpHexagonFilled className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
-        <Heading as="h1" className="mt-4">
-          {heading}
-        </Heading>
+        <Text as="title" className="mt-4 text-center" content={heading} />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 py-20">
+      <div className="gap-10 grid grid-cols-1 md:grid-cols-2 py-20">
         {faqs &&
           faqs.map((faq: { question: string; answer: string }) => (
             <div key={faq.question}>
-              <h4 className="text-lg font-bold text-foreground">
+              <h4 className="font-bold text-foreground text-lg">
                 {faq.question}
               </h4>
               <p className="mt-4 text-muted-foreground">{faq.answer}</p>

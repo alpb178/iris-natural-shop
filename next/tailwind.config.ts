@@ -15,7 +15,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        cormorant: ["var(--font-cormorant-garamond)", "serif"],
+        merriweather: ["var(--font-merriweather-garamond)", "serif"],
         libre: ["var(--font-libre-franklin)", "sans-serif"]
       },
       colors: {
@@ -83,6 +83,9 @@ const config: Config = {
       },
       screens: {
         xs: "576px"
+      },
+      borderRadius: {
+        DEFAULT: "0"
       }
     }
   },

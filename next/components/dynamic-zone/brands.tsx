@@ -1,13 +1,21 @@
 "use client";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Heading } from "../elements/heading";
-import { Subheading } from "../elements/subheading";
-import { AnimatePresence, motion } from "framer-motion";
-import { strapiImage } from "@/lib/strapi/strapiImage";
 
-export const Brands = ({ heading, sub_heading, logos }: { heading: string, sub_heading: string, logos: any[] }) => {
-  
+import { strapiImage } from "@/lib/strapi/strapiImage";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Subheading } from "../elements/subheading";
+import { Text } from "../text/Text";
+
+export const Brands = ({
+  heading,
+  sub_heading,
+  logos
+}: {
+  heading: string;
+  sub_heading: string;
+  logos: any[];
+}) => {
   const middleIndex = Math.floor(logos.length / 2);
   const firstHalf = logos.slice(0, middleIndex);
   const secondHalf = logos.slice(middleIndex);
@@ -36,37 +44,33 @@ export const Brands = ({ heading, sub_heading, logos }: { heading: string, sub_h
   }, [activeLogoSet]); // Depend on activeLogoSet to trigger flip every time it changes
 
   return (
-    <div className="relative z-20 py-10 md:py-40">
-      <Heading className="pt-4">{heading}</Heading>
-      <Subheading className="max-w-3xl mx-auto">
-        {sub_heading}
-      </Subheading>
+    <div className="z-20 relative py-10 md:py-40">
+      <Text as="title" className="pt-4 text-center" content={heading} />
+      <Subheading className="mx-auto max-w-3xl">{sub_heading}</Subheading>
 
-      <div className="flex gap-10 flex-wrap justify-center md:gap-40 relative h-full w-full mt-20">
-        <AnimatePresence
-          mode="popLayout"
-        >
+      <div className="relative flex flex-wrap justify-center gap-10 md:gap-40 mt-20 w-full h-full">
+        <AnimatePresence mode="popLayout">
           {activeLogoSet.map((logo, idx) => (
             <motion.div
               initial={{
                 y: 40,
                 opacity: 0,
-                filter: "blur(10px)",
+                filter: "blur(10px)"
               }}
               animate={{
                 y: 0,
                 opacity: 1,
-                filter: "blur(0px)",
+                filter: "blur(0px)"
               }}
               exit={{
                 y: -40,
                 opacity: 0,
-                filter: "blur(10px)",
+                filter: "blur(10px)"
               }}
               transition={{
                 duration: 0.8,
                 delay: 0.1 * idx,
-                ease: [0.4, 0, 0.2, 1],
+                ease: [0.4, 0, 0.2, 1]
               }}
               key={logo.title}
               className="relative"
@@ -76,7 +80,7 @@ export const Brands = ({ heading, sub_heading, logos }: { heading: string, sub_h
                 alt={logo.image.alternativeText}
                 width="400"
                 height="400"
-                className="md:h-20 md:w-60 h-10 w-40 object-contain filter"
+                className="w-40 md:w-60 h-10 md:h-20 object-contain filter"
                 draggable={false}
               />
             </motion.div>

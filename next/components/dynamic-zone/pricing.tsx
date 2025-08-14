@@ -5,8 +5,8 @@ import { IconCheck, IconPlus, IconReceipt2 } from "@tabler/icons-react";
 import React from "react";
 import { Button } from "../button/Button";
 import { Container } from "../container";
-import { Heading } from "../elements/heading";
 import { Subheading } from "../elements/subheading";
+import { Text } from "../text/Text";
 import { FeatureIconContainer } from "./features/feature-icon-container";
 
 type Perks = {
@@ -47,7 +47,7 @@ export const Pricing = ({
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
           <IconReceipt2 className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
-        <Heading className="pt-4">{heading}</Heading>
+        <Text as="title" className="pt-4 text-center" content={heading} />
         <Subheading className="mx-auto max-w-3xl">{sub_heading}</Subheading>
         <div className="lg:items-start gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-auto py-20 max-w-7xl">
           {plans.map((plan) => (

@@ -1,7 +1,7 @@
+// This file can be removed if no longer needed
+// The Text component now uses a variant-based approach directly
 export const TextConstants = {
-  // Default class name to apply to the component.
-  BASE_CLASSNAME: 'TextComponent',
-
-  // Class name to apply to the component when variant is error.
-  ERROR_CLASSNAME: 'error'
+  // Legacy support - can be removed in future versions
+  BASE_CLASSNAME: "TextComponent",
+  ERROR_CLASSNAME: "error"
 };

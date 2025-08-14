@@ -27,7 +27,7 @@ body {
   h4,
   h5,
   h6 {
-    font-family: var(--font-cormorant-garamond);
+    font-family: var(--font-merriweather-garamond);
   }
 
   p,
@@ -101,7 +101,7 @@ body {
     --destructive: 127 29 29;
     --destructive-foreground: 250 251 253;
 
-    --border: 30 40 20; /* Nearly black green-tinted border for dark mode */
+    --border: 30 40 40; /* Nearly black green-tinted border for dark mode */
     --input: 31 41 55;
     --ring: 209 213 219;
 

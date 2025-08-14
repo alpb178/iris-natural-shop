@@ -1,5 +1,5 @@
-import { Heading } from "../elements/heading";
 import Image from "next/image";
+import { Text } from "../text/Text";
 
 export default function RichTextRenderer({ content }: { content: any }) {
   if (!content || !Array.isArray(content)) return null;
@@ -17,19 +17,19 @@ export default function RichTextRenderer({ content }: { content: any }) {
 
           case "heading":
             return (
-              <Heading
+              <Text
                 key={i}
                 className="mt-6 mb-3 font-bold text-foreground"
-                as={`h${block.level || 2}`}
+                // as={`h${block.level || 2}`}
               >
                 {renderChildren(block.children)}
-              </Heading>
+              </Text>
             );
 
           case "list":
             if (block.format === "ordered") {
               return (
-                <ol key={i} className="list-decimal pl-6 mb-4">
+                <ol key={i} className="mb-4 pl-6 list-decimal">
                   {block.children.map((li: any, j: any) => (
                     <li key={j}>{renderChildren(li.children)}</li>
                   ))}
@@ -37,7 +37,7 @@ export default function RichTextRenderer({ content }: { content: any }) {
               );
             }
             return (
-              <ul key={i} className="list-disc pl-6 mb-4">
+              <ul key={i} className="mb-4 pl-6 list-disc">
                 {block.children.map((li: any, j: any) => (
                   <li key={j}>{renderChildren(li.children)}</li>
                 ))}
@@ -53,7 +53,7 @@ export default function RichTextRenderer({ content }: { content: any }) {
                   className="max-w-full h-auto"
                 />
                 {block.image?.caption && (
-                  <figcaption className="text-sm text-foreground">
+                  <figcaption className="text-foreground text-sm">
                     {block.image.caption}
                   </figcaption>
                 )}

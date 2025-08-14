@@ -1,10 +1,10 @@
 import { Container } from "@/components/container";
 import { AmbientColor } from "@/components/decorations/ambient-color";
 import { FeatureIconContainer } from "@/components/dynamic-zone/features/feature-icon-container";
-import { Heading } from "@/components/elements/heading";
 import { Subheading } from "@/components/elements/subheading";
 import { Featured } from "@/components/products/featured";
 import { ProductItems } from "@/components/products/product-items";
+import { Text } from "@/components/text/Text";
 import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
@@ -49,7 +49,7 @@ export default async function Products({
     true
   );
   const products = await fetchContentType("products");
-  console.log(products, "AAAAAAsw");
+
   const localizedSlugs = useLocalizedSlugs(
     productPage?.localizations,
     params.locale,
@@ -69,9 +69,11 @@ export default async function Products({
             <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
               <IconShoppingCartUp className="w-6 h-6 text-foreground" />
             </FeatureIconContainer>
-            <Heading as="h1" className="pt-4">
-              {productPage.heading}
-            </Heading>
+            <Text
+              as="title"
+              className="pt-4 text-center"
+              content={productPage.heading}
+            />
             <Subheading className="mx-auto max-w-3xl">
               {productPage.sub_heading}
             </Subheading>

@@ -6,9 +6,9 @@ import {
   CardTitle
 } from "../../card/Card";
 import { Container } from "../../container";
-import { Heading } from "../../elements/heading";
 import { Subheading } from "../../elements/subheading";
 import { GradientContainer } from "../../gradient-container";
+import { Text } from "../../text/Text";
 import { FeatureIconContainer } from "./feature-icon-container";
 import { SkeletonOne } from "./skeletons/first";
 import { SkeletonFour } from "./skeletons/fourth";
@@ -46,7 +46,7 @@ export const Features = ({
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
           <IconRocket className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
-        <Heading className="pt-4">{heading}</Heading>
+        <Text as="title" className="pt-4 text-center" content={heading} />
         <Subheading className="mx-auto max-w-3xl">{sub_heading}</Subheading>
 
         <div className="gap-4 grid grid-cols-1 lg:grid-cols-3 py-10">

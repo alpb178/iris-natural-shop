@@ -1,10 +1,9 @@
 "use client";
+import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef } from "react";
-import { useScroll, useTransform } from "framer-motion";
-import { motion } from "framer-motion";
 
 export const StickyScroll = ({
-  content,
+  content
 }: {
   content: {
     title: string;
@@ -14,12 +13,12 @@ export const StickyScroll = ({
 }) => {
   return (
     <div className="py-4 md:py-20">
-      <motion.div className="hidden lg:flex h-full  flex-col max-w-7xl mx-auto justify-between relative   p-10 ">
+      <motion.div className="hidden relative lg:flex flex-col justify-between mx-auto p-10 max-w-7xl h-full">
         {content.map((item, index) => (
           <ScrollContent key={item.title + index} item={item} index={index} />
         ))}
       </motion.div>
-      <motion.div className="flex lg:hidden  flex-col max-w-7xl mx-auto justify-between relative  p-10 ">
+      <motion.div className="lg:hidden relative flex flex-col justify-between mx-auto p-10 max-w-7xl">
         {content.map((item, index) => (
           <ScrollContentMobile
             key={item.title + index}
@@ -34,7 +33,7 @@ export const StickyScroll = ({
 
 export const ScrollContent = ({
   item,
-  index,
+  index
 }: {
   item: {
     title: string;
@@ -47,7 +46,7 @@ export const ScrollContent = ({
   const ref = useRef<any>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start end", "end start"]
   });
   const translate = useTransform(scrollYProgress, [0, 1], [0, 250]);
   const translateContent = useTransform(scrollYProgress, [0, 1], [0, -200]);
@@ -67,35 +66,35 @@ export const ScrollContent = ({
     <motion.div
       ref={ref}
       transition={{
-        duration: 0.3,
+        duration: 0.3
       }}
       key={item.title + index}
-      className="my-40  relative grid grid-cols-2 gap-8"
+      className="relative gap-8 grid grid-cols-2 my-40"
     >
       <motion.div
         key={item.title + index}
         style={{
           y: translate,
-          opacity: opacity,
+          opacity: opacity
         }}
-        className="h-full w-full rounded-md  self-start "
+        className="self-start rounded-md w-full h-full"
       >
         {item.content && item.content}
       </motion.div>
-      <div className="w-full ">
+      <div className="w-full">
         <motion.div
           style={{
             y: translateContent,
-            opacity: index === 0 ? opacityContent : 1,
+            opacity: index === 0 ? opacityContent : 1
           }}
           className=""
         >
           <div>{item.icon}</div>
-          <motion.h2 className="max-w-md mt-2 font-bold text-2xl lg:text-4xl inline-block bg-clip-text text-left text-transparent bg-gradient-to-b from-white  to-white">
+          <motion.h2 className="inline-block bg-clip-text bg-gradient-to-b from-foreground to-foreground mt-2 max-w-md font-bold text-transparent text-2xl text-left">
             {item.title}
           </motion.h2>
 
-          <motion.p className="text-lg text-neutral-500 font-regular max-w-sm mt-2">
+          <motion.p className="mt-2 max-w-sm font-regular text-foreground/60 text-lg">
             {item.description}
           </motion.p>
         </motion.div>
@@ -106,7 +105,7 @@ export const ScrollContent = ({
 
 export const ScrollContentMobile = ({
   item,
-  index,
+  index
 }: {
   item: {
     title: string;
@@ -119,25 +118,25 @@ export const ScrollContentMobile = ({
   return (
     <motion.div
       transition={{
-        duration: 0.3,
+        duration: 0.3
       }}
       key={item.title + index}
-      className="my-10  relative flex flex-col md:flex-row md:space-x-4"
+      className="relative flex md:flex-row flex-col md:space-x-4 my-10"
     >
       <motion.div
         key={item.title + index}
-        className="w-full rounded-md  self-start mb-8"
+        className="self-start mb-8 rounded-md w-full"
       >
         {item.content && item.content}
       </motion.div>
       <div className="w-full">
-        <motion.div className=" mb-6">
+        <motion.div className="mb-6">
           <div>{item.icon}</div>
-          <motion.h2 className="mt-2 font-bold text-2xl lg:text-4xl inline-block bg-clip-text text-left text-transparent bg-gradient-to-b from-white  to-white">
+          <motion.h2 className="inline-block bg-clip-text bg-gradient-to-b from-white to-white mt-2 font-bold text-transparent text-2xl lg:text-4xl text-left">
             {item.title}
           </motion.h2>
 
-          <motion.p className="text-sm md:text-base text-neutral-500 font-bold max-w-sm mt-2">
+          <motion.p className="mt-2 max-w-sm font-bold text-foreground/60 text-sm md:text-base">
             {item.description}
           </motion.p>
         </motion.div>

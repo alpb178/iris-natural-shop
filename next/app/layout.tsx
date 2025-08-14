@@ -1,7 +1,7 @@
 import "@/styles/calendar.scss";
 import "@/styles/globals.scss";
 
-import { cormorantGaramond, libreFranklin } from "@/components/fonts";
+import { libreFranklin, merriweatherGaramond } from "@/components/fonts";
 import { Locale, i18n } from "@/i18n.config";
 import { cn } from "@/lib/utils";
 import type { Viewport } from "next";
@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         suppressHydrationWarning
         className={cn(
-          cormorantGaramond.variable,
+          merriweatherGaramond.variable,
           libreFranklin.variable,
           "bg-background text-foreground antialiased h-full w-full"
         )}

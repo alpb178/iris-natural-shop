@@ -1,21 +1,21 @@
 "use client";
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
 export const Cover = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div className="relative inline-block bg-card px-2 py-1">
+    <div className="inline-block relative bg-card px-2 py-1">
       <span className="text-card-foreground">{children}</span>
-      <CircleIcon className="absolute -right-[2px] -top-[2px]" />
-      <CircleIcon className="absolute -bottom-[2px] -right-[2px]" delay={0.4} />
-      <CircleIcon className="absolute -left-[2px] -top-[2px]" delay={0.8} />
-      <CircleIcon className="absolute -bottom-[2px] -left-[2px]" delay={1.6} />
+      <CircleIcon className="-top-[2px] -right-[2px] absolute" />
+      <CircleIcon className="-right-[2px] -bottom-[2px] absolute" delay={0.4} />
+      <CircleIcon className="-top-[2px] -left-[2px] absolute" delay={0.8} />
+      <CircleIcon className="-bottom-[2px] -left-[2px] absolute" delay={1.6} />
     </div>
   );
 };
 
 export const CircleIcon = ({
   className,
-  delay,
+  delay
 }: {
   className?: string;
   delay?: number;
@@ -23,10 +23,10 @@ export const CircleIcon = ({
   return (
     <motion.div
       initial={{
-        opacity: 0.2,
+        opacity: 0.2
       }}
       animate={{
-        opacity: [0.2, 0.5, 0.2],
+        opacity: [0.2, 0.5, 0.2]
       }}
       transition={{
         duration: 1,
@@ -34,7 +34,7 @@ export const CircleIcon = ({
         repeat: Infinity,
         repeatType: "reverse",
         ease: "linear",
-        repeatDelay: delay,
+        repeatDelay: delay
       }}
       className={`pointer-events-none h-2 w-2 rounded-full bg-foreground opacity-20 ${className}`}
     ></motion.div>

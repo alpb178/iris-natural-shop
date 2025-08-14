@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import styles from "./styles.module.css";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
+import styles from "./styles.module.css";
 
 const Beam = ({
   showBeam = true,
-  className,
+  className
 }: {
   showBeam?: boolean;
   className?: string;
@@ -56,7 +56,7 @@ const Beam = ({
       <span
         ref={meteorRef}
         className={cn(
-          "absolute z-[40] -top-4  h-[0.1rem] w-[0.1rem] rounded-[9999px] bg-blue-700 shadow-[0_0_0_1px_#ffffff10] rotate-[180deg]",
+          "-top-4 z-[40] absolute bg-primary shadow-[0_0_0_1px_#ffffff10] rounded-[9999px] w-[0.1rem] h-[0.1rem] rotate-[180deg]",
           styles.meteor,
           className
         )}

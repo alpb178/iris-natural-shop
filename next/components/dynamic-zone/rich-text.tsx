@@ -1,22 +1,25 @@
 "use client";
 
-import { Heading } from "../elements/heading";
-
 import RichTextRenderer from "../rich-text";
+import { Text } from "../text/Text";
 
 export const RichText = (props: any) => {
   const { text_description: data } = props;
 
   return (
     <div className="relative w-full min-h-screen">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="mx-auto px-6 py-12 max-w-4xl">
         <div className="p-8">
-          <div className="prose prose-lg max-w-none">
+          <div className="max-w-none prose prose-lg">
             {data &&
               data?.map((item: any, index: number) => (
                 <div key={index} className="mb-8">
-                  <Heading className="text-left mb-4">{item.tittle}</Heading>
-                  <div className="text-left text-foreground leading-relaxed">
+                  <Text
+                    as="title"
+                    className="mb-4 text-left"
+                    content={item.tittle}
+                  />
+                  <div className="text-foreground text-left leading-relaxed">
                     <RichTextRenderer content={item.description} />
                   </div>
                 </div>

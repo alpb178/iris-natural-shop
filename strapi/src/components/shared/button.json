@@ -24,13 +24,14 @@
     },
     "variant": {
       "type": "enumeration",
+      "default": "primary",
       "enum": [
         "simple",
         "outline",
         "primary",
-        "muted"
-      ],
-      "default": "primary"
+        "muted",
+        "solid"
+      ]
     }
   }
 }

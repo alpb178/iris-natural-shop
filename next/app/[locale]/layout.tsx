@@ -1,4 +1,4 @@
-import { cormorantGaramond, libreFranklin } from "@/components/fonts";
+import { libreFranklin, merriweatherGaramond } from "@/components/fonts";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { CartProvider } from "@/context/cart-context";
@@ -50,7 +50,7 @@ export default async function LocaleLayout({
           <ThemeProvider>
             <body
               className={cn(
-                cormorantGaramond.variable,
+                merriweatherGaramond.variable,
                 libreFranklin.variable,
                 "bg-background text-foreground antialiased h-full w-full"
               )}

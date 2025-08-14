@@ -36,7 +36,7 @@ export const Hero = ({
   const isImage = backgroundMedia?.mime?.startsWith("image/");
 
   return (
-    <div className="relative flex flex-col justify-center items-center h-screen overflow-hidden">
+    <div className="relative flex flex-col justify-center items-center mb-20 h-screen overflow-hidden">
       {/* Background Media */}
       {backgroundMedia && (
         <div className="absolute inset-0 w-full h-full">
@@ -64,7 +64,7 @@ export const Hero = ({
           ) : null}
 
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-black/5" />
         </div>
       )}
 

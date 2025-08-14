@@ -1,8 +1,8 @@
 "use client";
 import { TbLocationBolt } from "react-icons/tb";
 import { AmbientColor } from "../../decorations/ambient-color";
-import { Heading } from "../../elements/heading";
 import { Subheading } from "../../elements/subheading";
+import { Text } from "../../text/Text";
 import { FeatureIconContainer } from "../features/feature-icon-container";
 import { TestimonialsSlider } from "./slider";
 import { TestimonialsMarquee } from "./testimonials-marquee";
@@ -23,7 +23,7 @@ export const Testimonials = ({
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
           <TbLocationBolt className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
-        <Heading className="pt-4">{heading}</Heading>
+        <Text as="title" className="pt-4 text-center" content={heading} />
         <Subheading>{sub_heading}</Subheading>
       </div>
 

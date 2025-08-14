@@ -1,7 +1,7 @@
 "use client";
+import { Text } from "@/components/text/Text";
 import { IconSettings } from "@tabler/icons-react";
 import { Container } from "../../container";
-import { Heading } from "../../elements/heading";
 import { Subheading } from "../../elements/subheading";
 import { FeatureIconContainer } from "../features/feature-icon-container";
 import { Card } from "./card";
@@ -21,7 +21,7 @@ export const HowItWorks = ({
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
           <IconSettings className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
-        <Heading className="pt-4">{heading}</Heading>
+        <Text as="title" className="pt-4 text-center" content={heading} />
         <Subheading className="mx-auto max-w-3xl">{sub_heading}</Subheading>
 
         {steps &&

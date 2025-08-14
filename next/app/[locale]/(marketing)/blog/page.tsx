@@ -1,8 +1,8 @@
 import { Container } from "@/components/container";
 import { AmbientColor } from "@/components/decorations/ambient-color";
 import { FeatureIconContainer } from "@/components/dynamic-zone/features/feature-icon-container";
-import { Heading } from "@/components/elements/heading";
 import { Subheading } from "@/components/elements/subheading";
+import { Text } from "@/components/text/Text";
 import { Article } from "@/definitions/Article";
 import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 import { generateMetadataObject } from "@/lib/shared/metadata";
@@ -67,9 +67,12 @@ export default async function Blog({
           <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
             <IconClipboardText className="w-6 h-6 text-foreground" />
           </FeatureIconContainer>
-          <Heading as="h1" className="mt-4">
-            {blogPage.heading}
-          </Heading>
+          <Text
+            as="title"
+            className="mt-4 text-center"
+            content={blogPage.heading}
+          />
+
           <Subheading className="mx-auto max-w-3xl">
             {blogPage.sub_heading}
           </Subheading>

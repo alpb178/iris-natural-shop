@@ -53,7 +53,7 @@ LATEST_TAG="latest"
 echo "📦 Building image: ${IMAGE_NAME}:${TAG}"
 echo "🔧 Building for platform: linux/amd64 (compatible with remote x86_64 host)"
 cd strapi
-# docker build --platform linux/amd64 --no-cache -t ${IMAGE_NAME}:${LATEST_TAG} .
+docker build --platform linux/amd64 --no-cache -t ${IMAGE_NAME}:${LATEST_TAG} .
 
 if [ $? -ne 0 ]; then
     echo "❌ Error: Docker build failed!"

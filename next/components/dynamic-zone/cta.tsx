@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "../button/Button";
 import { Container } from "../container";
 import { AmbientColor } from "../decorations/ambient-color";
+import { Text } from "../text/Text";
 
 export const CTA = ({
   heading,
@@ -22,10 +22,12 @@ export const CTA = ({
       <AmbientColor />
       <Container className="flex md:flex-row flex-col justify-between items-center px-8 w-full">
         <div className="flex flex-col">
-          <motion.h2 className="mx-auto md:mx-0 max-w-xl font-bold text-foreground text-xl md:text-3xl md:text-left text-center">
-            {heading}
-          </motion.h2>
-          <p className="mx-auto md:mx-0 mt-8 max-w-md text-neutral-400 text-sm md:text-base md:text-left text-center">
+          <Text
+            as="heading"
+            className="mx-auto md:mx-0 max-w-xl font-bold text-foreground text-xl md:text-3xl md:text-left text-center"
+            content={heading}
+          />
+          <p className="mx-auto md:mx-0 mt-8 max-w-md text-foreground/80 text-sm md:text-base md:text-left text-center">
             {sub_heading}
           </p>
         </div>

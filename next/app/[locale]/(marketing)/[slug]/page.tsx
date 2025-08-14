@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
+import { generateMetadataObject } from "@/lib/shared/metadata";
 import PageContent from "@/lib/shared/PageContent";
 import fetchContentType from "@/lib/strapi/fetchContentType";
-import { generateMetadataObject } from "@/lib/shared/metadata";
-import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
+import { Metadata } from "next";
 import ClientSlugHandler from "../ClientSlugHandler";
 
 export async function generateMetadata({
