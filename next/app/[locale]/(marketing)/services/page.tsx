@@ -8,7 +8,7 @@ import { Text } from "@/components/text/Text";
 import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
-import { IconShoppingCartUp } from "@tabler/icons-react";
+import { UsersIcon } from "lucide-react";
 import { Metadata } from "next";
 import ClientSlugHandler from "../ClientSlugHandler";
 
@@ -67,7 +67,7 @@ export default async function Products({
         {featured?.length > 0 && (
           <>
             <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-              <IconShoppingCartUp className="w-6 h-6 text-foreground" />
+              <UsersIcon className="size-6 text-foreground" />
             </FeatureIconContainer>
             <Text
               as="title"

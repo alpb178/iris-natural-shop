@@ -49,11 +49,12 @@ export const DesktopNavbar = ({
   return (
     <div
       className={cn(
-        "flex justify-between mx-auto px-4 py-3 w-full transition duration-200",
+        "w-full transition duration-200",
         showBackground ? "backdrop-blur-xl bg-card/70" : "bg-background"
       )}
     >
-      {/* <AnimatePresence>
+      <div className="flex justify-between mx-auto px-4 py-3 max-w-7xl">
+        {/* <AnimatePresence>
         {showBackground && (
           <motion.div
             key={String(showBackground)}
@@ -66,44 +67,45 @@ export const DesktopNavbar = ({
           />
         )}
       </AnimatePresence> */}
-      <div className="flex flex-row items-center gap-2 w-full">
-        <div className="flex items-center gap-1.5 w-full">
-          {leftNavbarItems.map((item) => (
-            <NavbarItem
-              href={`/${locale}${item.URL}` as never}
-              key={item.text}
-              target={item.target}
-            >
-              {item.text}
-            </NavbarItem>
-          ))}
+        <div className="flex flex-row items-center gap-2 w-full">
+          <div className="flex items-center gap-6 w-full">
+            {leftNavbarItems.map((item) => (
+              <NavbarItem
+                href={`/${locale}${item.URL}` as never}
+                key={item.text}
+                target={item.target}
+              >
+                {item.text}
+              </NavbarItem>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <Logo locale={locale} image={logo?.image} />
+        <Logo locale={locale} image={logo?.image} />
 
-      <div className="flex justify-end items-center space-x-2 w-full">
-        {/* <LocaleSwitcher currentLocale={locale} /> */}
+        <div className="flex justify-end items-center space-x-2 w-full">
+          {/* <LocaleSwitcher currentLocale={locale} /> */}
 
-        {rightNavbarItems.map((item, index) => (
-          <Button
-            key={item.text}
-            variant={
-              index === rightNavbarItems.length - 1 ? "solid" : "outline"
-            }
-            as={Link}
-            href={`/${locale}${item.URL}`}
-            label={item.text}
+          {rightNavbarItems.map((item, index) => (
+            <Button
+              key={item.text}
+              variant={
+                index === rightNavbarItems.length - 1 ? "solid" : "outline"
+              }
+              as={Link}
+              href={`/${locale}${item.URL}`}
+              label={item.text}
+            />
+          ))}
+
+          <IconButton
+            className="bg-background text-foreground"
+            onClick={toggleTheme}
+            icon={theme === "light" ? <MoonIcon /> : <SunIcon />}
           />
-        ))}
 
-        <IconButton
-          className="bg-background text-foreground"
-          onClick={toggleTheme}
-          icon={theme === "light" ? <MoonIcon /> : <SunIcon />}
-        />
-
-        <BookAppointmentModal />
+          <BookAppointmentModal />
+        </div>
       </div>
     </div>
   );

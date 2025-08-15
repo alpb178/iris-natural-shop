@@ -277,7 +277,6 @@ export interface GlobalFooter extends Struct.ComponentSchema {
     internal_links: Schema.Attribute.Component<'shared.link', true>;
     logo: Schema.Attribute.Relation<'oneToOne', 'api::logo.logo'>;
     policy_links: Schema.Attribute.Component<'shared.link', true>;
-    social_media_links: Schema.Attribute.Component<'shared.link', true>;
   };
 }
 

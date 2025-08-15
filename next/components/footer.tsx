@@ -18,6 +18,9 @@ export const Footer = async ({
             </div>
             <div className="max-w-xs">{data?.description}</div>
             <div className="mt-4">{data?.copyright}</div>
+            {data?.social_networks && (
+              <LinkSection links={data?.social_networks} locale={locale} />
+            )}
             {/* <div className="mt-10">
               Designed and Developed by{" "}
               <a
@@ -32,10 +35,9 @@ export const Footer = async ({
               </a>
             </div> */}
           </div>
-          <div className="items-start gap-10 grid grid-cols-3 mt-10 md:mt-0">
+          <div className="items-start gap-10 grid grid-cols-2 mt-10 md:mt-0">
             <LinkSection links={data?.internal_links} locale={locale} />
             <LinkSection links={data?.policy_links} locale={locale} />
-            <LinkSection links={data?.social_media_links} locale={locale} />
           </div>
         </div>
       </div>
@@ -54,7 +56,7 @@ const LinkSection = ({
     {links.map((link) => (
       <Link
         key={link.text}
-        className="text-muted-foreground hover:text-foreground text-xs sm:text-sm transition-colors"
+        className="text-foreground/80 hover:text-primary text-xs sm:text-sm transition-colors"
         href={`${link.URL.startsWith("http") ? "" : `/${locale}`}${link.URL}`}
       >
         {link.text}

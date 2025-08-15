@@ -1,8 +1,10 @@
 import { Service } from "@/definitions/Service";
+import { formatPrice } from "@/lib/price";
 import { strapiImage } from "@/lib/strapi/strapiImage";
-import { formatNumber, truncate } from "@/lib/utils";
+import { truncate } from "@/lib/utils";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
+import { Text } from "../text/Text";
 
 export const ProductItems = ({
   heading = "Servicios",
@@ -17,9 +19,11 @@ export const ProductItems = ({
 }) => {
   return (
     <div className="py-20">
-      <h2 className="bg-clip-text bg-gradient-to-b from-foreground via-foreground to-foreground mb-2 font-medium text-transparent text-2xl md:text-4xl">
-        {heading}
-      </h2>
+      <Text
+        as="subtitle"
+        content={heading}
+        className="bg-clip-text bg-gradient-to-b from-primary via-foreground to-foreground text-transparent"
+      />
       <p className="mt-4 mb-10 text-muted-foreground text-lg">{sub_heading}</p>
       <div className="gap-20 grid grid-cols-1 md:grid-cols-3">
         {services &&
@@ -48,8 +52,8 @@ const ProductItem = ({
       href={`/${locale}/services/${service.slug}` as never}
       className="group block relative"
     >
-      <div className="relative bg-card border border-border rounded-md overflow-hidden">
-        <div className="z-30 absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80 transition-all duration-200" />
+      <div className="relative bg-card border border-border rounded overflow-hidden">
+        <div className="z-30 absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 transition-all duration-200" />
 
         <Image
           src={strapiImage(service.images?.[0]?.url ?? "")}
@@ -66,7 +70,7 @@ const ProductItem = ({
             {service.name}
           </span>
           <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-foreground text-xs">
-            ${formatNumber(service.price)}
+            {formatPrice({ price: service.price ?? 0 }).toString()}
           </span>
         </div>
         <p className="mt-4 text-muted-foreground text-sm">

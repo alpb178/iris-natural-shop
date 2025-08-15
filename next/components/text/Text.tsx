@@ -10,6 +10,7 @@ interface TextVariants {
   text: "p";
   error: "caption";
   label: "label";
+  span: "span";
 }
 
 const variants: TextVariants = {
@@ -19,7 +20,8 @@ const variants: TextVariants = {
   helper: "caption",
   text: "p",
   error: "caption",
-  label: "label"
+  label: "label",
+  span: "span"
 };
 
 export function Text(props: Readonly<TextProps>) {
@@ -30,7 +32,8 @@ export function Text(props: Readonly<TextProps>) {
     | "h2"
     | "p"
     | "label"
-    | "caption";
+    | "caption"
+    | "span";
 
   const classNames = cn(styles.text, props.as && styles[props.as], className);
 

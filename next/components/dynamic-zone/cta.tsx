@@ -1,5 +1,6 @@
 "use client";
 
+import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
 import Link from "next/link";
 import { Button } from "../button/Button";
 import { Container } from "../container";
@@ -33,15 +34,19 @@ export const CTA = ({
         </div>
         <div className="flex items-center gap-4">
           {CTAs &&
-            CTAs.map((cta, index) => (
-              <Button
-                as={Link}
-                key={index}
-                href={`/${locale}${cta.URL}`}
-                variant={cta.variant}
-                label={cta.text}
-              />
-            ))}
+            CTAs.map((cta, index) =>
+              cta.target === "_self" ? (
+                <BookAppointmentModal />
+              ) : (
+                <Button
+                  as={Link}
+                  key={index}
+                  href={cta.URL}
+                  variant={cta.variant}
+                  label={cta.text}
+                />
+              )
+            )}
         </div>
       </Container>
     </div>

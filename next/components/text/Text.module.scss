@@ -3,7 +3,7 @@ h1.text {
 }
 
 h2.text {
-  @apply mb-2 font-merriweather font-semibold text-[1.7rem] text-gray-800 md:text-[2rem];
+  @apply mb-2 font-merriweather font-semibold text-[1.7rem] md:text-[2rem];
 }
 
 h3.text {
@@ -43,9 +43,13 @@ label.text {
   @apply font-merriweather font-black text-3xl;
 }
 
-.subtitle {
-  @apply font-libre text-gray-500 text-lg;
+span.text {
+  @apply font-libre;
 }
+
+// .subtitle {
+//   @apply font-libre text-gray-500 text-lg;
+// }
 
 .helper {
   @apply font-libre text-gray-500 text-sm;

@@ -1,5 +1,5 @@
 export interface TextProps {
-  as?: "title" | "subtitle" | "helper" | "error" | "label" | "heading";
+  as?: "title" | "subtitle" | "helper" | "error" | "label" | "heading" | "span";
   content?: string | number;
   className?: string;
   children?: React.ReactNode;

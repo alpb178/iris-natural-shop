@@ -1,8 +1,9 @@
 "use client";
 
 import { Service } from "@/definitions/Service";
+import { formatPrice } from "@/lib/price";
 import { strapiImage } from "@/lib/strapi/strapiImage";
-import { cn, formatNumber } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -14,7 +15,7 @@ export const SingleService = ({ service }: { service: Service }) => {
   );
 
   return (
-    <div className="bg-gradient-to-b from-background to-background p-4 md:p-10 rounded-md">
+    <div className="">
       <div className="gap-12 grid grid-cols-1 md:grid-cols-2">
         <div>
           <motion.div
@@ -22,7 +23,7 @@ export const SingleService = ({ service }: { service: Service }) => {
             animate={{ x: 0 }}
             exit={{ x: 50 }}
             key={activeThumbnail}
-            className="relative rounded-lg overflow-hidden"
+            className="relative rounded overflow-hidden"
             transition={{
               type: "spring",
               stiffness: 260,
@@ -34,7 +35,7 @@ export const SingleService = ({ service }: { service: Service }) => {
               alt={service.name}
               width={600}
               height={600}
-              className="rounded-lg object-cover"
+              className="rounded object-cover"
             />
           </motion.div>
 
@@ -45,7 +46,7 @@ export const SingleService = ({ service }: { service: Service }) => {
                   onClick={() => setActiveThumbnail(strapiImage(image.url))}
                   key={"service-image" + index}
                   className={cn(
-                    "border-2 rounded-xl w-20 h-20 transition-colors",
+                    "border-2 rounded w-20 h-20 transition-colors",
                     activeThumbnail === strapiImage(image.url)
                       ? "border-primary ring-2 ring-primary/20"
                       : "border-border hover:border-primary/50"
@@ -65,8 +66,8 @@ export const SingleService = ({ service }: { service: Service }) => {
           <h2 className="mb-4 font-semibold text-foreground text-2xl">
             {service.name}
           </h2>
-          <p className="bg-primary/10 mb-6 px-4 py-1 rounded-full w-fit font-medium text-primary text-xs">
-            ${formatNumber(service.price)}
+          <p className="bg-primary/10 mb-6 px-4 py-1 rounded-full w-fit font-medium text-primary text-sm">
+            {formatPrice({ price: service.price ?? 0 }).toString()}
           </p>
           <p className="mb-4 font-normal text-muted-foreground text-base leading-relaxed">
             {service.description}

@@ -28,10 +28,11 @@ export function Button({
   disabled,
   type = "button",
   variant = "solid",
+  as: Tag = "button",
   ...rest
 }: Readonly<ButtonProps>) {
   return (
-    <button
+    <Tag
       className={clsx(
         className,
         styles.base,
@@ -64,6 +65,6 @@ export function Button({
       </div>
 
       {children}
-    </button>
+    </Tag>
   );
 }

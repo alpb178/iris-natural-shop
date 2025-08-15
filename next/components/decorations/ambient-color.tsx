@@ -6,9 +6,9 @@ export const AmbientColor = () => {
   const { theme } = useTheme();
 
   // Use stronger opacity values for light theme to make colors more perceptible
-  const primaryOpacity = theme === "light" ? 0.08 : 0.08;
-  const secondaryOpacity = theme === "light" ? 0.02 : 0.02;
-  const tertiaryOpacity = theme === "light" ? 0.02 : 0.02;
+  const primaryOpacity = theme === "light" ? 0.04 : 0.08;
+  const secondaryOpacity = theme === "light" ? 0.01 : 0.02;
+  const tertiaryOpacity = theme === "light" ? 0.01 : 0.02;
 
   return (
     <div className="top-0 left-0 z-40 absolute w-screen h-screen pointer-events-none">
