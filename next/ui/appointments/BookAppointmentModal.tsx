@@ -41,7 +41,8 @@ export function BookAppointmentModal() {
       name: "",
       email: "",
       phone: ""
-    }
+    },
+    mode: "onChange"
   });
 
   const selectedDate = methods.watch("date");

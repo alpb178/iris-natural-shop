@@ -33,10 +33,10 @@ label.text {
   span {
     @apply ml-1 text-red-500 text-sm;
   }
+}
 
-  &.error {
-    @apply font-medium text-red-500 text-sm;
-  }
+.error {
+  @apply font-medium text-red-500 text-sm;
 }
 
 .title {

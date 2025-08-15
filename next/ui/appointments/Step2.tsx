@@ -14,9 +14,42 @@ export const Step2 = ({ onNext, onBack, methods, name, email }: StepProps) => {
       />
 
       <div className="space-y-4">
-        <TextInput name="name" label="Nombre Completo" required />
-        <TextInput name="email" label="Correo electrónico" required />
-        <TextInput name="phone" label="Teléfono (opcional)" />
+        <TextInput
+          name="name"
+          label="Nombre Completo"
+          required
+          validation={{
+            required: {
+              value: true,
+              message: "Nombre completo es requerido"
+            }
+          }}
+        />
+        <TextInput
+          name="email"
+          label="Correo electrónico"
+          required
+          validation={{
+            required: {
+              value: true,
+              message: "Correo electrónico es requerido"
+            },
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "Correo electrónico inválido"
+            }
+          }}
+        />
+        <TextInput
+          name="phone"
+          label="Teléfono (opcional)"
+          validation={{
+            pattern: {
+              value: /^[\+]?[1-9][\d]{0,15}$/,
+              message: "Número de teléfono inválido"
+            }
+          }}
+        />
       </div>
 
       <div className="flex justify-between">

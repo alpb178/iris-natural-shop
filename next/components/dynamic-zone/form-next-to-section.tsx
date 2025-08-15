@@ -26,6 +26,35 @@ export function FormNextToSection({
 }) {
   const { isPageLoaded } = usePageLoaded();
 
+  // Create validation rules for each input
+  const getValidationRules = (input: any) => {
+    const rules: Record<string, any> = {};
+
+    if (input.required) {
+      rules.required = {
+        value: true,
+        message: `${input.label || input.name} is required`
+      };
+    }
+
+    // Add type-specific validation
+    if (input.type === "email") {
+      rules.pattern = {
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+        message: "Invalid email address"
+      };
+    }
+
+    if (input.type === "tel") {
+      rules.pattern = {
+        value: /^[\+]?[1-9][\d]{0,15}$/,
+        message: "Invalid phone number"
+      };
+    }
+
+    return rules;
+  };
+
   const methods = useForm();
 
   const onSubmit = (data: any) => {
@@ -69,6 +98,8 @@ export function FormNextToSection({
                             name={input.name}
                             label={input.label}
                             placeholder={input.placeholder}
+                            required={input.required}
+                            validation={getValidationRules(input)}
                           />
                         ) : input?.type === "submit" ? (
                           <div className="flex justify-end items-center">
@@ -84,6 +115,8 @@ export function FormNextToSection({
                             type={input.type}
                             label={input.label}
                             placeholder={input.placeholder}
+                            required={input.required}
+                            validation={getValidationRules(input)}
                           />
                         )}
                       </div>
