@@ -133,9 +133,9 @@ export interface DynamicZoneFormNextToSection extends Struct.ComponentSchema {
     form: Schema.Attribute.Component<'shared.form', false>;
     heading: Schema.Attribute.String;
     section: Schema.Attribute.Component<'shared.section', false>;
-    social_media_icon_links: Schema.Attribute.Component<
-      'shared.social-media-icon-links',
-      true
+    social_networks: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::social-network.social-network'
     >;
     sub_heading: Schema.Attribute.String;
   };
@@ -314,8 +314,10 @@ export interface ItemsInput extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
-    name: Schema.Attribute.String;
+    label: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     placeholder: Schema.Attribute.String;
+    required: Schema.Attribute.Boolean;
     type: Schema.Attribute.Enumeration<
       [
         'text',

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "testimonial",
     "pluralName": "testimonials",
-    "displayName": "Testimonials",
+    "displayName": "Testimonios",
     "description": ""
   },
   "options": {
@@ -25,15 +25,14 @@
       }
     },
     "user": {
-      "displayName": "User",
       "type": "component",
-      "repeatable": false,
-      "component": "shared.user",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "shared.user",
+      "repeatable": false
     }
   }
 }

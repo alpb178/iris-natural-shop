@@ -9,6 +9,7 @@
   "attributes": {
     "type": {
       "type": "enumeration",
+      "default": "text",
       "enum": [
         "text",
         "email",
@@ -33,14 +34,20 @@
         "time",
         "url",
         "week"
-      ],
-      "default": "text"
+      ]
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "placeholder": {
       "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "required": {
+      "type": "boolean"
     }
   }
 }

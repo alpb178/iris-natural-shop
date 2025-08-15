@@ -14,21 +14,19 @@
       "type": "string"
     },
     "form": {
-      "displayName": "Form",
       "type": "component",
-      "repeatable": false,
-      "component": "shared.form"
+      "component": "shared.form",
+      "repeatable": false
     },
     "section": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.section"
+      "component": "shared.section",
+      "repeatable": false
     },
-    "social_media_icon_links": {
-      "displayName": "Social_Media_Icon_Links",
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.social-media-icon-links"
+    "social_networks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::social-network.social-network"
     }
   }
 }
