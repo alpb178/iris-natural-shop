@@ -34,10 +34,10 @@ export const TestimonialsMarquee = ({
                   className="rounded-full"
                 />
                 <div className="flex flex-col">
-                  <QuoteDescription className="text-neutral-300">
+                  <QuoteDescription className="text-foreground/80">
                     {`${testimonial.user.firstname} ${testimonial.user.lastname}`}
                   </QuoteDescription>
-                  <QuoteDescription className="text-neutral-400">
+                  <QuoteDescription className="text-foreground/60">
                     {testimonial.user.job}
                   </QuoteDescription>
                 </div>

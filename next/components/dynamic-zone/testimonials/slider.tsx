@@ -119,10 +119,10 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
               {slicedTestimonials.map((item: any, index: number) => (
                 <button
                   className={cn(
-                    `px-2 py-1 rounded-full m-1.5 text-xs border border-transparent text-neutral-100 transition duration-150 ease-in-out bg-primary relative before:absolute before:inset-0 before:bg-neutral-800/30 before:rounded-full before:pointer-events-none ${
+                    `px-2 py-1 rounded-full m-1.5 text-xs border border-transparent text-neutral-100 transition duration-150 ease-in-out bg-card relative before:absolute before:inset-0 before:bg-card before:rounded-full before:pointer-events-none ${
                       active === index
-                        ? "border-secondary/50"
-                        : "border-transparent opacity-70"
+                        ? "border-accent/90"
+                        : "border-transparent opacity-50"
                     }`
                   )}
                   key={index}
@@ -132,16 +132,20 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                   }}
                 >
                   <span className="relative">
-                    <span className="font-bold text-neutral-50">
+                    <span className="font-bold text-primary">
                       {`${item.user.firstname} ${item.user.lastname}`}
                     </span>{" "}
-                    <br className="sm:hidden block" />
-                    <span className="hidden sm:inline-block text-neutral-100">
-                      -
-                    </span>{" "}
-                    <span className="hidden sm:inline-block">
-                      {item.user.job}
-                    </span>
+                    {item.user.job && (
+                      <>
+                        <br className="sm:hidden block" />
+                        <span className="hidden sm:inline-block text-foreground/50">
+                          -
+                        </span>{" "}
+                        <span className="hidden sm:inline-block font-medium text-accent">
+                          {item.user.job}
+                        </span>
+                      </>
+                    )}
                   </span>
                 </button>
               ))}
