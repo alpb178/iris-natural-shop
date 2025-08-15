@@ -15,7 +15,7 @@ export const FeatureIconContainer = ({
           "relative bg-gradient-to-b from-muted to-muted/80 mx-auto p-[4px] rounded-md w-14 h-14"
         )}
         style={{
-          transform: "rotateX(25deg)",
+          // transform: "rotateX(25deg)",
           transformOrigin: "center"
         }}
       >

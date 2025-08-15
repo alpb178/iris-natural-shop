@@ -70,25 +70,14 @@ export const Launches = ({
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
-      <motion.div
-        animate={{
-          background: gradient
-        }}
-        transition={{
-          duration: 0.5
-        }}
-        ref={ref}
-        className="relative pt-20 md:pt-40 w-full h-full"
-      >
-        <div className="px-6">
-          <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-            <IconRocket className="w-6 h-6 text-foreground" />
-          </FeatureIconContainer>
-          <Text as="title" className="mt-4 text-center" content={heading} />
-          <Subheading>{sub_heading}</Subheading>
-        </div>
-        <StickyScroll content={launchesWithDecoration} />
-      </motion.div>
+      <div className="px-6">
+        <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
+          <IconRocket className="w-6 h-6 text-foreground" />
+        </FeatureIconContainer>
+        <Text as="title" className="mt-4 text-center" content={heading} />
+        <Subheading>{sub_heading}</Subheading>
+      </div>
+      <StickyScroll content={launchesWithDecoration} />
     </motion.div>
   );
 };

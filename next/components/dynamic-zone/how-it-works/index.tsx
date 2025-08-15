@@ -4,8 +4,8 @@ import {
   entranceAnimationVariants,
   useEntranceAnimation
 } from "@/hooks/useEntranceAnimation";
-import { IconSettings } from "@tabler/icons-react";
 import { motion } from "framer-motion";
+import { FlowerIcon } from "lucide-react";
 import { Container } from "../../container";
 import { Subheading } from "../../elements/subheading";
 import { FeatureIconContainer } from "../features/feature-icon-container";
@@ -32,7 +32,7 @@ export const HowItWorks = ({
       <motion.div variants={entranceAnimationVariants.item}>
         <Container className="z-40 relative mx-auto py-20 max-w-7xl">
           <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-            <IconSettings className="w-6 h-6 text-foreground" />
+            <FlowerIcon className="w-6 h-6 text-foreground" />
           </FeatureIconContainer>
 
           <Text as="title" className="pt-4 text-center" content={heading} />
