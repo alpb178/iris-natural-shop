@@ -80,16 +80,20 @@ export const Hero = ({
         </motion.div>
       )}
 
-      <Heading
-        as="h1"
-        className="z-10 relative mx-auto mt-6 py-6 max-w-7xl font-semibold text-4xl md:text-4xl lg:text-8xl text-center"
-      >
-        {heading.substring(0, heading.lastIndexOf(" "))}{" "}
-        <Cover>{heading.split(" ").pop()}</Cover>
-      </Heading>
-      <Subheading className="z-10 relative mx-auto mt-2 md:mt-6 max-w-3xl text-muted-foreground text-base md:text-xl text-center">
-        {sub_heading}
-      </Subheading>
+      {heading && (
+        <Heading
+          as="h1"
+          className="z-10 relative mx-auto mt-6 py-6 max-w-7xl font-semibold text-4xl md:text-4xl lg:text-8xl text-center"
+        >
+          {heading.substring(0, heading.lastIndexOf(" "))}{" "}
+          <Cover>{heading.split(" ").pop()}</Cover>
+        </Heading>
+      )}
+      {sub_heading && (
+        <Subheading className="z-10 relative mx-auto mt-2 md:mt-6 max-w-3xl text-muted-foreground text-base md:text-xl text-center">
+          {sub_heading}
+        </Subheading>
+      )}
       <div className="flex items-center space-x-2 mt-8">
         {CTAs &&
           CTAs.map((cta) => (

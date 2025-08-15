@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/button/Button";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
+import { usePageLoaded } from "@/hooks/usePageLoaded";
 import { cn } from "@/lib/utils";
 import {
   IconBrandGithub,
@@ -9,7 +10,6 @@ import {
   IconBrandX
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Text } from "../text/Text";
 
 export function FormNextToSection({
@@ -25,16 +25,7 @@ export function FormNextToSection({
   section: any;
   social_media_icon_links: any;
 }) {
-  const [isFormVisible, setIsFormVisible] = useState(false);
-
-  useEffect(() => {
-    // Trigger animation after component mounts
-    const timer = setTimeout(() => {
-      setIsFormVisible(true);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { isPageLoaded } = usePageLoaded();
 
   const socials = [
     {
@@ -64,7 +55,7 @@ export function FormNextToSection({
         <div
           className={cn(
             "mx-auto w-full max-w-md transition-all duration-700 ease-out transform",
-            isFormVisible
+            isPageLoaded
               ? "translate-y-0 opacity-100"
               : "translate-y-8 opacity-0"
           )}

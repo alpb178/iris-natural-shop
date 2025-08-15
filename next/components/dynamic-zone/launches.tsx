@@ -2,6 +2,10 @@
 
 import { Text } from "@/components/text/Text";
 import { StickyScroll } from "@/components/ui/sticky-scroll";
+import {
+  entranceAnimationVariants,
+  useEntranceAnimation
+} from "@/hooks/useEntranceAnimation";
 import { IconRocket } from "@tabler/icons-react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
@@ -17,6 +21,8 @@ export const Launches = ({
   sub_heading: string;
   launches: any[];
 }) => {
+  const { ref: animationRef, isInView } = useEntranceAnimation();
+
   const launchesWithDecoration = launches.map((entry) => ({
     ...entry,
     icon: <IconRocket className="w-8 h-8 text-secondary" />,
@@ -56,25 +62,33 @@ export const Launches = ({
     );
     setGradient(backgrounds[closestBreakpointIndex % backgrounds.length]);
   });
+
   return (
     <motion.div
-      animate={{
-        background: gradient
-      }}
-      transition={{
-        duration: 0.5
-      }}
-      ref={ref}
-      className="relative pt-20 md:pt-40 w-full h-full"
+      ref={animationRef}
+      variants={entranceAnimationVariants.container}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
     >
-      <div className="px-6">
-        <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-          <IconRocket className="w-6 h-6 text-foreground" />
-        </FeatureIconContainer>
-        <Text as="title" className="mt-4 text-center" content={heading} />
-        <Subheading>{sub_heading}</Subheading>
-      </div>
-      <StickyScroll content={launchesWithDecoration} />
+      <motion.div
+        animate={{
+          background: gradient
+        }}
+        transition={{
+          duration: 0.5
+        }}
+        ref={ref}
+        className="relative pt-20 md:pt-40 w-full h-full"
+      >
+        <div className="px-6">
+          <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
+            <IconRocket className="w-6 h-6 text-foreground" />
+          </FeatureIconContainer>
+          <Text as="title" className="mt-4 text-center" content={heading} />
+          <Subheading>{sub_heading}</Subheading>
+        </div>
+        <StickyScroll content={launchesWithDecoration} />
+      </motion.div>
     </motion.div>
   );
 };

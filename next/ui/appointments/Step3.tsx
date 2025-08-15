@@ -21,12 +21,11 @@ export const Step3 = ({
   return (
     <div className="slide-in-from-right-4 space-y-6 animate-in duration-300">
       <Text
-        as="title"
         content="Resumen de la cita"
-        className="text-lg text-center"
+        className="font-merriweather font-bold text-3xl"
       />
 
-      <div className="space-y-2 bg-gray-50 p-4 rounded-lg">
+      <div className="flex flex-col space-y-4 py-4 rounded-lg">
         <div className="flex justify-between">
           <span className="font-medium">Fecha:</span>
           <span>

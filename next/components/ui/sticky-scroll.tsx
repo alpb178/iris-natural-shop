@@ -77,7 +77,7 @@ export const ScrollContent = ({
           y: translate,
           opacity: opacity
         }}
-        className="self-start rounded-md w-full h-full"
+        className="self-start rounded-md w-full h-full font-merriweather"
       >
         {item.content && item.content}
       </motion.div>

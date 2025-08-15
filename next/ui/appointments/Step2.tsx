@@ -9,9 +9,8 @@ export const Step2 = ({ onNext, onBack, methods, name, email }: StepProps) => {
   return (
     <div className="slide-in-from-right-4 space-y-6 animate-in duration-300">
       <Text
-        as="title"
         content="Información de contacto"
-        className="text-lg text-center"
+        className="font-merriweather font-bold text-3xl"
       />
 
       <div className="space-y-4">

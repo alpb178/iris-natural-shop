@@ -14,9 +14,8 @@ export const Step1 = ({
   return (
     <div className="slide-in-from-right-4 flex flex-col space-y-6 animate-in duration-300">
       <Text
-        as="title"
         content="Selecciona fecha y hora"
-        className="text-lg text-center"
+        className="font-merriweather font-bold text-3xl"
       />
 
       <div className="w-full">

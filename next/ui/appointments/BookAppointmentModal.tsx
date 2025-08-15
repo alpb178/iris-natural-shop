@@ -188,7 +188,6 @@ export function BookAppointmentModal() {
         onClose={() => setOpen(false)}
         position="right"
         className="bg-card"
-        title="Pedir cita"
       >
         <Container>
           {renderStepIndicator()}

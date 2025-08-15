@@ -6,7 +6,7 @@ export function StoryPanel(props: any) {
   const { storys: data } = props;
 
   return (
-    <div className="w-full bg-background text-foreground">
+    <div className="bg-background w-full text-foreground">
       {data &&
         data?.map((item: any, index: number) => {
           // Determine layout based on index: 0=left, 1=right, 2=below, then repeat
@@ -16,8 +16,8 @@ export function StoryPanel(props: any) {
             // Image on the left
             return (
               <section key={index} className="py-20 lg:py-32">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                  <div className="items-center gap-12 grid grid-cols-1 lg:grid-cols-2">
                     <div className="order-2 lg:order-1">
                       {item.image && (
                         <Image
@@ -30,10 +30,8 @@ export function StoryPanel(props: any) {
                       )}
                     </div>
                     <div className="order-1 lg:order-2">
-                      <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
-                        {item.tittle}
-                      </h1>
-                      <p className="text-xl text-muted-foreground leading-relaxed">
+                      <h1 className="mb-6 font-bold text-4xl">{item.tittle}</h1>
+                      <p className="text-foreground/70 text-lg">
                         {item.description}
                       </p>
                     </div>
@@ -45,13 +43,13 @@ export function StoryPanel(props: any) {
             // Image on the right (original layout)
             return (
               <section key={index} className="py-20 lg:py-32">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                  <div className="items-center gap-12 grid grid-cols-1 lg:grid-cols-2">
                     <div>
-                      <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
+                      <h1 className="mb-6 font-bold text-4xl lg:text-6xl leading-tight">
                         {item.tittle}
                       </h1>
-                      <p className="text-xl text-muted-foreground leading-relaxed">
+                      <p className="text-muted-foreground text-xl leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -74,12 +72,12 @@ export function StoryPanel(props: any) {
             // Image below
             return (
               <section key={index} className="py-20 lg:py-32">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center mb-12">
-                    <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                  <div className="mb-12 text-center">
+                    <h1 className="mb-6 font-bold text-4xl lg:text-6xl leading-tight">
                       {item.tittle}
                     </h1>
-                    <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                    <p className="mx-auto max-w-3xl text-muted-foreground text-xl leading-relaxed">
                       {item.description}
                     </p>
                   </div>
