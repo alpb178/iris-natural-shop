@@ -1,16 +1,11 @@
 import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-export const useEntranceAnimation = (options?: {
-  amount?: number;
-  margin?: string;
-  threshold?: number;
-}) => {
+export const useEntranceAnimation = (options?: { amount?: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     amount: options?.amount ?? 0.3,
-    margin: options?.margin ?? "-100px 0px -100px 0px",
-    threshold: options?.threshold
+    margin: "-100px 0px -100px 0px"
   });
 
   const [hasAnimated, setHasAnimated] = useState(false);

@@ -28,7 +28,7 @@ h5.text {
 }
 
 label.text {
-  @apply font-libre font-medium text-gray-800 text-sm;
+  @apply font-libre font-medium text-foreground/80 text-sm;
 
   span {
     @apply ml-1 text-red-500 text-sm;

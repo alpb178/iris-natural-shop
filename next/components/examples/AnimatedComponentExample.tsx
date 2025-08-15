@@ -9,8 +9,7 @@ import { motion } from "framer-motion";
 // Example of how to use the reusable animation system
 export const AnimatedComponentExample = () => {
   const { ref, isInView } = useEntranceAnimation({
-    amount: 0.2, // Customize when animation triggers
-    margin: "-50px 0px -50px 0px" // Customize trigger margin
+    amount: 0.2 // Customize when animation triggers
   });
 
   return (

@@ -10,7 +10,7 @@
     }
 
     .resetButton {
-      @apply absolute right-0 p-2 mx-2 text-gray-400 rounded-full hover:text-gray-600 hover:bg-gray-200/50 active:opacity-50;
+      @apply absolute right-0 p-2 mx-2 text-foreground/40 rounded hover:text-foreground/60 hover:bg-foreground/10 active:opacity-50;
     }
   }
 }

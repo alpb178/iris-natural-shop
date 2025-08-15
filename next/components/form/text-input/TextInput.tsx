@@ -1,10 +1,10 @@
-import { Text } from '@/components/text/Text';
-import { DEFAULT_INPUT_VARIANT } from '@/lib/constants/common';
-import clsx from 'clsx';
-import { X } from 'lucide-react';
-import { useFormContext } from 'react-hook-form';
-import styles from './TextInput.module.scss';
-import { TextInputProps } from './TextInput.props';
+import { Text } from "@/components/text/Text";
+import { DEFAULT_INPUT_VARIANT } from "@/lib/constants/common";
+import clsx from "clsx";
+import { X } from "lucide-react";
+import { useFormContext } from "react-hook-form";
+import styles from "./TextInput.module.scss";
+import { TextInputProps } from "./TextInput.props";
 
 export function TextInput(props: Readonly<TextInputProps>) {
   const {
@@ -30,13 +30,13 @@ export function TextInput(props: Readonly<TextInputProps>) {
   const currentVariant = variant ?? DEFAULT_INPUT_VARIANT;
 
   const fieldProps = {
-    type: type ?? 'text',
+    type: type ?? "text",
     className: clsx(
-      'text-field',
-      errors[name] ? 'text-field__error' : currentVariant,
+      "text-field",
+      errors[name] ? "text-field__error" : currentVariant,
       className
     ),
-    'aria-label': name,
+    "aria-label": name,
     ...register(name, validation),
     ...rest
   };
@@ -44,7 +44,7 @@ export function TextInput(props: Readonly<TextInputProps>) {
   return (
     <div className={styles.container}>
       {label && (
-        <Text variant="label" htmlFor={props.name}>
+        <Text as="label" htmlFor={props.name}>
           {label}
           {required && <span className={styles.required}>*</span>}
         </Text>
@@ -53,7 +53,7 @@ export function TextInput(props: Readonly<TextInputProps>) {
       {helperText && <Text as="helper" content={helperText} />}
 
       <span>
-        {as === 'textarea' ? (
+        {as === "textarea" ? (
           <textarea {...fieldProps} />
         ) : (
           <input {...fieldProps} />
@@ -76,7 +76,7 @@ export function TextInput(props: Readonly<TextInputProps>) {
 
       {errors[name] && (
         <Text
-          variant="error"
+          as="error"
           content={String(errors[name]?.message) ?? errors[name].type}
         />
       )}

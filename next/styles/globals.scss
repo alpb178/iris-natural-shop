@@ -114,10 +114,10 @@ body {
 
 @layer base {
   .text-field {
-    @apply relative p-3 py-3 outline-none w-full text-foreground placeholder-gray-400;
+    @apply block relative p-4 py-2.5 focus:outline-none w-full text-foreground placeholder:text-foreground/40 rounded;
 
     &.outlined {
-      @apply bg-foreground/5 border border-foreground/10 hover:border-primary;
+      @apply bg-card shadow-aceternity border border-foreground focus:ring-2 focus:ring-foreground;
     }
 
     &.contained {

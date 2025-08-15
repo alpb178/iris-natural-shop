@@ -193,9 +193,7 @@ export function BookAppointmentModal() {
           {renderStepIndicator()}
 
           <FormProvider {...methods}>
-            <div className="relative overflow-hidden">
-              {renderCurrentStep()}
-            </div>
+            <div className="relative">{renderCurrentStep()}</div>
           </FormProvider>
         </Container>
       </Modal>

@@ -11,7 +11,7 @@ export function CloseButton(props: {
       color={props.iconColor || "#000"}
       onClick={props.onClick}
       size="sm"
-      className="border min-w-12 min-h-12 size-12"
+      className="border border-foreground min-w-12 min-h-12 size-12"
       aria-label="Close"
     />
   );
