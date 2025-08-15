@@ -36,7 +36,7 @@ export const CTA = ({
           {CTAs &&
             CTAs.map((cta, index) =>
               cta.target === "_self" ? (
-                <BookAppointmentModal />
+                <BookAppointmentModal key={cta.text} />
               ) : (
                 <Button
                   as={Link}
