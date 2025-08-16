@@ -34,7 +34,7 @@ export const Step1 = ({
 
       <div className="mt-4 w-full">
         {availableSlots.length > 0 && (
-          <div className="gap-4 grid grid-cols-3">
+          <div className="gap-4 grid grid-cols-2">
             {availableSlots.map((slot) => (
               <Button
                 key={slot.toString()}
