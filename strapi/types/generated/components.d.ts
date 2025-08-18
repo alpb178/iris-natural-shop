@@ -418,7 +418,7 @@ export interface SharedLaunches extends Struct.ComponentSchema {
     icon: 'rocket';
   };
   attributes: {
-    description: Schema.Attribute.String;
+    description: Schema.Attribute.RichText;
     mission_number: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };

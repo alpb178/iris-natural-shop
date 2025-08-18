@@ -1,6 +1,8 @@
 "use client";
+
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef } from "react";
+import ReactMarkdown from "react-markdown";
 
 export const StickyScroll = ({
   content
@@ -62,6 +64,7 @@ export const ScrollContent = ({
     [0, 0, 1, 1, 0]
   );
 
+  console.log(item.description);
   return (
     <motion.div
       ref={ref}
@@ -90,13 +93,13 @@ export const ScrollContent = ({
           className=""
         >
           <div>{item.icon}</div>
-          <motion.h2 className="inline-block bg-clip-text bg-gradient-to-b from-foreground to-foreground mt-2 max-w-md font-bold text-transparent text-2xl text-left">
+          <motion.h2 className="inline-block mt- max-w-lg font-bold text-foreground text-2xl text-left">
             {item.title}
           </motion.h2>
 
-          <motion.p className="mt-2 max-w-sm font-regular text-foreground/60 text-lg">
-            {item.description}
-          </motion.p>
+          <motion.div className="space-y-4 mt-4 font-regular text-foreground/60 text-lg">
+            <ReactMarkdown>{item.description}</ReactMarkdown>
+          </motion.div>
         </motion.div>
       </div>
     </motion.div>
@@ -132,13 +135,13 @@ export const ScrollContentMobile = ({
       <div className="w-full">
         <motion.div className="mb-6">
           <div>{item.icon}</div>
-          <motion.h2 className="inline-block bg-clip-text bg-gradient-to-b from-white to-white mt-2 font-bold text-transparent text-2xl lg:text-4xl text-left">
+          <motion.h2 className="inline-block mt-2 font-bold text-foreground text-2xl lg:text-4xl text-left">
             {item.title}
           </motion.h2>
 
-          <motion.p className="mt-2 max-w-sm font-bold text-foreground/60 text-sm md:text-base">
-            {item.description}
-          </motion.p>
+          <motion.div className="gap-4 mt-4 text-foreground/60 text-lg">
+            <ReactMarkdown>{item.description}</ReactMarkdown>
+          </motion.div>
         </motion.div>
       </div>
     </motion.div>
