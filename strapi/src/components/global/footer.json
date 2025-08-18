@@ -33,6 +33,11 @@
       "type": "component",
       "component": "shared.link",
       "repeatable": true
+    },
+    "social_networks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::social-network.social-network"
     }
   }
 }

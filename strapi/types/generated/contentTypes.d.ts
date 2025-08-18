@@ -663,10 +663,6 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    redes_sociales: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::social-network.social-network'
-    >;
     seo: Schema.Attribute.Component<'shared.seo', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

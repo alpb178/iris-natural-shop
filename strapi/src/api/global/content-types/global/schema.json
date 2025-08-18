@@ -45,11 +45,6 @@
       },
       "component": "global.footer",
       "repeatable": false
-    },
-    "redes_sociales": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::social-network.social-network"
     }
   }
 }
