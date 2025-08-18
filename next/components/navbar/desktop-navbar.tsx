@@ -68,17 +68,19 @@ export const DesktopNavbar = ({
         )}
       </AnimatePresence> */}
         <div className="flex flex-row items-center gap-2 w-full">
-          <div className="flex items-center gap-6 w-full">
-            {leftNavbarItems.map((item) => (
-              <NavbarItem
-                href={`/${locale}${item.URL}` as never}
-                key={item.text}
-                target={item.target}
-              >
-                {item.text}
-              </NavbarItem>
-            ))}
-          </div>
+          {leftNavbarItems && (
+            <div className="flex items-center gap-6 w-full">
+              {leftNavbarItems.map((item) => (
+                <NavbarItem
+                  href={`/${locale}${item.URL}` as never}
+                  key={item.URL}
+                  target={item.target}
+                >
+                  {item.text}
+                </NavbarItem>
+              ))}
+            </div>
+          )}
         </div>
 
         <Logo locale={locale} image={logo?.image} />

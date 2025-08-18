@@ -70,7 +70,7 @@ export function FormNextToSection({
             "mx-auto w-full max-w-md transition-all duration-700 ease-out transform",
             isPageLoaded
               ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
+              : "translate-y-8 opacity-50"
           )}
         >
           <div>

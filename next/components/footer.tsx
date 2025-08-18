@@ -1,5 +1,6 @@
 import { Logo } from "@/components/logo";
 import { Link } from "next-view-transitions";
+import { socials } from "./dynamic-zone/socials";
 
 export const Footer = async ({
   data,
@@ -10,7 +11,7 @@ export const Footer = async ({
 }) => {
   return (
     <div className="relative">
-      <div className="relative bg-card px-8 pt-20 pb-32 border-t border-border">
+      <div className="relative bg-card px-8 pt-20 pb-24 border-t border-border">
         <div className="flex sm:flex-row flex-col justify-between items-start mx-auto px-4 max-w-7xl text-muted-foreground text-sm">
           <div>
             <div className="md:flex mr-4 mb-4">
@@ -18,8 +19,19 @@ export const Footer = async ({
             </div>
             <div className="max-w-xs">{data?.description}</div>
             <div className="mt-4">{data?.copyright}</div>
+
             {data?.social_networks && (
-              <LinkSection links={data?.social_networks} locale={locale} />
+              <div className="flex flex-row gap-4 mt-12">
+                {data?.social_networks.map((social: any) => (
+                  <Link
+                    href={social.link.URL}
+                    target="_blank"
+                    key={social.alias}
+                  >
+                    {socials[social.name as keyof typeof socials]?.icon}
+                  </Link>
+                ))}
+              </div>
             )}
             {/* <div className="mt-10">
               Designed and Developed by{" "}

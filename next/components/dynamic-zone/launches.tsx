@@ -70,13 +70,13 @@ export const Launches = ({
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
-      <div className="px-6">
+      <motion.div variants={entranceAnimationVariants.item} className="px-6">
         <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
           <IconRocket className="w-6 h-6 text-foreground" />
         </FeatureIconContainer>
         <Text as="title" className="mt-4 text-center" content={heading} />
         <Subheading>{sub_heading}</Subheading>
-      </div>
+      </motion.div>
       <StickyScroll content={launchesWithDecoration} />
     </motion.div>
   );

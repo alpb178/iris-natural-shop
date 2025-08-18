@@ -6,7 +6,7 @@ import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { MenuIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Button } from "../button/Button";
 import { CloseButton } from "../button/close-button/CloseButton";
 import { Modal } from "../modal/Modal";
@@ -78,12 +78,12 @@ export const MobileNavbar = ({
 
           <div className="flex flex-col justify-start items-start gap-4 px-6">
             {leftNavbarItems.map((navItem: any, idx: number) => (
-              <>
+              <Fragment key={navItem.URL}>
                 {navItem.children && navItem.children.length > 0 ? (
                   <>
                     {navItem.children.map((childNavItem: any, idx: number) => (
                       <Link
-                        key={`link=${idx}`}
+                        key={childNavItem.URL}
                         href={`/${locale}${childNavItem.URL}`}
                         onClick={() => setOpen(false)}
                         className="relative max-w-[15rem] text-xl"
@@ -96,7 +96,6 @@ export const MobileNavbar = ({
                   </>
                 ) : (
                   <Link
-                    key={`link=${idx}`}
                     href={`/${locale}${navItem.URL}`}
                     onClick={() => setOpen(false)}
                     className="relative"
@@ -106,7 +105,7 @@ export const MobileNavbar = ({
                     </span>
                   </Link>
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
 

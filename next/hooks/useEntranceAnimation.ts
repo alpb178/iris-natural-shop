@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 export const useEntranceAnimation = (options?: { amount?: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    amount: options?.amount ?? 0.3,
+    amount: options?.amount ?? 0.1,
     margin: "-100px 0px -100px 0px"
   });
 
@@ -23,7 +23,7 @@ export const useEntranceAnimation = (options?: { amount?: number }) => {
 
 export const entranceAnimationVariants = {
   container: {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0.5 },
     visible: {
       opacity: 1,
       transition: {
