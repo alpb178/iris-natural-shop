@@ -11,7 +11,7 @@ export const Footer = async ({
 }) => {
   return (
     <div className="relative">
-      <div className="relative bg-card px-8 pt-20 pb-24 border-t border-border">
+      <div className="relative bg-card px-4 xs:px-8 pt-20 pb-24 border-t border-border">
         <div className="flex sm:flex-row flex-col justify-between items-start mx-auto px-4 max-w-7xl text-muted-foreground text-sm">
           <div>
             <div className="md:flex mr-4 mb-4">

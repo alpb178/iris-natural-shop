@@ -138,8 +138,7 @@ export const ScrollContentMobile = ({
           <motion.h2 className="inline-block mt-2 font-bold text-foreground text-2xl lg:text-4xl text-left">
             {item.title}
           </motion.h2>
-
-          <motion.div className="gap-4 mt-4 text-foreground/60 text-lg">
+          <motion.div className="gap-4 mt-4 text-foreground/70 xs:text-lg">
             <ReactMarkdown>{item.description}</ReactMarkdown>
           </motion.div>
         </motion.div>

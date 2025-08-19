@@ -1,14 +1,15 @@
+import "@/styles/calendar.scss";
+import "@/styles/globals.scss";
+
 import { libreFranklin, merriweatherGaramond } from "@/components/fonts";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
-import { CartProvider } from "@/context/cart-context";
-import { ThemeProvider } from "@/context/theme-context";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
-import { ViewTransitions } from "next-view-transitions";
-import React from "react";
+import { getMessages } from "next-intl/server";
+import { Providers } from "../providers";
 
 // Default Global SEO for pages without them
 export async function generateMetadata({
@@ -32,11 +33,15 @@ export async function generateMetadata({
 
 export default async function LocaleLayout({
   children,
-  params: { locale }
+  params
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  const messages = await getMessages();
+
+  const { locale } = await params;
+
   const pageData = await fetchContentType(
     "global",
     { filters: { locale } },
@@ -45,23 +50,19 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <ViewTransitions>
-        <CartProvider>
-          <ThemeProvider>
-            <body
-              className={cn(
-                merriweatherGaramond.variable,
-                libreFranklin.variable,
-                "bg-background text-foreground antialiased h-full w-full"
-              )}
-            >
-              <Navbar data={pageData.navbar} locale={locale} />
-              {children}
-              <Footer data={pageData.footer} locale={locale} />
-            </body>
-          </ThemeProvider>
-        </CartProvider>
-      </ViewTransitions>
+      <body
+        className={cn(
+          merriweatherGaramond.variable,
+          libreFranklin.variable,
+          "bg-background text-foreground antialiased h-full w-full"
+        )}
+      >
+        <Providers locale={locale} messages={messages}>
+          <Navbar data={pageData.navbar} locale={locale} />
+          {children}
+          <Footer data={pageData.footer} locale={locale} />
+        </Providers>
+      </body>
     </html>
   );
 }

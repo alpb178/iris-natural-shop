@@ -1,7 +1,7 @@
 "use client";
 import { Article } from "@/definitions/Article";
 import { truncate } from "@/lib/utils";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import FuzzySearch from "fuzzy-search";
 import { Link } from "next-view-transitions";
 import { useEffect, useState } from "react";
@@ -63,7 +63,7 @@ export const BlogPostRow = ({ article }: { article: Article }) => {
 
         <div className="flex items-center gap-2 my-4">
           <p className="max-w-xl text-neutral-300 group-hover:text-foreground text-sm transition duration-200">
-            {format(new Date(article.publishedAt), "MMMM dd, yyyy")}
+            {dayjs(article.publishedAt).format("MMMM DD, YYYY")}
           </p>
           <div className="bg-neutral-800 rounded-full w-1 h-1"></div>
           <div className="flex flex-wrap gap-4">

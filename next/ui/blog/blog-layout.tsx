@@ -1,10 +1,10 @@
+import { Container } from "@/components/container";
 import { Article } from "@/definitions/Article";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
-import { Container } from "../../components/container";
 import DynamicZoneManager from "../../components/dynamic-zone/manager";
 
 export async function BlogLayout({
@@ -77,7 +77,7 @@ export async function BlogLayout({
                 className="flex items-center text-base"
               >
                 <span className="text-muted text-sm">
-                  {format(new Date(article.publishedAt), "MMMM dd, yyyy")}
+                  {dayjs(article.publishedAt).format("MMMM DD, YYYY")}
                 </span>
               </time>
             </div>

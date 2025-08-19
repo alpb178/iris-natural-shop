@@ -1,4 +1,5 @@
 import { Image } from "@/definitions/Image";
+import { DEFAULT_LOCALE } from "@/i18n/routing";
 import seoData from "@/lib/next-metadata";
 import { Link } from "next-view-transitions";
 
@@ -6,7 +7,7 @@ export const Logo = ({ image, locale }: { image?: Image; locale?: string }) => {
   if (image) {
     return (
       <Link
-        href={`/${locale || "es"}`}
+        href={`/${locale || DEFAULT_LOCALE}`}
         className="z-20 relative flex items-center space-x-2 mr-4 min-w-max font-normal text-foreground text-sm"
       >
         {/* <BlurImage

@@ -2,7 +2,7 @@ import { BlurImage } from "@/components/blur-image";
 import { Article } from "@/definitions/Article";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { truncate } from "@/lib/utils";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import { Link } from "next-view-transitions";
 import Balancer from "react-wrap-balancer";
 
@@ -63,7 +63,7 @@ export const BlogCard = ({
           {/* <p className="font-normal text-muted text-sm">{article.author}</p> */}
           <div className="bg-neutral-300 rounded-full w-1 h-1"></div>
           <p className="max-w-xl text-neutral-300 group-hover:text-foreground text-sm transition duration-200">
-            {format(new Date(article.publishedAt), "MMMM dd, yyyy")}
+            {dayjs(article.publishedAt).format("MMMM DD, YYYY")}
           </p>
         </div>
       </div>
@@ -128,7 +128,7 @@ export const BlogCardVertical = ({
           <p className="font-normal text-muted text-sm">{article.author}</p> */}
           <div className="bg-neutral-300 rounded-full w-1 h-1"></div>
           <p className="max-w-xl text-neutral-300 group-hover:text-foreground text-sm transition duration-200">
-            {format(new Date(article.publishedAt), "MMMM dd, yyyy")}
+            {dayjs(article.publishedAt).format("MMMM DD, YYYY")}
           </p>
         </div>
       </div>
