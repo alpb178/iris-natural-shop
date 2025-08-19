@@ -28,11 +28,7 @@
     },
     "aStatus": {
       "type": "enumeration",
-      "enum": [
-        "canceled",
-        "confirmed",
-        "pending"
-      ]
+      "enum": ["canceled", "confirmed", "pending"]
     }
   }
 }
