@@ -1,10 +1,13 @@
 import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
+const DEFAULT_DURATION = 0.4;
+const DEFAULT_INITIAL_OPACITY = 0.5;
+
 export const useEntranceAnimation = (options?: { amount?: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    amount: options?.amount ?? 0.1,
+    amount: options?.amount ?? 0,
     margin: "-100px 0px -100px 0px"
   });
 
@@ -23,11 +26,11 @@ export const useEntranceAnimation = (options?: { amount?: number }) => {
 
 export const entranceAnimationVariants = {
   container: {
-    hidden: { opacity: 0.5 },
+    hidden: { opacity: DEFAULT_INITIAL_OPACITY },
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.6,
+        duration: DEFAULT_DURATION,
         staggerChildren: 0.2,
         delayChildren: 0.1
       }
@@ -36,14 +39,14 @@ export const entranceAnimationVariants = {
 
   item: {
     hidden: {
-      opacity: 0,
+      opacity: DEFAULT_INITIAL_OPACITY,
       y: 30
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: DEFAULT_DURATION,
         ease: [0.4, 0, 0.2, 1]
       }
     },
@@ -55,7 +58,7 @@ export const entranceAnimationVariants = {
 
   icon: {
     hidden: {
-      opacity: 0,
+      opacity: DEFAULT_INITIAL_OPACITY,
       scale: 0.5,
       rotate: -180
     },
@@ -64,7 +67,7 @@ export const entranceAnimationVariants = {
       scale: 1,
       rotate: 0,
       transition: {
-        duration: 0.8,
+        duration: DEFAULT_DURATION,
         ease: [0.34, 1.56, 0.64, 1]
       }
     }
@@ -72,14 +75,14 @@ export const entranceAnimationVariants = {
 
   content: {
     hidden: {
-      opacity: 0,
+      opacity: DEFAULT_INITIAL_OPACITY,
       y: 40
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.7,
+        duration: DEFAULT_DURATION,
         ease: [0.4, 0, 0.2, 1]
       }
     }
@@ -87,14 +90,14 @@ export const entranceAnimationVariants = {
 
   slideUp: {
     hidden: {
-      opacity: 0,
+      opacity: DEFAULT_INITIAL_OPACITY,
       y: 50
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: DEFAULT_DURATION,
         ease: [0.4, 0, 0.2, 1]
       }
     }
@@ -102,14 +105,14 @@ export const entranceAnimationVariants = {
 
   slideLeft: {
     hidden: {
-      opacity: 0,
+      opacity: DEFAULT_INITIAL_OPACITY,
       x: -50
     },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.6,
+        duration: DEFAULT_DURATION,
         ease: [0.4, 0, 0.2, 1]
       }
     }
@@ -117,14 +120,14 @@ export const entranceAnimationVariants = {
 
   slideRight: {
     hidden: {
-      opacity: 0,
+      opacity: DEFAULT_INITIAL_OPACITY,
       x: 50
     },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.6,
+        duration: DEFAULT_DURATION,
         ease: [0.4, 0, 0.2, 1]
       }
     }
@@ -137,7 +140,7 @@ export const entranceAnimationVariants = {
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.5,
+        duration: DEFAULT_DURATION,
         ease: [0.4, 0, 0.2, 1]
       }
     }
@@ -145,14 +148,14 @@ export const entranceAnimationVariants = {
 
   scaleIn: {
     hidden: {
-      opacity: 0,
+      opacity: DEFAULT_INITIAL_OPACITY,
       scale: 0.8
     },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.6,
+        duration: DEFAULT_DURATION,
         ease: [0.34, 1.56, 0.64, 1]
       }
     }

@@ -24,6 +24,7 @@ export const CTA = ({
   locale: string;
 }) => {
   const { ref: animationRef, isInView } = useEntranceAnimation();
+
   return (
     <motion.div
       ref={animationRef}
@@ -36,7 +37,7 @@ export const CTA = ({
         variants={entranceAnimationVariants.item}
         className="relative py-40"
       >
-        <Container className="flex md:flex-row flex-col justify-between items-center px-8 w-full">
+        <Container className="flex md:flex-row flex-col justify-between items-center gap-8 px-8 w-full">
           <div className="flex flex-col">
             <Text
               as="heading"

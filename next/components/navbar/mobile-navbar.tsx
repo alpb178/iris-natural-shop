@@ -49,14 +49,14 @@ export const MobileNavbar = ({
   return (
     <div
       className={cn(
-        "flex justify-between items-center bg-transparent px-2.5 py-3 w-full transition duration-200",
+        "flex justify-between items-center bg-transparent px-4 py-3 w-full transition duration-200",
         showBackground ? "backdrop-blur-xl bg-card/70" : "bg-background"
       )}
     >
       <Logo image={logo?.image} />
 
       <MenuIcon
-        className="size-8 text-foreground"
+        className="size-6 text-foreground"
         onClick={() => setOpen(!open)}
       />
 
