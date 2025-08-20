@@ -1,5 +1,26 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface CalendarEvent extends Struct.ComponentSchema {
+  collectionName: 'components_calendar_events';
+  info: {
+    displayName: 'Event';
+  };
+  attributes: {
+    date: Schema.Attribute.Date;
+    end: Schema.Attribute.Time & Schema.Attribute.Required;
+    endsAt: Schema.Attribute.Date;
+    isRecurring: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    recurringDays: Schema.Attribute.JSON;
+    repeats: Schema.Attribute.Enumeration<
+      ['daily', 'weekly', 'biweekly', 'monthly', 'yearly']
+    >;
+    start: Schema.Attribute.Time & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface CardsGlobeCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_globe_cards';
   info: {
@@ -557,6 +578,7 @@ export interface SharedUser extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'calendar.event': CalendarEvent;
       'cards.globe-card': CardsGlobeCard;
       'cards.graph-card': CardsGraphCard;
       'cards.ray-card': CardsRayCard;

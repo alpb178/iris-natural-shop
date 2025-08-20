@@ -556,6 +556,39 @@ export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiCalendarCalendar extends Struct.SingleTypeSchema {
+  collectionName: 'calendars';
+  info: {
+    displayName: 'Calendar';
+    pluralName: 'calendars';
+    singularName: 'calendar';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    appointmentDuration: Schema.Attribute.Integer;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    endHour: Schema.Attribute.Integer;
+    events: Schema.Attribute.Component<'calendar.event', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::calendar.calendar'
+    > &
+      Schema.Attribute.Private;
+    maxBookingDays: Schema.Attribute.Integer;
+    minBookingDays: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    startHour: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
@@ -1535,6 +1568,7 @@ declare module '@strapi/strapi' {
       'api::appointment.appointment': ApiAppointmentAppointment;
       'api::article.article': ApiArticleArticle;
       'api::blog-page.blog-page': ApiBlogPageBlogPage;
+      'api::calendar.calendar': ApiCalendarCalendar;
       'api::category.category': ApiCategoryCategory;
       'api::faq.faq': ApiFaqFaq;
       'api::global.global': ApiGlobalGlobal;

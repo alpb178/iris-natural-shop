@@ -44,7 +44,7 @@
     "uuid": "ALEJANDRO-LOURO-75907f75-5738-46f3-ab82-fdde61567cc3"
   },
   "engines": {
-    "node": ">=22.0.0 <=22.x.x",
+    "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"

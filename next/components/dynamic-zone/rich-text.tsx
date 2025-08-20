@@ -8,7 +8,7 @@ export const RichText = (props: any) => {
 
   return (
     <div className="relative w-full min-h-screen">
-      <div className="mx-auto px-6 py-12 max-w-4xl">
+      <div className="mx-auto px-6 py-20 max-w-4xl">
         <div className="p-8">
           <div className="max-w-none prose prose-lg">
             {data &&
