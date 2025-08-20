@@ -11,6 +11,7 @@ import {
 import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
 import { Calendar } from "react-calendar";
+import { Value } from "react-calendar/dist/shared/types.js";
 import { StepProps } from "./StepProps";
 
 export const Step1 = ({
@@ -90,9 +91,11 @@ export const Step1 = ({
   );
 
   const handleCalendarChange = useCallback(
-    (date: Date) => {
-      methods.setValue("date", date);
-      methods.setValue("time", null);
+    (date: Value) => {
+      if (date) {
+        methods.setValue("date", date);
+        methods.setValue("time", null);
+      }
     },
     [methods]
   );
