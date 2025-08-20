@@ -4,7 +4,6 @@ export interface StepProps {
   methods: any;
   selectedDate: Date | null;
   selectedTime: string | null;
-  availableSlots: any[];
   name: string;
   email: string;
   isSubmitting?: boolean;

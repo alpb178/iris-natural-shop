@@ -2,15 +2,14 @@
 
 import { Button } from "@/components/button/Button";
 import { Text } from "@/components/text/Text";
-import type { CalendarSettings } from "@/services/calendar-settings";
+import type { CalendarSettings } from "@/definitions/Calendar";
 import {
   generateAvailableSlots,
-  getCalendarSettings,
   getDateBlockReason,
   isDateAvailable
 } from "@/services/calendar-settings";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Calendar } from "react-calendar";
 import { StepProps } from "./StepProps";
 
@@ -18,41 +17,26 @@ export const Step1 = ({
   onNext,
   methods,
   selectedDate,
-  selectedTime,
-  availableSlots
+  selectedTime
 }: StepProps) => {
   const [calendarSettings, setCalendarSettings] =
     useState<CalendarSettings | null>(null);
   const [localAvailableSlots, setLocalAvailableSlots] = useState<string[]>([]);
   const [maxDate, setMaxDate] = useState<Date>(new Date());
+  const [isLoadingSlots, setIsLoadingSlots] = useState(false);
 
-  // Fetch calendar settings on mount
   useEffect(() => {
     const loadCalendarData = async () => {
       try {
-        console.log("Loading calendar data...");
-        const settings = await getCalendarSettings();
-        console.log("Received calendar settings:", settings);
-        console.log("Events found:", settings.events?.length || 0);
-        if (settings.events) {
-          settings.events.forEach((event, index) => {
-            console.log(`Event ${index + 1}:`, {
-              title: event.title,
-              date: event.date,
-              endsAt: event.endsAt,
-              repeats: event.repeats,
-              recurringDays: event.recurringDays
-            });
-          });
-        }
+        const response = await fetch(`/api/calendar`);
+        const { data: settings } = await response.json();
+
         setCalendarSettings(settings);
 
-        // Set max date based on calendar settings
         if (settings.maxBookingDays) {
           const max = new Date();
           max.setDate(max.getDate() + settings.maxBookingDays);
           setMaxDate(max);
-          console.log("Set max date to:", max);
         }
       } catch (error) {
         console.error("Error loading calendar data:", error);
@@ -62,31 +46,63 @@ export const Step1 = ({
     loadCalendarData();
   }, []);
 
-  // Update available slots when date or settings change
   useEffect(() => {
-    if (selectedDate && calendarSettings) {
-      console.log("Generating time slots for date:", selectedDate);
+    const updateAvailableSlots = async () => {
+      if (selectedDate && calendarSettings) {
+        setIsLoadingSlots(true);
+        try {
+          console.log("Generating time slots for date:", selectedDate);
+          const available = await generateAvailableSlots(
+            selectedDate,
+            calendarSettings
+          );
 
-      // Generate available slots for the selected date
-      const available = generateAvailableSlots(selectedDate, calendarSettings);
-      console.log("Generated available slots:", available);
-      setLocalAvailableSlots(available);
-    } else {
-      setLocalAvailableSlots([]);
-    }
+          setLocalAvailableSlots(available);
+        } catch (error) {
+          console.error("Error generating available slots:", error);
+          setLocalAvailableSlots([]);
+        } finally {
+          setIsLoadingSlots(false);
+        }
+      } else {
+        setLocalAvailableSlots([]);
+      }
+    };
+
+    updateAvailableSlots();
   }, [selectedDate, calendarSettings]);
 
-  // Use the service function directly - no duplication
-  const isDateDisabled = (date: Date): boolean => {
-    if (!calendarSettings) return false;
-    return !isDateAvailable(date, calendarSettings);
-  };
+  // Memoized functions for better performance
+  const isDateDisabled = useCallback(
+    (date: Date): boolean => {
+      if (!calendarSettings) return false;
+      return !isDateAvailable(date, calendarSettings);
+    },
+    [calendarSettings]
+  );
 
-  // Get the reason why a date is blocked (for display)
-  const getDateBlockReasonLocal = (date: Date): string | null => {
-    if (!calendarSettings) return null;
-    return getDateBlockReason(date, calendarSettings);
-  };
+  const getDateBlockReasonLocal = useCallback(
+    (date: Date): string | null => {
+      if (!calendarSettings) return null;
+      return getDateBlockReason(date, calendarSettings);
+    },
+    [calendarSettings]
+  );
+
+  const handleCalendarChange = useCallback(
+    (date: Date) => {
+      methods.setValue("date", date);
+      methods.setValue("time", null);
+    },
+    [methods]
+  );
+
+  const handleTimeSlotClick = useCallback(
+    (slot: string) => {
+      methods.setValue("time", slot);
+    },
+    [methods]
+  );
 
   return (
     <div className="slide-in-from-right-4 flex flex-col space-y-6 animate-in duration-300">
@@ -98,10 +114,7 @@ export const Step1 = ({
       <div className="w-full">
         <Calendar
           key={calendarSettings ? "calendar-with-events" : "calendar-loading"}
-          onChange={(date) => {
-            methods.setValue("date", date as Date);
-            methods.setValue("time", null);
-          }}
+          onChange={handleCalendarChange}
           value={selectedDate}
           minDate={new Date()}
           maxDate={maxDate}
@@ -113,8 +126,11 @@ export const Step1 = ({
               const blockReason = getDateBlockReasonLocal(date);
               if (blockReason) {
                 return (
-                  <div className="mt-1 font-medium text-red-600 text-xs">
-                    {blockReason}
+                  <div className="group relative flex justify-center items-center">
+                    <div className="bg-primary rounded-full w-2 h-2 cursor-help" />
+                    <div className="bottom-full left-1/2 z-10 absolute bg-gray-900 opacity-0 group-hover:opacity-100 mb-2 px-3 py-2 rounded-lg text-white text-xs whitespace-nowrap transition-opacity -translate-x-1/2 duration-200 pointer-events-none transform">
+                      <Text content={blockReason} className="text-white" />
+                    </div>
                   </div>
                 );
               }
@@ -125,7 +141,16 @@ export const Step1 = ({
       </div>
 
       <div className="mt-4 w-full">
-        {localAvailableSlots.length > 0 && (
+        {isLoadingSlots && (
+          <div className="py-4 text-center">
+            <Text
+              content="Cargando horarios disponibles..."
+              className="text-gray-500"
+            />
+          </div>
+        )}
+
+        {!isLoadingSlots && localAvailableSlots.length > 0 && (
           <>
             <Text
               content="Horarios disponibles"
@@ -139,13 +164,22 @@ export const Step1 = ({
                   variant={
                     selectedTime?.toString() === slot ? "solid" : "outline"
                   }
-                  onClick={() => methods.setValue("time", slot)}
+                  onClick={() => handleTimeSlotClick(slot)}
                   label={dayjs(`2000-01-01T${slot}`).format("HH:mm")}
                 />
               ))}
             </div>
           </>
         )}
+
+        {!isLoadingSlots &&
+          localAvailableSlots.length === 0 &&
+          selectedDate && (
+            <Text
+              content="No hay horarios disponibles para esta fecha"
+              className="text-gray-500"
+            />
+          )}
       </div>
 
       <div className="flex justify-end mt-6">

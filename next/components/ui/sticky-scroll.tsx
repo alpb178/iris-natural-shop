@@ -64,7 +64,6 @@ export const ScrollContent = ({
     [0, 0, 1, 1, 0]
   );
 
-  console.log(item.description);
   return (
     <motion.div
       ref={ref}

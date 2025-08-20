@@ -81,7 +81,7 @@
 }
 
 .react-calendar__tile {
-  @apply hover:bg-gray-100 focus:bg-gray-100 p-2 rounded-lg hover:text-gray-800 transition duration-150;
+  @apply hover:bg-gray-100 focus:bg-gray-100 p-2 rounded-lg size-12 hover:text-gray-800 transition duration-150;
 }
 
 .react-calendar__tile:disabled {

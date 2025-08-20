@@ -20,11 +20,6 @@
       "type": "time",
       "required": true
     },
-    "isRecurring": {
-      "type": "boolean",
-      "required": true,
-      "default": false
-    },
     "repeats": {
       "type": "enumeration",
       "enum": [

@@ -4,7 +4,7 @@ import { Button } from "@/components/button/Button";
 import { Container } from "@/components/container/Container";
 import { Modal } from "@/components/modal/Modal";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Step1 } from "./Step1";
 import { Step2 } from "./Step2";
@@ -21,7 +21,6 @@ type FormData = {
 type Step = 1 | 2 | 3;
 
 export function BookAppointmentModal() {
-  const [availableSlots, setAvailableSlots] = useState<any[]>([]);
   const [currentStep, setCurrentStep] = useState<Step>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState<{
@@ -49,21 +48,6 @@ export function BookAppointmentModal() {
   const selectedTime = methods.watch("time");
   const name = methods.watch("name");
   const email = methods.watch("email");
-
-  useEffect(() => {
-    if (selectedDate) {
-      const date = dayjs(selectedDate).format("YYYY-MM-DD");
-      // Fetch available slots from the new API endpoint
-      fetch(`/api/available-slots?date=${date}`)
-        .then((res) => res.json())
-        .then((data) => {
-          // Convert ISO strings to Date objects
-          setAvailableSlots(
-            data.availableSlots.map((iso: string) => new Date(iso))
-          );
-        });
-    }
-  }, [selectedDate]);
 
   const handleNext = () => {
     setSlideDirection("right");
@@ -159,7 +143,6 @@ export function BookAppointmentModal() {
       methods,
       selectedDate,
       selectedTime,
-      availableSlots,
       name,
       email,
       isSubmitting,

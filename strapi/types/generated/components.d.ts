@@ -9,9 +9,6 @@ export interface CalendarEvent extends Struct.ComponentSchema {
     date: Schema.Attribute.Date;
     end: Schema.Attribute.Time & Schema.Attribute.Required;
     endsAt: Schema.Attribute.Date;
-    isRecurring: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<false>;
     recurringDays: Schema.Attribute.JSON;
     repeats: Schema.Attribute.Enumeration<
       ['daily', 'weekly', 'biweekly', 'monthly', 'yearly']
