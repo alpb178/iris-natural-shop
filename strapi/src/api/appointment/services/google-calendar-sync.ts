@@ -101,85 +101,43 @@ export default () => ({
    * Prepare event data for Google Calendar
    */
   prepareEventData(appointment: AppointmentData) {
+    const adminEmail = process.env.GOOGLE_CALENDAR_EMAIL;
+
+    // Validate required data
+    if (!adminEmail) {
+      throw new Error("GOOGLE_CALENDAR_EMAIL environment variable is not set");
+    }
+
+    if (!appointment.email || !appointment.email.trim()) {
+      throw new Error("Appointment email is required");
+    }
+
     const date = new Date(appointment.date);
     const [hours, minutes] = appointment.time.split(":");
     date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
     const endDate = new Date(date);
-    endDate.setHours(endDate.getHours() + 1); // Default 1 hour duration
+    endDate.setHours(endDate.getHours() + 1);
 
     return {
       summary: `Cita confirmada con ${appointment.name}`,
       description: `Cita confirmada para ${appointment.name} (${appointment.email})`,
       start: {
         dateTime: date.toISOString(),
-        timeZone: "America/Mexico_City", // Adjust to your timezone
+        timeZone: "Europe/Madrid",
       },
       end: {
         dateTime: endDate.toISOString(),
-        timeZone: "America/Mexico_City",
+        timeZone: "Europe/Madrid",
       },
       attendees: [
-        { email: appointment.email },
-        { email: "alpb17.08@gmail.com" },
+        { email: appointment.email.trim() },
+        { email: adminEmail.trim() },
       ],
       reminders: {
         useDefault: true,
       },
-      // Add some styling to make it stand out
-      colorId: "1", // Blue color
+      colorId: "1",
     };
-  },
-
-  /**
-   * Test Google Calendar connection
-   */
-  async testConnection() {
-    try {
-      const adminRefreshToken = process.env.GOOGLE_ADMIN_REFRESH_TOKEN;
-      const clientId = process.env.GOOGLE_CLIENT_ID;
-      const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-
-      if (!adminRefreshToken || !clientId || !clientSecret) {
-        return {
-          success: false,
-          error: "Missing Google Calendar configuration",
-          missing: {
-            adminRefreshToken: !adminRefreshToken,
-            clientId: !clientId,
-            clientSecret: !clientSecret,
-          },
-        };
-      }
-
-      const oauth2Client = new google.auth.OAuth2(
-        clientId,
-        clientSecret,
-        "urn:ietf:wg:oauth:2.0:oob",
-      );
-
-      oauth2Client.setCredentials({
-        refresh_token: adminRefreshToken,
-      });
-
-      const calendar = google.calendar({ version: "v3", auth: oauth2Client });
-      const calendars = await calendar.calendarList.list();
-
-      return {
-        success: true,
-        message: "Google Calendar connection successful!",
-        calendars: calendars.data.items?.map((cal) => ({
-          id: cal.id,
-          summary: cal.summary,
-          primary: cal.primary,
-        })),
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: "Google Calendar connection failed",
-        details: error.message,
-      };
-    }
   },
 });
