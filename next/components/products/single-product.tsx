@@ -66,9 +66,11 @@ export const SingleService = ({ service }: { service: Service }) => {
           <h2 className="mb-4 font-semibold text-foreground text-2xl">
             {service.name}
           </h2>
-          <p className="bg-primary/10 mb-6 px-4 py-1 rounded-full w-fit font-medium text-primary text-sm">
-            {formatPrice({ price: service.price ?? 0 }).toString()}
-          </p>
+          {service.price !== null && service.price > 0 && (
+            <p className="bg-primary/10 mb-6 px-4 py-1 rounded-full w-fit font-medium text-primary text-sm">
+              {formatPrice({ price: service.price ?? 0 }).toString()}
+            </p>
+          )}
           <p className="mb-4 font-normal text-muted-foreground text-base leading-relaxed">
             {service.description}
           </p>

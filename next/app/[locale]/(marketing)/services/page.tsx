@@ -64,22 +64,6 @@ export default async function Products({
       <ClientSlugHandler localizedSlugs={localizedSlugs} />
       <AmbientColor />
       <Container className="pt-40 pb-40">
-        {featured?.length > 0 && (
-          <>
-            <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-              <UsersIcon className="size-6 text-foreground" />
-            </FeatureIconContainer>
-            <Text
-              as="title"
-              className="pt-4 text-center"
-              content={productPage.heading}
-            />
-            <Subheading className="mx-auto max-w-3xl">
-              {productPage.sub_heading}
-            </Subheading>
-            <Featured products={featured} locale={params.locale} />
-          </>
-        )}
         <ProductItems services={products?.data} locale={params.locale} />
       </Container>
     </div>

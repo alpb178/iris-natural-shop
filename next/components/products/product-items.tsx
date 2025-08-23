@@ -6,6 +6,33 @@ import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { Text } from "../text/Text";
 
+const groupServicesByCategory = (services: Service[]) => {
+  const grouped: { [key: string]: Service[] } = {};
+  const uncategorized: Service[] = [];
+
+  services.forEach((service) => {
+    const categoryName =
+      service.categories && service.categories.length > 0
+        ? service.categories[0]?.name || ""
+        : "";
+
+    if (categoryName && categoryName.trim() !== "") {
+      if (!grouped[categoryName]) {
+        grouped[categoryName] = [];
+      }
+      grouped[categoryName].push(service);
+    } else {
+      uncategorized.push(service);
+    }
+  });
+
+  if (uncategorized.length > 0) {
+    grouped["uncategorized"] = uncategorized;
+  }
+
+  return grouped;
+};
+
 export const ProductItems = ({
   heading = "Servicios",
   sub_heading = "Recently rose to popularity",
@@ -17,6 +44,9 @@ export const ProductItems = ({
   services: Service[];
   locale: string;
 }) => {
+  const groupedServices = groupServicesByCategory(services);
+  const categoryNames = Object.keys(groupedServices);
+
   return (
     <div className="py-20">
       <Text
@@ -25,17 +55,30 @@ export const ProductItems = ({
         className="bg-clip-text bg-gradient-to-b from-primary via-foreground to-foreground text-transparent"
       />
       <p className="mt-4 mb-10 text-muted-foreground text-lg">{sub_heading}</p>
-      <div className="gap-20 grid grid-cols-1 md:grid-cols-3">
-        {services &&
-          services.length > 0 &&
-          services.map((service) => (
-            <ProductItem
-              key={"regular-product-item" + service.id}
-              service={service}
-              locale={locale}
-            />
-          ))}
-      </div>
+
+      {categoryNames.map((categoryName) => (
+        <div key={categoryName} className="mb-20">
+          {categoryName !== "uncategorized" && (
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold text-foreground mb-2">
+                {categoryName}
+              </h3>
+
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
+            </div>
+          )}
+
+          <div className="gap-20 grid grid-cols-1 md:grid-cols-3">
+            {groupedServices[categoryName].map((service) => (
+              <ProductItem
+                key={`${categoryName}-${service.id}`}
+                service={service}
+                locale={locale}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
@@ -47,6 +90,7 @@ const ProductItem = ({
   service: Service;
   locale: string;
 }) => {
+  console.log(service, "service");
   return (
     <Link
       href={`/${locale}/services/${service.slug}` as never}
@@ -69,9 +113,11 @@ const ProductItem = ({
           <span className="font-medium text-foreground text-base">
             {service.name}
           </span>
-          <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-foreground text-xs">
-            {formatPrice({ price: service.price ?? 0 }).toString()}
-          </span>
+          {service.price !== null && service.price > 0 && (
+            <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-foreground text-xs">
+              {formatPrice({ price: service.price ?? 0 }).toString()}
+            </span>
+          )}
         </div>
         <p className="mt-4 text-muted-foreground text-sm">
           {truncate(service.description, 100)}
