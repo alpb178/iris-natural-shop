@@ -18,7 +18,7 @@ export const Footer = async ({
               {data?.logo?.image && <Logo image={data?.logo?.image} />}
             </div>
             <div className="max-w-xs">{data?.description}</div>
-            <div className="mt-4">{data?.copyright}</div>
+            <div className="mt-4">{`Copyright © ${new Date().getFullYear()}  Strapi INC`}</div>
 
             {data?.social_networks && (
               <div className="flex flex-row gap-4 mt-12">
