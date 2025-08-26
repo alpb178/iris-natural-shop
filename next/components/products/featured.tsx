@@ -53,11 +53,13 @@ const FeaturedItem = ({
       <div className="z-30 absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-foreground transition-all duration-200" />
       <div className="top-4 md:top-10 right-2 md:right-10 z-40 absolute flex items-center gap-4 bg-foreground/30 backdrop-blur-md py-1 pr-1 pl-4 border border-card rounded-full font-semibold text-card">
         <Text as="span" content={product?.name} />
-        <Text
-          as="span"
-          className="bg-gradient-to-r from-accent to-primary px-2 py-1 rounded-full text-foreground"
-          content={formatPrice({ price: product?.price ?? 0 }).toString()}
-        />
+        {product.price !== null && product.price > 0 && (
+          <Text
+            as="span"
+            className="bg-gradient-to-r from-accent to-primary px-2 py-1 rounded-full text-foreground"
+            content={formatPrice({ price: product?.price ?? 0 }).toString()}
+          />
+        )}
       </div>
       <Image
         src={strapiImage(product?.images[0]?.url)}
