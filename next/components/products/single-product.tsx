@@ -76,8 +76,6 @@ export const SingleService = ({ service }: { service: Service }) => {
           </p>
 
           <Divider />
-
-          <BookAppointmentModal />
         </div>
       </div>
     </div>

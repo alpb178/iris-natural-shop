@@ -48,22 +48,6 @@ export const CTA = ({
               {sub_heading}
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            {CTAs &&
-              CTAs.map((cta, index) =>
-                cta.target === "_self" ? (
-                  <BookAppointmentModal key={cta.text} />
-                ) : (
-                  <Button
-                    as={Link}
-                    key={index}
-                    href={cta.URL}
-                    variant={cta.variant}
-                    label={cta.text}
-                  />
-                )
-              )}
-          </div>
         </Container>
       </motion.div>
     </motion.div>

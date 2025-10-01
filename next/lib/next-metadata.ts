@@ -1,14 +1,14 @@
 const seoData = {
-  title: "Alejandro Louro. Espacio para la identidad.",
-  description: `Proyecto de acompañamiento personal, social y profesional, enfocado en la autenticidad, las relaciones y la conexión emocional desde una mirada sincera, sencilla, personal y con metodología individual.`,
+  title: "Iris Naturals. Cosmetics natural.",
+  description: `Iris Naturals. Cosmetics natural.`,
   image: "https://ui.aceternity.com/banner.png",
   openGraph: {
     type: "website",
-    title: `Alejandro Louro. Espacio para la identidad.`,
+    title: `Iris Naturals`,
     url: "https://ui.aceternity.com", // TODO: Fix this
     description: `A platform integrating Aceternity with Strapi for seamless content management.`,
     locale: "en_EN",
-    keywords: "content, delivery, web, hosting",
+    keywords: "cosmetics, natural, organic, sustainable",
     images: [
       {
         width: 1200,
@@ -16,7 +16,7 @@ const seoData = {
         url: `https://ui.aceternity.com/banner.png` // TODO: Fix this
       }
     ],
-    site_name: "Alejandro Louro"
+    site_name: "Iris Naturals"
   },
   twitter: {
     handle: "@mannupaaji",

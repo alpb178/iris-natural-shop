@@ -60,7 +60,7 @@ const getDeepPopulate = (uid: UID.Schema | string, opts: Options = {}) => {
 
             if (isVisible) {
               if (attributeName === "testimonials") {
-                acc[attributeName] = { populate: "user.image" };
+                acc[attributeName] = { populate: "Image" };
               } else {
                 acc[attributeName] = { populate: "*" };
               }

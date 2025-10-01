@@ -16,7 +16,7 @@
     }
   },
   "attributes": {
-    "text": {
+    "description": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
@@ -24,15 +24,28 @@
         }
       }
     },
-    "user": {
-      "type": "component",
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Image": {
+      "type": "media",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "shared.user",
-      "repeatable": false
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

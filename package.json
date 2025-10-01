@@ -1,7 +1,7 @@
 {
-  "name": "alejandro-louro-website",
+  "name": "shop-website",
   "version": "0.1.0",
-  "description": "Alejandro Louro Website",
+  "description": "Shop Website",
   "type": "module",
   "scripts": {
     "next": "yarn dev --prefix ../next/",

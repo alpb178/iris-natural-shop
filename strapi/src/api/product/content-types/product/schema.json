@@ -4,7 +4,7 @@
   "info": {
     "singularName": "product",
     "pluralName": "products",
-    "displayName": "Servicios",
+    "displayName": "Productos",
     "description": ""
   },
   "options": {
@@ -35,17 +35,6 @@
         "videos"
       ]
     },
-    "perks": {
-      "type": "component",
-      "component": "shared.perks",
-      "repeatable": true
-    },
-    "plans": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::plan.plan",
-      "mappedBy": "product"
-    },
     "categories": {
       "type": "relation",
       "relation": "manyToMany",
@@ -58,10 +47,6 @@
         "dynamic-zone.related-products",
         "dynamic-zone.cta"
       ]
-    },
-    "featured": {
-      "type": "boolean",
-      "default": false
     }
   }
 }

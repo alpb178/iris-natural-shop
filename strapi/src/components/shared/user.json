@@ -6,23 +6,5 @@
     "description": ""
   },
   "options": {},
-  "attributes": {
-    "firstname": {
-      "type": "string"
-    },
-    "lastname": {
-      "type": "string"
-    },
-    "job": {
-      "type": "string"
-    },
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    }
-  }
+  "attributes": {}
 }

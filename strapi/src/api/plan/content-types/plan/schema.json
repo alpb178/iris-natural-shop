@@ -26,28 +26,19 @@
       "default": false
     },
     "CTA": {
-      "displayName": "CTA",
       "type": "component",
-      "repeatable": false,
-      "component": "shared.button"
+      "component": "shared.button",
+      "repeatable": false
     },
     "perks": {
-      "displayName": "Perks",
       "type": "component",
-      "repeatable": true,
-      "component": "shared.perks"
+      "component": "shared.perks",
+      "repeatable": true
     },
     "additional_perks": {
-      "displayName": "Additional Perks",
       "type": "component",
-      "repeatable": true,
-      "component": "shared.perks"
-    },
-    "product": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::product.product",
-      "inversedBy": "plans"
+      "component": "shared.perks",
+      "repeatable": true
     }
   }
 }

@@ -1,8 +1,8 @@
 {
-  "name": "alejandro-louro-cms",
+  "name": "shop-cms",
   "private": true,
   "version": "0.1.0",
-  "description": "Alejandro Louro CMS",
+  "description": "Shop CMS",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
@@ -38,10 +38,10 @@
     "uuid": "^10.0.0"
   },
   "author": {
-    "name": "Alejandro Guerra"
+    "name": "Shop"
   },
   "strapi": {
-    "uuid": "ALEJANDRO-LOURO-75907f75-5738-46f3-ab82-fdde61567cc3"
+    "uuid": "SHOP-75907f75-5738-46f3-ab82-fdde61567cc3"
   },
   "engines": {
     "node": ">=18.0.0 <=22.x.x",

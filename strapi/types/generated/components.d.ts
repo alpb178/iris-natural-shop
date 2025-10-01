@@ -564,12 +564,7 @@ export interface SharedUser extends Struct.ComponentSchema {
     displayName: 'User';
     icon: 'user';
   };
-  attributes: {
-    firstname: Schema.Attribute.String;
-    image: Schema.Attribute.Media<'images'>;
-    job: Schema.Attribute.String;
-    lastname: Schema.Attribute.String;
-  };
+  attributes: {};
 }
 
 declare module '@strapi/strapi' {

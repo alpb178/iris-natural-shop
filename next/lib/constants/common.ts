@@ -1,4 +1,4 @@
-export const APP_NAME = "Alex";
+export const APP_NAME = "Iris Naturals";
 
 export const CALLBACK_URL_KEY = "callbackUrl";
 
@@ -11,7 +11,7 @@ export const Currencies = [
 
 export const DEFAULT_INPUT_VARIANT = "outlined";
 
-export const COMPANY_NAME = "Alex";
+export const COMPANY_NAME = "Iris Naturals";
 
 export const TERMS_AND_CONDITIONS_URL = "#";
 

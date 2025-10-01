@@ -34,7 +34,7 @@ const groupServicesByCategory = (services: Service[]) => {
 };
 
 export const ProductItems = ({
-  heading = "Servicios",
+  heading = "Productos",
   sub_heading = "Recently rose to popularity",
   services,
   locale
@@ -90,10 +90,9 @@ const ProductItem = ({
   service: Service;
   locale: string;
 }) => {
-  console.log(service, "service");
   return (
     <Link
-      href={`/${locale}/services/${service.slug}` as never}
+      href={`/${locale}/products/${service.slug}` as never}
       className="group block relative"
     >
       <div className="relative bg-card border border-border rounded overflow-hidden">

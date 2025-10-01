@@ -54,19 +54,6 @@ export const DesktopNavbar = ({
       )}
     >
       <div className="flex justify-between mx-auto px-4 py-3 max-w-7xl">
-        {/* <AnimatePresence>
-        {showBackground && (
-          <motion.div
-            key={String(showBackground)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 1
-            }}
-            className="absolute inset-0 bg-card rounded-full w-full h-full pointer-events-none [mask-image:linear-gradient(to_bottom,white,transparent,white)]"
-          />
-        )}
-      </AnimatePresence> */}
         <div className="flex flex-row items-center gap-2 w-full">
           {leftNavbarItems && (
             <div className="flex items-center gap-6 w-full">
@@ -86,8 +73,6 @@ export const DesktopNavbar = ({
         <Logo locale={locale} image={logo?.image} />
 
         <div className="flex justify-end items-center space-x-2 w-full">
-          {/* <LocaleSwitcher currentLocale={locale} /> */}
-
           {rightNavbarItems.map((item, index) => (
             <Button
               key={item.text}
@@ -105,8 +90,6 @@ export const DesktopNavbar = ({
             onClick={toggleTheme}
             icon={theme === "light" ? <MoonIcon /> : <SunIcon />}
           />
-
-          <BookAppointmentModal />
         </div>
       </div>
     </div>

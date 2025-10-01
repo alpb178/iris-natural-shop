@@ -82,10 +82,12 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                     <div className="-z-10 absolute inset-0 h-full">
                       <Image
                         className="top-6 left-1/2 relative rounded-full -translate-x-1/2"
-                        src={strapiImage(item.user.image.url)}
+                        src={strapiImage(
+                          item.Image?.url || "/placeholder-avatar.png"
+                        )}
                         width={96}
                         height={96}
-                        alt={`${item.user.firstname} ${item.user.lastname}`}
+                        alt={`${item.title} `}
                       />
                     </div>
                   </Transition>
@@ -108,7 +110,7 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                     beforeEnter={() => heightFix()}
                   >
                     <div className="bg-clip-text bg-gradient-to-r from-card-foreground/60 via-card-foreground to-card-foreground/60 font-medium text-transparent text-base md:text-xl">
-                      {item.text}
+                      {item.description}
                     </div>
                   </Transition>
                 ))}
@@ -133,19 +135,8 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                 >
                   <span className="relative">
                     <span className="font-bold text-primary">
-                      {`${item.user.firstname} ${item.user.lastname}`}
+                      {`${item.title} `}
                     </span>{" "}
-                    {item.user.job && (
-                      <>
-                        <br className="sm:hidden block" />
-                        <span className="hidden sm:inline-block text-foreground/50">
-                          -
-                        </span>{" "}
-                        <span className="hidden sm:inline-block font-medium text-accent">
-                          {item.user.job}
-                        </span>
-                      </>
-                    )}
                   </span>
                 </button>
               ))}
