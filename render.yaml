@@ -3,8 +3,8 @@ services:
     name: shop-strapi-cms
     env: node
     plan: starter
-    buildCommand: cd strapi && npm install && npm run build
-    startCommand: cd strapi && npm start
+    buildCommand: cd strapi && yarn install && yarn build
+    startCommand: cd strapi && yarn start
     envVars:
       - key: NODE_ENV
         value: production

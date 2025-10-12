@@ -4,12 +4,12 @@
   "version": "0.1.0",
   "description": "Shop CMS",
   "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi",
-    "deploy": "strapi deploy",
-    "seed": "strapi import -f ./data/export_20250116105447.tar.gz",
+    "develop": "npx strapi develop",
+    "start": "npx strapi start",
+    "build": "npx strapi build",
+    "strapi": "npx strapi",
+    "deploy": "npx strapi deploy",
+    "seed": "npx strapi import -f ./data/export_20250116105447.tar.gz",
     "postinstall": "node -e \"if(require('fs').existsSync('./scripts/updateUuid.js')) require('./scripts/updateUuid.js')\""
   },
   "devDependencies": {
