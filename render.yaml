@@ -1,0 +1,60 @@
+services:
+  - type: web
+    name: shop-strapi-cms
+    env: node
+    plan: starter
+    buildCommand: cd strapi && npm install && npm run build
+    startCommand: cd strapi && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 10000
+      - key: DB_CLIENT
+        value: postgres
+      - key: DB_HOST
+        fromDatabase:
+          name: shop-postgres
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: shop-postgres
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: shop-postgres
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: shop-postgres
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: shop-postgres
+          property: password
+      - key: DATABASE_SSL
+        value: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_JWT_SECRET
+        generateValue: true
+      - key: APP_KEYS
+        generateValue: true
+      - key: API_TOKEN_SALT
+        generateValue: true
+      - key: TRANSFER_TOKEN_SALT
+        generateValue: true
+      - key: CLOUDINARY_NAME
+        sync: false
+      - key: CLOUDINARY_KEY
+        sync: false
+      - key: CLOUDINARY_SECRET
+        sync: false
+
+databases:
+  - name: shop-postgres
+    databaseName: shop_strapi
+    user: shop_user
+    plan: starter
