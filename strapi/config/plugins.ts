@@ -1,4 +1,4 @@
-export default () => ({
+export default ({ env }) => ({
   upload: {
     config: {
       provider: "@strapi/provider-upload-cloudinary",
@@ -17,6 +17,11 @@ export default () => ({
         folder: "strapi-uploads",
         formats: ["thumbnail"],
       },
+    },
+  },
+  "users-permissions": {
+    config: {
+      jwtSecret: env("JWT_SECRET"),
     },
   },
 });

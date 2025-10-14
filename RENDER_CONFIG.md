@@ -34,8 +34,8 @@ DB_PASSWORD=[contraseña]
 DATABASE_SSL=true
 DATABASE_SSL_REJECT_UNAUTHORIZED=false
 
-# Claves de seguridad (generar nuevas)
-JWT_SECRET=[generar clave secreta]
+# Claves de seguridad (generar nuevas) - OBLIGATORIAS
+JWT_SECRET=[generar clave secreta] - REQUERIDA para users-permissions
 ADMIN_JWT_SECRET=[generar clave secreta]
 APP_KEYS=[generar 4 claves separadas por comas]
 API_TOKEN_SALT=[generar clave]
