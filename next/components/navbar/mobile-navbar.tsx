@@ -2,7 +2,7 @@
 
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
-import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
+
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { MenuIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
@@ -121,8 +121,6 @@ export const MobileNavbar = ({
                 label={item.text}
               />
             ))}
-
-            <BookAppointmentModal />
           </div>
         </>
       </Modal>

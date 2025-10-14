@@ -4,7 +4,7 @@ import { Service } from "@/definitions/Service";
 import { formatPrice } from "@/lib/price";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { cn } from "@/lib/utils";
-import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";

@@ -4,10 +4,9 @@ import {
   entranceAnimationVariants,
   useEntranceAnimation
 } from "@/hooks/useEntranceAnimation";
-import { BookAppointmentModal } from "@/ui/appointments/BookAppointmentModal";
+
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Button } from "../button/Button";
+
 import { Container } from "../container";
 import { AmbientColor } from "../decorations/ambient-color";
 import { Text } from "../text/Text";
