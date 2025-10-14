@@ -1,4 +1,3 @@
-import "@/styles/calendar.scss";
 import "@/styles/globals.scss";
 
 import { libreFranklin, merriweatherGaramond } from "@/components/fonts";
