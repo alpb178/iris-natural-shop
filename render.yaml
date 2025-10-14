@@ -3,7 +3,11 @@ services:
     name: shop-strapi-cms
     env: node
     plan: starter
-    buildCommand: cd strapi && yarn install && yarn build
+    buildCommand: >
+      cd strapi && 
+      apk add --no-cache python3 make g++ postgresql-client && 
+      yarn install --frozen-lockfile --network-timeout 600000 && 
+      yarn build
     startCommand: cd strapi && yarn start
     envVars:
       - key: NODE_ENV
