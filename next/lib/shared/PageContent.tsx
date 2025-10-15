@@ -8,10 +8,7 @@ export default function PageContent({ pageData }: { pageData: any }) {
     <div className="relative w-full overflow-hidden">
       <AmbientColor />
       {dynamicZone && (
-        <DynamicZoneManager
-          dynamicZone={dynamicZone}
-          locale={pageData.locale}
-        />
+        <DynamicZoneManager dynamicZone={dynamicZone} locale="en" />
       )}
     </div>
   );

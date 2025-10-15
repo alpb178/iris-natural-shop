@@ -54,7 +54,7 @@ export default async function LocaleLayout({
                   document.documentElement.classList.add('dark');
                 }
               })();
-            `,
+            `
           }}
         />
       </head>

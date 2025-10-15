@@ -24,15 +24,13 @@ export function LayoutClient({
     refetch
   } = useStrapiData({
     contentType: "global",
-    params: { filters: { locale } },
+    params: { filters: { locale: "en" } },
     spreadData: true
   });
 
-  console.log("pageData - layout-client", pageData);
-
   return (
     <>
-      <Navbar data={pageData?.navbar || {}} locale={locale} />
+      <Navbar data={pageData?.navbar || {}} locale="en" />
       <div className="pt-16">
         <LoadingWrapper
           loading={loading}
@@ -47,7 +45,7 @@ export function LayoutClient({
           {children}
         </LoadingWrapper>
       </div>
-      <Footer data={pageData?.footer || {}} locale={locale} />
+      <Footer data={pageData?.footer || {}} locale="en" />
     </>
   );
 }

@@ -23,13 +23,13 @@ export function HomeClient({ locale }: HomeClientProps) {
     params: {
       filters: {
         slug: HOME_PAGE,
-        locale: locale
+        locale: "en"
       }
     },
     spreadData: true
   });
 
-  const localizedSlugs = useLocalizedSlugs(pageData?.localizations, locale, "");
+  const localizedSlugs = useLocalizedSlugs(pageData?.localizations, "en", "");
 
   if (error) {
     return <Error />;
