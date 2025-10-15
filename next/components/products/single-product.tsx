@@ -8,11 +8,16 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
+import { FormattedText } from "../formatted-text";
+import { Link } from "next-view-transitions";
+import { IconBrandWhatsapp } from "@tabler/icons-react";
 
 export const SingleService = ({ service }: { service: Service }) => {
   const [activeThumbnail, setActiveThumbnail] = useState(
     strapiImage(service.images[0].url)
   );
+
+  console.log("service - single-product", service);
 
   return (
     <div className="">
@@ -35,7 +40,7 @@ export const SingleService = ({ service }: { service: Service }) => {
               alt={service.name}
               width={600}
               height={600}
-              className="rounded object-cover"
+              className="rounded border-2 border-primary object-cover"
             />
           </motion.div>
 
@@ -68,17 +73,35 @@ export const SingleService = ({ service }: { service: Service }) => {
           </h2>
           {service.price !== null && service.price > 0 && (
             <p className="bg-primary/10 mb-6 px-4 py-1 rounded-full w-fit font-medium text-primary text-sm">
-              {formatPrice({ price: service.price ?? 0 }).toString()}
+              {formatPrice({
+                price: service.price ?? 0,
+                currency: service.currency ?? "BOB"
+              }).toString()}
             </p>
           )}
-          <p className="mb-4 font-normal text-muted-foreground text-base leading-relaxed">
-            {service.description}
-          </p>
+          <FormattedText
+            content={service.description}
+            className="mb-4 font-normal text-base"
+          />
 
           <Divider />
+
+          <WhatsappLink service={service} />
         </div>
       </div>
     </div>
+  );
+};
+
+const WhatsappLink = ({ service }: { service: Service }) => {
+  return (
+    <Link
+      href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=Hola, quiero comprar el producto ${service.name} de ${service?.price} ${service?.currency}`}
+      className="flex justify-center items-center gap-2 border border-primary rounded-full px-4 py-2"
+    >
+      <IconBrandWhatsapp className="w-6 h-6 text-primary" />
+      <span className="text-lg">Comprar ahora</span>
+    </Link>
   );
 };
 

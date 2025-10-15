@@ -1,3 +1,5 @@
+import { Category } from "./Category";
+
 export interface Service {
   id: number;
   name: string;
@@ -8,6 +10,7 @@ export interface Service {
   perks: any[];
   featured?: boolean;
   images: any[];
-  categories?: any[];
+  image_dark?: any[];
+  categories?: Category;
   currency?: string;
 }

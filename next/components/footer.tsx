@@ -25,6 +25,7 @@ export const Footer = ({ data, locale }: { data: any; locale: string }) => {
                     href={social.link.URL}
                     target="_blank"
                     key={social.alias}
+                    className="text-primary"
                   >
                     {socials[social.name as keyof typeof socials]?.icon}
                   </Link>

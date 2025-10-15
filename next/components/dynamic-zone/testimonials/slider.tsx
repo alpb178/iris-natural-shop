@@ -1,18 +1,26 @@
 "use client";
 
 import { strapiImage } from "@/lib/strapi/strapiImage";
-import { cn } from "@/lib/utils";
+import { cn, truncate } from "@/lib/utils";
+import { useAppMode } from "@/hooks/useAppMode";
+import { Testimonial } from "@/definitions/Testimonial";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { memo, useEffect, useRef, useState } from "react";
 import { SparklesCore } from "../../ui/sparkles";
 
-export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
+export const TestimonialsSlider = ({ testimonials }: { testimonials: Testimonial[] }) => {
   const [active, setActive] = useState<number>(0);
   const [autorotate, setAutorotate] = useState<boolean>(true);
   const testimonialsRef = useRef<HTMLDivElement>(null);
+  const { isDark } = useAppMode();
 
   const slicedTestimonials = testimonials.slice(0, 3);
+
+  // Debug: Log testimonials data
+  console.log("TestimonialsSlider - testimonials:", testimonials);
+  console.log("TestimonialsSlider - isDark:", isDark);
+  console.log("TestimonialsSlider - first testimonial:", slicedTestimonials[0]);
 
   useEffect(() => {
     if (!autorotate) return;
@@ -83,7 +91,11 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                       <Image
                         className="top-6 left-1/2 relative rounded-full -translate-x-1/2"
                         src={strapiImage(
-                          item.Image?.url || "/placeholder-avatar.png"
+                          isDark
+                            ? item.image_dark?.url ||
+                                item.Image?.url ||
+                                "/placeholder-avatar.png"
+                            : item.Image?.url || "/placeholder-avatar.png"
                         )}
                         width={96}
                         height={96}
@@ -110,7 +122,7 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: any }) => {
                     beforeEnter={() => heightFix()}
                   >
                     <div className="bg-clip-text bg-gradient-to-r from-card-foreground/60 via-card-foreground to-card-foreground/60 font-medium text-transparent text-base md:text-xl">
-                      {item.description}
+                      {truncate(item.description, 100)}
                     </div>
                   </Transition>
                 ))}

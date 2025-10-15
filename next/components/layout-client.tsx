@@ -33,18 +33,20 @@ export function LayoutClient({
   return (
     <>
       <Navbar data={pageData?.navbar || {}} locale={locale} />
-      <LoadingWrapper
-        loading={loading}
-        fullScreen={false}
-        fallback={
-          <PageLoading
-            message="Cargando Iris Natural Shop..."
-            submessage="Conectando con el servidor"
-          />
-        }
-      >
-        {children}
-      </LoadingWrapper>
+      <div className="pt-16">
+        <LoadingWrapper
+          loading={loading}
+          fullScreen={false}
+          fallback={
+            <PageLoading
+              message="Cargando Iris Natural Shop..."
+              submessage="Conectando con el servidor"
+            />
+          }
+        >
+          {children}
+        </LoadingWrapper>
+      </div>
       <Footer data={pageData?.footer || {}} locale={locale} />
     </>
   );

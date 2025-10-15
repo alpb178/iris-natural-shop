@@ -6,12 +6,11 @@ import {
 } from "@/hooks/useEntranceAnimation";
 import { usePageLoaded } from "@/hooks/usePageLoaded";
 import { cn } from "@/lib/utils";
+import { Testimonial } from "@/definitions/Testimonial";
 import { motion } from "framer-motion";
-import { TbLocationBolt } from "react-icons/tb";
-import { AmbientColor } from "../../decorations/ambient-color";
 import { Subheading } from "../../elements/subheading";
 import { Text } from "../../text/Text";
-import { FeatureIconContainer } from "../features/feature-icon-container";
+
 import { TestimonialsSlider } from "./slider";
 import { TestimonialsMarquee } from "./testimonials-marquee";
 
@@ -22,10 +21,12 @@ export const Testimonials = ({
 }: {
   heading: string;
   sub_heading: string;
-  testimonials: object;
+  testimonials: Testimonial[];
 }) => {
   const { isPageLoaded } = usePageLoaded();
   const { ref, isInView } = useEntranceAnimation();
+
+  console.log("testimonials - testimonials", testimonials);
 
   return (
     <motion.div
@@ -38,13 +39,8 @@ export const Testimonials = ({
         isPageLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
       )}
     >
-      <AmbientColor />
-      <div className="pb-20">
+      <div className="mt-20 pb-20">
         <motion.div variants={entranceAnimationVariants.item}>
-          <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-            <TbLocationBolt className="w-6 h-6 text-foreground" />
-          </FeatureIconContainer>
-
           <Text as="title" className="pt-4 text-center" content={heading} />
 
           <Subheading>{sub_heading}</Subheading>
@@ -56,7 +52,10 @@ export const Testimonials = ({
           variants={entranceAnimationVariants.content}
           className="relative md:py-20 pb-20"
         >
-          <TestimonialsSlider testimonials={testimonials} />
+          <div className="mt-20 w-full h-full">
+            <TestimonialsSlider testimonials={testimonials} />
+          </div>
+
           <div className="mt-20 w-full h-full">
             <TestimonialsMarquee testimonials={testimonials} />
           </div>

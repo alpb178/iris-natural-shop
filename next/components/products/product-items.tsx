@@ -5,17 +5,15 @@ import { truncate } from "@/lib/utils";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { Text } from "../text/Text";
+import RichTextRenderer from "../rich-text";
 
 const groupServicesByCategory = (services: Service[]) => {
   console.log("Grouping services:", services);
   const grouped: { [key: string]: Service[] } = {};
-  const uncategorized: Service[] = [];
+  const withoutCategory: Service[] = [];
 
   services?.forEach((service) => {
-    const categoryName =
-      service.categories && service.categories.length > 0
-        ? service.categories[0]?.name || ""
-        : "";
+    const categoryName = service?.categories?.name || "";
 
     if (categoryName && categoryName.trim() !== "") {
       if (!grouped[categoryName]) {
@@ -23,12 +21,12 @@ const groupServicesByCategory = (services: Service[]) => {
       }
       grouped[categoryName].push(service);
     } else {
-      uncategorized.push(service);
+      withoutCategory.push(service);
     }
   });
 
-  if (uncategorized.length > 0) {
-    grouped["uncategorized"] = uncategorized;
+  if (withoutCategory.length > 0) {
+    grouped["withoutCategory"] = withoutCategory;
   }
 
   return grouped;
@@ -93,7 +91,7 @@ const ProductItem = ({
           alt={service.name}
           width={500}
           height={500}
-          className="w-full h-80 object-cover group-hover:scale-105 transition duration-200"
+          className="w-full h-80 object-cover border-2 border-primary rounded-lg   group-hover:scale-105 transition duration-200"
         />
       </div>
 
@@ -103,7 +101,7 @@ const ProductItem = ({
             {service.name}
           </span>
           {service.price !== null && service.price > 0 && (
-            <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-foreground text-xs">
+            <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-primary text-sm">
               {formatPrice({
                 price: service.price ?? 0,
                 currency: service.currency ?? "BOB"

@@ -1,6 +1,8 @@
 "use client";
 import { strapiImage } from "@/lib/strapi/strapiImage";
 import { cn } from "@/lib/utils";
+import { useAppMode } from "@/hooks/useAppMode";
+import { Testimonial } from "@/definitions/Testimonial";
 import Image from "next/image";
 import React from "react";
 import Marquee from "react-fast-marquee";
@@ -9,25 +11,26 @@ import { Card } from "../../card/Card";
 export const TestimonialsMarquee = ({
   testimonials
 }: {
-  testimonials: any;
+  testimonials: Testimonial[];
 }) => {
-  const levelOne = testimonials.slice(0, 8);
-  const levelTwo = testimonials.slice(8, 16);
+  const { isDark } = useAppMode();
+
   return (
     <div className="mx-auto max-w-7xl">
       <div className="relative flex h-full">
-        <div className="left-0 z-30 absolute inset-y-0 bg-gradient-to-r from-background to-transparent w-20 h-full" />
-        <div className="right-0 z-30 absolute inset-y-0 bg-gradient-to-l from-background to-transparent w-20 h-full" />
         <Marquee>
-          {levelOne.map((testimonial: any, index: any) => (
+          {testimonials.map((testimonial: any, index: any) => (
             <Card
               key={`testimonial-${testimonial.id}-${index}`}
-              className="mx-4 max-w-xl h-60"
+              className="mx-4 max-w-xl h-60 border-2 border-primary rounded-lg"
             >
-              <Quote>{testimonial?.text}</Quote>
-              <div className="flex items-center gap-2 mt-8">
+              <div className="flex items-center gap-2 ">
                 <Image
-                  src={strapiImage(testimonial?.Image?.url)}
+                  src={strapiImage(
+                    isDark
+                      ? testimonial?.image_dark?.url || testimonial?.Image?.url
+                      : testimonial?.Image?.url
+                  )}
                   alt={`${testimonial.title} `}
                   width={40}
                   height={40}
@@ -38,37 +41,6 @@ export const TestimonialsMarquee = ({
                     {`${testimonial.title} `}
                   </QuoteDescription>
                   <QuoteDescription className="text-foreground/60">
-                    {testimonial?.description}
-                  </QuoteDescription>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </Marquee>
-      </div>
-      <div className="relative flex mt-8 h-full">
-        <div className="left-0 z-30 absolute inset-y-0 bg-gradient-to-r from-background to-transparent w-20 h-full" />
-        <div className="right-0 z-30 absolute inset-y-0 bg-gradient-to-l from-background to-transparent w-20 h-full" />
-        <Marquee direction="right" speed={20}>
-          {levelTwo.map((testimonial: any, index: any) => (
-            <Card
-              key={`testimonial-${testimonial.id}-${index}`}
-              className="mx-4 max-w-xl h-60"
-            >
-              <Quote>{testimonial.text}</Quote>
-              <div className="flex items-center gap-2 mt-8">
-                <Image
-                  src={strapiImage(testimonial?.Image?.url)}
-                  alt={`${testimonial.title} `}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
-                <div className="flex flex-col">
-                  <QuoteDescription className="text-neutral-300">
-                    {`${testimonial.title} `}
-                  </QuoteDescription>
-                  <QuoteDescription className="text-neutral-400">
                     {testimonial?.description}
                   </QuoteDescription>
                 </div>
@@ -91,7 +63,7 @@ export const Quote = ({
   return (
     <h3
       className={cn(
-        "py-2 font-libre font-medium text-foreground text-base",
+        "py-2 font-libre font-medium text-foreground border-2 border-primary rounded-lg text-base",
         className
       )}
     >
