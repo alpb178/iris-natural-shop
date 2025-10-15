@@ -15,7 +15,7 @@ export async function generateMetadata({
     {
       filters: {
         slug: params.slug,
-        locale: params.locale
+        locale: "en"
       },
       populate: "seo.metaImage"
     },
@@ -37,7 +37,7 @@ export default async function Page({
     {
       filters: {
         slug: params.slug,
-        locale: params.locale
+        locale: "en"
       }
     },
     true
@@ -45,9 +45,11 @@ export default async function Page({
 
   const localizedSlugs = useLocalizedSlugs(
     pageData?.localizations,
-    params.locale,
+    "en",
     params.slug
   );
+
+  console.log("Page data:", pageData);
 
   return (
     <>

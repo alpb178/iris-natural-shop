@@ -22,6 +22,16 @@
     },
     "company": {
       "type": "string"
+    },
+    "imageDark": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

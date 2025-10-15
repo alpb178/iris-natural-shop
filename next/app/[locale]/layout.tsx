@@ -19,7 +19,7 @@ export async function generateMetadata({
   const pageData = await fetchContentType(
     "global",
     {
-      filters: { locale: params.locale },
+      filters: { locale: "en" },
       populate: "seo.metaImage"
     },
     true

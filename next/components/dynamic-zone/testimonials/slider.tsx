@@ -9,18 +9,17 @@ import Image from "next/image";
 import { memo, useEffect, useRef, useState } from "react";
 import { SparklesCore } from "../../ui/sparkles";
 
-export const TestimonialsSlider = ({ testimonials }: { testimonials: Testimonial[] }) => {
+export const TestimonialsSlider = ({
+  testimonials
+}: {
+  testimonials: Testimonial[];
+}) => {
   const [active, setActive] = useState<number>(0);
   const [autorotate, setAutorotate] = useState<boolean>(true);
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const { isDark } = useAppMode();
 
   const slicedTestimonials = testimonials.slice(0, 3);
-
-  // Debug: Log testimonials data
-  console.log("TestimonialsSlider - testimonials:", testimonials);
-  console.log("TestimonialsSlider - isDark:", isDark);
-  console.log("TestimonialsSlider - first testimonial:", slicedTestimonials[0]);
 
   useEffect(() => {
     if (!autorotate) return;
@@ -91,8 +90,8 @@ export const TestimonialsSlider = ({ testimonials }: { testimonials: Testimonial
                       <Image
                         className="top-6 left-1/2 relative rounded-full -translate-x-1/2"
                         src={strapiImage(
-                          isDark
-                            ? item.image_dark?.url ||
+                          !isDark
+                            ? item.ImageDark?.url ||
                                 item.Image?.url ||
                                 "/placeholder-avatar.png"
                             : item.Image?.url || "/placeholder-avatar.png"

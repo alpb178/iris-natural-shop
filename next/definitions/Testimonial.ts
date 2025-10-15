@@ -9,13 +9,13 @@ export interface Testimonial {
     width?: number;
     height?: number;
   };
-  image_dark?: {
+  ImageDark?: {
     url: string;
     alternativeText?: string;
     caption?: string;
     width?: number;
     height?: number;
-  }[];
+  };
   locale?: string;
   publishedAt?: string;
   createdAt?: string;

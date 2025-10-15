@@ -577,6 +577,7 @@ export interface ApiLogoLogo extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    imageDark: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::logo.logo'> &
       Schema.Attribute.Private;
@@ -826,9 +827,8 @@ export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    image_dark: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
+    ImageDark: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

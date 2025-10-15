@@ -49,10 +49,7 @@ export default async function SingleProductPage({
       <Container className="py-20 md:py-40">
         <SingleService service={service} />
         {service?.dynamic_zone && (
-          <DynamicZoneManager
-            dynamicZone={service?.dynamic_zone}
-            locale={params.locale}
-          />
+          <DynamicZoneManager dynamicZone={service?.dynamic_zone} locale="en" />
         )}
       </Container>
     </div>

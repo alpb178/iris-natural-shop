@@ -15,6 +15,8 @@ export const TestimonialsMarquee = ({
 }) => {
   const { isDark } = useAppMode();
 
+  console.log("TestimonialsMarquee - testimonials:", testimonials);
+
   return (
     <div className="mx-auto max-w-7xl">
       <div className="relative flex h-full">
@@ -27,8 +29,8 @@ export const TestimonialsMarquee = ({
               <div className="flex items-center gap-2 ">
                 <Image
                   src={strapiImage(
-                    isDark
-                      ? testimonial?.image_dark?.url || testimonial?.Image?.url
+                    !isDark
+                      ? testimonial?.ImageDark?.url
                       : testimonial?.Image?.url
                   )}
                   alt={`${testimonial.title} `}

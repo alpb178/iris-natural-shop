@@ -10,7 +10,7 @@ export interface Service {
   perks: any[];
   featured?: boolean;
   images: any[];
-  image_dark?: any[];
+  ImageDark?: any;
   categories?: Category;
   currency?: string;
 }

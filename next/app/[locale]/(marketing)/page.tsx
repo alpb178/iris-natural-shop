@@ -14,7 +14,7 @@ export async function generateMetadata({
     {
       filters: {
         slug: HOME_PAGE,
-        locale: params.locale
+        locale: "en"
       },
       populate: "seo.metaImage"
     },

@@ -10,6 +10,7 @@ import { Link } from "next-view-transitions";
 import { useState } from "react";
 import { IconButton } from "../button/icon-button/IconButton";
 import { NavbarItem } from "./navbar-item";
+import { useAppMode } from "@/hooks/useAppMode";
 
 type Props = {
   leftNavbarItems: {
@@ -36,7 +37,10 @@ export const DesktopNavbar = ({
 
   const [showBackground, setShowBackground] = useState(false);
 
+  const { isDark } = useAppMode();
   const { theme, toggleTheme } = useTheme();
+
+  const logoIcon = !isDark ? logo?.imageDark : logo?.image;
 
   useMotionValueEvent(scrollY, "change", (value) => {
     if (value > 100) {
@@ -69,7 +73,7 @@ export const DesktopNavbar = ({
           )}
         </div>
 
-        <Logo locale={locale} image={logo?.image} />
+        <Logo locale={locale} image={logoIcon} />
 
         <div className="flex justify-end items-center space-x-2 w-full">
           {rightNavbarItems.map((item, index) => (

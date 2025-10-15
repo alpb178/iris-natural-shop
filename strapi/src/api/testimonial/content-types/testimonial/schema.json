@@ -47,14 +47,14 @@
         "audios"
       ]
     },
-    "image_dark": {
+    "ImageDark": {
       "type": "media",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "multiple": true,
+      "multiple": false,
       "allowedTypes": [
         "images",
         "files",

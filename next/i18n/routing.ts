@@ -1,19 +1,19 @@
-import { defineRouting, Pathnames } from 'next-intl/routing';
+import { defineRouting, Pathnames } from "next-intl/routing";
 
-export const DEFAULT_LOCALE = 'es';
+export const DEFAULT_LOCALE = "en";
 
-export const locales = ['en', 'es'];
+export const locales = ["en", "es"];
 
 export const pathnames = {
-  '/': '/',
-  '/pathnames': {
-    en: '/pathnames',
-    es: '/pathnames'
+  "/": "/",
+  "/pathnames": {
+    en: "/pathnames",
+    es: "/pathnames"
   }
 } satisfies Pathnames<typeof locales>;
 
 // Use the default: `always`
-export const localePrefix = 'never' as const;
+export const localePrefix = "never" as const;
 
 export const routing = defineRouting({
   locales,

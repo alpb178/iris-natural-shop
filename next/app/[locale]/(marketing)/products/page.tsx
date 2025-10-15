@@ -21,7 +21,7 @@ export async function generateMetadata({
     "product-page",
     {
       filters: {
-        locale: params.locale
+        locale: "en"
       },
       populate: "seo.metaImage"
     },
@@ -43,18 +43,16 @@ export default async function Products({
     "product-page",
     {
       filters: {
-        locale: params.locale
+        locale: "en"
       }
     },
     true
   );
   const products = await fetchContentType("products");
 
-  console.log("Products page data:", products);
-
   const localizedSlugs = useLocalizedSlugs(
     productPage?.localizations,
-    params.locale,
+    "en",
     "products"
   );
 
@@ -63,7 +61,7 @@ export default async function Products({
       <ClientSlugHandler localizedSlugs={localizedSlugs} />
 
       <Container className="pt-2 pb-40">
-        <ProductItems services={products?.data} locale={params.locale} />
+        <ProductItems services={products?.data} locale="en" />
       </Container>
     </div>
   );

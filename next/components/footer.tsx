@@ -3,15 +3,18 @@
 import { Logo } from "@/components/logo";
 import { Link } from "next-view-transitions";
 import { socials } from "./dynamic-zone/socials";
+import { useAppMode } from "@/hooks/useAppMode";
 
 export const Footer = ({ data, locale }: { data: any; locale: string }) => {
+  const { isDark } = useAppMode();
+  const logoIcon = !isDark ? data?.logo?.imageDark : data?.logo?.image;
   return (
     <div className="relative">
       <div className="relative bg-card px-4 xs:px-8 pt-10 pb-10 border-t border-border">
         <div className="flex sm:flex-row flex-col justify-between items-start mx-auto px-4 max-w-7xl text-muted-foreground text-sm">
           <div>
             <div className="md:flex mr-4 mb-4">
-              {data?.logo?.image && <Logo image={data?.logo?.image} />}
+              {data?.logo?.image && <Logo image={logoIcon} />}
             </div>
             <div className="max-w-xs">{data?.description}</div>
             <div className="mt-4">
