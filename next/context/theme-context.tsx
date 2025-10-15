@@ -16,11 +16,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Get theme from localStorage on mount
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      // Default to dark mode
+    try {
+      const savedTheme = localStorage.getItem("theme") as Theme;
+      if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
+        setTheme(savedTheme);
+      } else {
+        // Default to dark mode
+        setTheme("dark");
+        localStorage.setItem("theme", "dark");
+      }
+    } catch (error) {
+      // If localStorage is not available, default to dark mode
       setTheme("dark");
     }
   }, []);
@@ -32,6 +38,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.classList.add(theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  // Apply theme immediately on mount to prevent flash
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.add(theme);
+  }, []);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
