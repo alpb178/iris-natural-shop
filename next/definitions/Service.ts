@@ -9,4 +9,5 @@ export interface Service {
   featured?: boolean;
   images: any[];
   categories?: any[];
+  currency?: string;
 }

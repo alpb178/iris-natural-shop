@@ -1,8 +1,6 @@
 import "@/styles/globals.scss";
 
 import { libreFranklin, merriweatherGaramond } from "@/components/fonts";
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
 import { LayoutClient } from "@/components/layout-client";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";

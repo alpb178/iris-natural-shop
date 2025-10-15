@@ -50,20 +50,19 @@ export default async function Products({
   );
   const products = await fetchContentType("products");
 
+  console.log("Products page data:", products);
+
   const localizedSlugs = useLocalizedSlugs(
     productPage?.localizations,
     params.locale,
     "products"
   );
-  const featured = products?.data.filter(
-    (product: { featured: boolean }) => product.featured
-  );
 
   return (
     <div className="relative w-full overflow-hidden">
       <ClientSlugHandler localizedSlugs={localizedSlugs} />
-      <AmbientColor />
-      <Container className="pt-40 pb-40">
+
+      <Container className="pt-2 pb-40">
         <ProductItems services={products?.data} locale={params.locale} />
       </Container>
     </div>

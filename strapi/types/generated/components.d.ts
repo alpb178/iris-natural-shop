@@ -211,21 +211,7 @@ export interface DynamicZonePricing extends Struct.ComponentSchema {
   };
   attributes: {
     heading: Schema.Attribute.String;
-    plans: Schema.Attribute.Relation<'oneToMany', 'api::plan.plan'>;
-    sub_heading: Schema.Attribute.String;
-  };
-}
-
-export interface DynamicZoneRelatedArticles extends Struct.ComponentSchema {
-  collectionName: 'components_dynamic_zone_related_articles';
-  info: {
-    description: '';
-    displayName: 'related_articles';
-    icon: 'bulletList';
-  };
-  attributes: {
-    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
-    heading: Schema.Attribute.String;
+    plans: Schema.Attribute.JSON;
     sub_heading: Schema.Attribute.String;
   };
 }
@@ -584,7 +570,6 @@ declare module '@strapi/strapi' {
       'dynamic-zone.how-it-works': DynamicZoneHowItWorks;
       'dynamic-zone.launches': DynamicZoneLaunches;
       'dynamic-zone.pricing': DynamicZonePricing;
-      'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'dynamic-zone.related-products': DynamicZoneRelatedProducts;
       'dynamic-zone.rich-text': DynamicZoneRichText;
       'dynamic-zone.story-panel': DynamicZoneStoryPanel;

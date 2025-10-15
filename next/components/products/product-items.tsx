@@ -7,10 +7,11 @@ import Image from "next/image";
 import { Text } from "../text/Text";
 
 const groupServicesByCategory = (services: Service[]) => {
+  console.log("Grouping services:", services);
   const grouped: { [key: string]: Service[] } = {};
   const uncategorized: Service[] = [];
 
-  services.forEach((service) => {
+  services?.forEach((service) => {
     const categoryName =
       service.categories && service.categories.length > 0
         ? service.categories[0]?.name || ""
@@ -34,13 +35,9 @@ const groupServicesByCategory = (services: Service[]) => {
 };
 
 export const ProductItems = ({
-  heading = "Productos",
-  sub_heading = "Recently rose to popularity",
   services,
   locale
 }: {
-  heading?: string;
-  sub_heading?: string;
   services: Service[];
   locale: string;
 }) => {
@@ -49,13 +46,6 @@ export const ProductItems = ({
 
   return (
     <div className="py-20">
-      <Text
-        as="subtitle"
-        content={heading}
-        className="bg-clip-text bg-gradient-to-b from-primary via-foreground to-foreground text-transparent"
-      />
-      <p className="mt-4 mb-10 text-muted-foreground text-lg">{sub_heading}</p>
-
       {categoryNames.map((categoryName) => (
         <div key={categoryName} className="mb-20">
           {categoryName !== "uncategorized" && (
@@ -114,7 +104,10 @@ const ProductItem = ({
           </span>
           {service.price !== null && service.price > 0 && (
             <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-foreground text-xs">
-              {formatPrice({ price: service.price ?? 0 }).toString()}
+              {formatPrice({
+                price: service.price ?? 0,
+                currency: service.currency ?? "BOB"
+              }).toString()}
             </span>
           )}
         </div>

@@ -35,17 +35,19 @@
         "videos"
       ]
     },
-    "categories": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::category.category",
-      "mappedBy": "products"
-    },
     "dynamic_zone": {
       "type": "dynamiczone",
       "components": [
         "dynamic-zone.related-products",
         "dynamic-zone.cta"
+      ]
+    },
+    "currency": {
+      "type": "enumeration",
+      "default": "BOB",
+      "enum": [
+        "BOB",
+        "USD"
       ]
     }
   }

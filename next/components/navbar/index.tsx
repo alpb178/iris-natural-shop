@@ -8,6 +8,13 @@ import { MobileNavbar } from "./mobile-navbar";
 export function Navbar({ data, locale }: { data: any; locale: string }) {
   const { from, to } = useMediaQuery();
 
+  if (
+    data?.left_navbar_items?.length === 0 &&
+    data?.right_navbar_items?.length === 0
+  ) {
+    return null;
+  }
+
   return (
     <motion.nav className="top-0 z-50 fixed inset-x-0 mx-auto w-full">
       {from("lg") && (
