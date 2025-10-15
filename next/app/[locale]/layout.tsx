@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { Providers } from "../providers";
+import { Analytics } from "@vercel/analytics/next";
 
 // Default Global SEO for pages without them
 export async function generateMetadata({
@@ -55,6 +56,7 @@ export default async function LocaleLayout({
             {children}
           </LayoutClient>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

@@ -14,7 +14,7 @@ export function PageLoading({
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center">
-        <Loader size="64" />
+        <Loader size={64} />
         <div className="mt-6">
           <p className="text-xl font-medium text-foreground">{message}</p>
           <p className="text-sm text-muted-foreground mt-2">{submessage}</p>

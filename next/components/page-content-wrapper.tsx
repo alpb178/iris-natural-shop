@@ -1,8 +1,8 @@
 "use client";
 
+import PageContent from "../lib/shared/PageContent";
 import { LoadingWrapper } from "./loading-wrapper";
 import { useStrapiData } from "@/hooks/useStrapiData";
-import { PageContent } from "@/lib/shared/PageContent";
 
 interface PageContentWrapperProps {
   contentType: string;
