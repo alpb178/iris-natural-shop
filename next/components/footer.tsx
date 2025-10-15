@@ -1,14 +1,10 @@
+"use client";
+
 import { Logo } from "@/components/logo";
 import { Link } from "next-view-transitions";
 import { socials } from "./dynamic-zone/socials";
 
-export const Footer = async ({
-  data,
-  locale
-}: {
-  data: any;
-  locale: string;
-}) => {
+export const Footer = ({ data, locale }: { data: any; locale: string }) => {
   return (
     <div className="relative">
       <div className="relative bg-card px-4 xs:px-8 pt-20 pb-24 border-t border-border">
@@ -18,7 +14,7 @@ export const Footer = async ({
               {data?.logo?.image && <Logo image={data?.logo?.image} />}
             </div>
             <div className="max-w-xs">{data?.description}</div>
-            <div className="mt-4">{`Copyright © ${new Date().getFullYear()}  Strapi INC`}</div>
+            <div className="mt-4">{`Copyright © ${new Date().getFullYear()} Iris Natural Shop`}</div>
 
             {data?.social_networks && (
               <div className="flex flex-row gap-4 mt-12">
@@ -33,19 +29,6 @@ export const Footer = async ({
                 ))}
               </div>
             )}
-            {/* <div className="mt-10">
-              Designed and Developed by{" "}
-              <a
-                className="text-foreground underline"
-                href="https://aceternity.com"
-              >
-                Aceternity
-              </a>{" "}
-              &{" "}
-              <a className="text-foreground underline" href="https://strapi.io">
-                Strapi
-              </a>
-            </div> */}
           </div>
           <div className="items-start gap-10 grid grid-cols-2 mt-10 md:mt-0">
             <LinkSection links={data?.internal_links} locale={locale} />
@@ -65,14 +48,16 @@ const LinkSection = ({
   locale: string;
 }) => (
   <div className="flex flex-col justify-center space-y-4 mt-4">
-    {links.map((link) => (
-      <Link
-        key={link.text}
-        className="text-foreground/80 hover:text-primary text-xs sm:text-sm transition-colors"
-        href={`${link.URL.startsWith("http") ? "" : `/${locale}`}${link.URL}`}
-      >
-        {link.text}
-      </Link>
-    ))}
+    {links &&
+      links.length > 0 &&
+      links.map((link) => (
+        <Link
+          key={link.text}
+          className="text-foreground/80 hover:text-primary text-xs sm:text-sm transition-colors"
+          href={`${link.URL.startsWith("http") ? "" : `/${locale}`}${link.URL}`}
+        >
+          {link.text}
+        </Link>
+      ))}
   </div>
 );

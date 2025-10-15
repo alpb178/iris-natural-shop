@@ -1,10 +1,8 @@
-import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 import { HOME_PAGE } from "@/lib/constants/pages";
 import { generateMetadataObject } from "@/lib/shared/metadata";
-import PageContent from "@/lib/shared/PageContent";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { Metadata } from "next";
-import ClientSlugHandler from "./ClientSlugHandler";
+import { HomeClient } from "./home-client";
 
 export async function generateMetadata({
   params
@@ -33,27 +31,7 @@ export default async function HomePage({
 }: {
   params: { locale: string };
 }) {
-  const pageData = await fetchContentType(
-    "pages",
-    {
-      filters: {
-        slug: HOME_PAGE,
-        locale: params.locale
-      }
-    },
-    true
-  );
+  const { locale } = await params;
 
-  const localizedSlugs = useLocalizedSlugs(
-    pageData?.localizations,
-    params.locale,
-    ""
-  );
-
-  return (
-    <>
-      <ClientSlugHandler localizedSlugs={localizedSlugs} />
-      <PageContent pageData={pageData} />
-    </>
-  );
+  return <HomeClient locale={locale} />;
 }

@@ -3,6 +3,7 @@ import "@/styles/globals.scss";
 import { libreFranklin, merriweatherGaramond } from "@/components/fonts";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { LayoutClient } from "@/components/layout-client";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { cn } from "@/lib/utils";
@@ -38,14 +39,7 @@ export default async function LocaleLayout({
   params: { locale: string };
 }) {
   const messages = await getMessages();
-
   const { locale } = await params;
-
-  const pageData = await fetchContentType(
-    "global",
-    { filters: { locale } },
-    true
-  );
 
   return (
     <html lang={locale}>
@@ -57,9 +51,9 @@ export default async function LocaleLayout({
         )}
       >
         <Providers locale={locale} messages={messages}>
-          <Navbar data={pageData.navbar} locale={locale} />
-          {children}
-          <Footer data={pageData.footer} locale={locale} />
+          <LayoutClient locale={locale} messages={messages}>
+            {children}
+          </LayoutClient>
         </Providers>
       </body>
     </html>
