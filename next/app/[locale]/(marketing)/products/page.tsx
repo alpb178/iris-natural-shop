@@ -1,14 +1,9 @@
 import { Container } from "@/components/container";
-import { AmbientColor } from "@/components/decorations/ambient-color";
-import { FeatureIconContainer } from "@/components/dynamic-zone/features/feature-icon-container";
-import { Subheading } from "@/components/elements/subheading";
-import { Featured } from "@/components/products/featured";
 import { ProductItems } from "@/components/products/product-items";
-import { Text } from "@/components/text/Text";
 import { useLocalizedSlugs } from "@/hooks/useLocalizedSlugs";
 import { generateMetadataObject } from "@/lib/shared/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
-import { UsersIcon } from "lucide-react";
+
 import { Metadata } from "next";
 import ClientSlugHandler from "../ClientSlugHandler";
 

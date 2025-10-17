@@ -11,13 +11,13 @@ import { useState } from "react";
 import { FormattedText } from "../formatted-text";
 import { Link } from "next-view-transitions";
 import { IconBrandWhatsapp } from "@tabler/icons-react";
+import { QuantitySelector } from "./quantity-selector";
 
 export const SingleService = ({ service }: { service: Service }) => {
   const [activeThumbnail, setActiveThumbnail] = useState(
     strapiImage(service.images[0].url)
   );
-
-  console.log("service - single-product", service);
+  const [quantity, setQuantity] = useState(1);
 
   return (
     <div className="">
@@ -40,7 +40,7 @@ export const SingleService = ({ service }: { service: Service }) => {
               alt={service.name}
               width={600}
               height={600}
-              className="rounded border-2 border-primary object-cover"
+              className="rounded border-2 border-pink object-cover"
             />
           </motion.div>
 
@@ -53,8 +53,8 @@ export const SingleService = ({ service }: { service: Service }) => {
                   className={cn(
                     "border-2 rounded w-20 h-20 transition-colors",
                     activeThumbnail === strapiImage(image.url)
-                      ? "border-primary ring-2 ring-primary/20"
-                      : "border-border hover:border-primary/50"
+                      ? "border-pink ring-2 ring-pink/20"
+                      : "border-border hover:border-pink/50"
                   )}
                   style={{
                     backgroundImage: `url(${strapiImage(image.url)})`,
@@ -84,23 +84,65 @@ export const SingleService = ({ service }: { service: Service }) => {
             className="mb-4 font-normal text-base"
           />
 
+          <div className="mb-6">
+            <QuantitySelector
+              min={1}
+              max={20}
+              initialValue={quantity}
+              onQuantityChange={setQuantity}
+              className="mb-4"
+            />
+
+            {quantity > 1 && service.price && (
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-foreground">
+                    Total ({quantity} {quantity === 1 ? "unidad" : "unidades"}):
+                  </span>
+                  <span className="font-semibold text-primary">
+                    {formatPrice({
+                      price: service.price * quantity,
+                      currency: service.currency ?? "BOB"
+                    }).toString()}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+
           <Divider />
 
-          <WhatsappLink service={service} />
+          <WhatsappLink service={service} quantity={quantity} />
         </div>
       </div>
     </div>
   );
 };
 
-const WhatsappLink = ({ service }: { service: Service }) => {
+const WhatsappLink = ({
+  service,
+  quantity
+}: {
+  service: Service;
+  quantity: number;
+}) => {
+  const totalPrice = service.price ? service.price * quantity : 0;
+
+  const message = `Hola, quiero comprar ${quantity} ${
+    quantity === 1 ? "unidad" : "unidades"
+  } del producto ${service.name}${
+    service.price ? ` a ${service.price} ${service.currency} cada uno` : ""
+  }${totalPrice > 0 ? ` (Total: ${totalPrice} ${service.currency})` : ""}`;
+
   return (
     <Link
-      href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=Hola, quiero comprar el producto ${service.name} de ${service?.price} ${service?.currency}`}
-      className="flex justify-center items-center gap-2 border border-primary rounded-full px-4 py-2"
+      href={`https://wa.me/${
+        process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
+      }?text=${encodeURIComponent(message)}`}
+      className="flex justify-center items-center gap-2 border border-primary rounded-full px-4 py-2 hover:bg-primary text-primary hover:text-foreground hover:border-foreground"
     >
-      <IconBrandWhatsapp className="w-6 h-6 text-primary" />
-      <span className="text-lg">Comprar ahora</span>
+      <IconBrandWhatsapp className="w-6 h-6 " />
+      <span className="text-lg hover:text-foreground">Comprar ahora </span>
     </Link>
   );
 };

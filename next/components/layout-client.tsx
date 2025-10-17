@@ -5,7 +5,7 @@ import { Navbar } from "./navbar";
 import { LoadingWrapper } from "./loading-wrapper";
 import { PageLoading } from "./page-loading";
 import { useStrapiData } from "@/hooks/useStrapiData";
-import { Error } from "./error/error";
+
 interface LayoutClientProps {
   children: React.ReactNode;
   locale: string;

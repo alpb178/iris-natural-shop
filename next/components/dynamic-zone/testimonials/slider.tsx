@@ -65,7 +65,7 @@ export const TestimonialsSlider = ({
               maxSize={1}
               particleDensity={90}
               className="w-full h-full"
-              particleColor="var(--primary)"
+              particleColor="var(--pink)"
             />
           </div>
 
@@ -145,7 +145,7 @@ export const TestimonialsSlider = ({
                   }}
                 >
                   <span className="relative">
-                    <span className="font-bold text-primary">
+                    <span className="font-bold text-pink">
                       {`${item.title} `}
                     </span>{" "}
                   </span>

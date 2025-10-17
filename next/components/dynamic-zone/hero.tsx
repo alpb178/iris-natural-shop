@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../button/Button";
 import { Cover } from "../decorations/cover";
-import ShootingStars from "../decorations/shooting-star";
 import StarBackground from "../decorations/star-background";
+import ShootingStars from "../decorations/shooting-star";
 import { Heading } from "../elements/heading";
 import { Subheading } from "../elements/subheading";
 

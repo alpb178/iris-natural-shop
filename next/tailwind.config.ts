@@ -33,6 +33,10 @@ const config: Config = {
           DEFAULT: "rgb(var(--primary))",
           foreground: "rgb(var(--primary-foreground))"
         },
+        pink: {
+          DEFAULT: "rgb(var(--pink))",
+          foreground: "rgb(var(--pink-foreground))"
+        },
         secondary: {
           DEFAULT: "rgb(var(--secondary))",
           foreground: "rgb(var(--secondary-foreground))"

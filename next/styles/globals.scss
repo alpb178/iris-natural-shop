@@ -53,6 +53,7 @@ body {
     --popover-foreground: 10 10 10;
 
     --primary: 109 186 116;
+
     --primary-foreground: 250 251 253;
 
     --secondary: 245 247 250;
@@ -74,6 +75,8 @@ body {
     --ambient-primary: 93 100% 85%;
     --ambient-secondary: 45 100% 75%;
     --ambient-tertiary: 45 100% 65%;
+
+    --pink: 235 188 181;
   }
 
   .dark {
@@ -87,6 +90,7 @@ body {
     --popover-foreground: 250 251 253;
 
     --primary: 69 146 76;
+
     --primary-foreground: 29 30 42;
 
     --secondary: 31 41 55;
@@ -104,6 +108,8 @@ body {
     --border: 30 40 40; /* Nearly black green-tinted border for dark mode */
     --input: 31 41 55;
     --ring: 209 213 219;
+
+    --pink: 235 188 181;
 
     /* Ambient colors for dark mode */
     --ambient-primary: 210 100% 85%;
