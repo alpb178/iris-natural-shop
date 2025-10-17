@@ -26,8 +26,6 @@ export const Testimonials = ({
   const { isPageLoaded } = usePageLoaded();
   const { ref, isInView } = useEntranceAnimation();
 
-  console.log("testimonials - testimonials", testimonials);
-
   return (
     <motion.div
       ref={ref}

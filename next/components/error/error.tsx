@@ -11,7 +11,7 @@ export function Error() {
           alt="Error"
           width={100}
           height={100}
-          className="mx-auto mb-6"
+          className="mx-auto mb-6 rounded-full border-2 border-primary"
         />
         <h1 className="text-2xl font-bold mb-4">Error al cargar la página</h1>
         <p className="text-gray-600 mb-4">
@@ -20,7 +20,7 @@ export function Error() {
         </p>
         <button
           onClick={() => window.location.reload()}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-4 py-2 border-2 border-primary rounded-full text-primary hover:bg-primary hover:text-white"
         >
           Reintentar
         </button>

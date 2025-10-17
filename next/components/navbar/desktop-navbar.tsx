@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/button/Button";
-import { Logo } from "@/components/logo";
+import { Logo, LogoNavbar } from "@/components/logo";
 import { useTheme } from "@/context/theme-context";
 import { cn } from "@/lib/utils";
 import { useMotionValueEvent, useScroll } from "framer-motion";
@@ -52,11 +52,12 @@ export const DesktopNavbar = ({
   return (
     <div
       className={cn(
-        "w-full transition duration-200",
+        "w-full transition duration-200 ",
         showBackground ? "backdrop-blur-xl bg-card/70" : "bg-background"
       )}
     >
-      <div className="flex justify-between mx-auto px-4 py-3 max-w-7xl">
+      <div className="flex justify-between mx-auto px-4 py-3 max-w-7xl gap-4">
+        <LogoNavbar locale={locale} image={logoIcon} />
         <div className="flex flex-row items-center gap-2 w-full">
           {leftNavbarItems && (
             <div className="flex items-center gap-6 w-full">
@@ -73,26 +74,16 @@ export const DesktopNavbar = ({
           )}
         </div>
 
-        <Logo locale={locale} image={logoIcon} />
-
-        <div className="flex justify-end items-center space-x-2 w-full">
-          {rightNavbarItems.map((item, index) => (
-            <Button
-              key={item.text}
-              variant={
-                index === rightNavbarItems.length - 1 ? "solid" : "outline"
-              }
-              as={Link}
-              href={`/${locale}${item.URL}`}
-              label={item.text}
-            />
-          ))}
-
-          <IconButton
-            className="bg-background text-foreground"
+        <div className="flex justify-end  w-full">
+          <button
             onClick={toggleTheme}
-            icon={theme === "light" ? <MoonIcon /> : <SunIcon />}
-          />
+            className=" flex flex-row items-center gap-2"
+          >
+            {theme === "light" ? <MoonIcon /> : <SunIcon />}
+            {theme === "light"
+              ? "Cambiar a modo oscuro"
+              : "Cambiar a modo claro"}
+          </button>
         </div>
       </div>
     </div>

@@ -14,7 +14,13 @@ export function PageLoading({
 }: PageLoadingProps) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background">
-      <Image src="/logo.jpeg" alt="Error" width={100} height={100} />
+      <Image
+        src="/logo.jpeg"
+        alt="Error"
+        width={100}
+        height={100}
+        className="rounded-full border-2 border-pink"
+      />
       <div className="text-center">
         <Loader size={64} />
         <div className="mt-6">
