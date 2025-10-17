@@ -8,7 +8,6 @@ import { Text } from "../text/Text";
 import RichTextRenderer from "../rich-text";
 
 const groupServicesByCategory = (services: Service[]) => {
-  console.log("Grouping services:", services);
   const grouped: { [key: string]: Service[] } = {};
   const withoutCategory: Service[] = [];
 
@@ -46,13 +45,13 @@ export const ProductItems = ({
     <div className="py-20">
       {categoryNames.map((categoryName) => (
         <div key={categoryName} className="mb-20">
-          {categoryName !== "uncategorized" && (
+          {categoryName !== "withoutCategory" && (
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-foreground mb-2">
                 {categoryName}
               </h3>
 
-              <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-pink  to-pink/50 rounded-full"></div>
             </div>
           )}
 
@@ -91,7 +90,7 @@ const ProductItem = ({
           alt={service.name}
           width={500}
           height={500}
-          className="w-full h-80 object-cover border-2 border-primary rounded-lg   group-hover:scale-105 transition duration-200"
+          className="w-full h-80 object-cover border-2 border-pink rounded-lg   group-hover:scale-105 transition duration-200"
         />
       </div>
 

@@ -24,7 +24,7 @@ export const TestimonialsMarquee = ({
           {testimonials.map((testimonial: any, index: any) => (
             <Card
               key={`testimonial-${testimonial.id}-${index}`}
-              className="mx-4 max-w-xl h-60 border-2 border-primary rounded-lg"
+              className="mx-4 max-w-xl h-60 border-2 border-pink rounded-lg"
             >
               <div className="flex items-center gap-2 ">
                 <Image
@@ -65,7 +65,7 @@ export const Quote = ({
   return (
     <h3
       className={cn(
-        "py-2 font-libre font-medium text-foreground border-2 border-primary rounded-lg text-base",
+        "py-2 font-libre font-medium text-foreground border-2 border-pink rounded-lg text-base",
         className
       )}
     >

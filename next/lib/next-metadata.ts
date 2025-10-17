@@ -4,7 +4,7 @@ const seoData = {
   image: "https://ui.aceternity.com/banner.png",
   openGraph: {
     type: "website",
-    title: `Iris Naturals`,
+    title: `Iris Naturals Cosméticas `,
     url: "https://ui.aceternity.com", // TODO: Fix this
     description: `A platform integrating Aceternity with Strapi for seamless content management.`,
     locale: "en_EN",
@@ -16,7 +16,7 @@ const seoData = {
         url: `https://ui.aceternity.com/banner.png` // TODO: Fix this
       }
     ],
-    site_name: "Iris Naturals"
+    site_name: "Iris Naturals Cosmética"
   },
   twitter: {
     handle: "@mannupaaji",

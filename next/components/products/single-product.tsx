@@ -40,7 +40,7 @@ export const SingleService = ({ service }: { service: Service }) => {
               alt={service.name}
               width={600}
               height={600}
-              className="rounded border-2 border-primary object-cover"
+              className="rounded border-2 border-pink object-cover"
             />
           </motion.div>
 
@@ -53,8 +53,8 @@ export const SingleService = ({ service }: { service: Service }) => {
                   className={cn(
                     "border-2 rounded w-20 h-20 transition-colors",
                     activeThumbnail === strapiImage(image.url)
-                      ? "border-primary ring-2 ring-primary/20"
-                      : "border-border hover:border-primary/50"
+                      ? "border-pink ring-2 ring-pink/20"
+                      : "border-border hover:border-pink/50"
                   )}
                   style={{
                     backgroundImage: `url(${strapiImage(image.url)})`,
@@ -97,10 +97,10 @@ const WhatsappLink = ({ service }: { service: Service }) => {
   return (
     <Link
       href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=Hola, quiero comprar el producto ${service.name} de ${service?.price} ${service?.currency}`}
-      className="flex justify-center items-center gap-2 border border-primary rounded-full px-4 py-2"
+      className="flex justify-center items-center gap-2 border border-primary rounded-full px-4 py-2 hover:bg-primary text-primary hover:text-foreground hover:border-foreground"
     >
-      <IconBrandWhatsapp className="w-6 h-6 text-primary" />
-      <span className="text-lg">Comprar ahora</span>
+      <IconBrandWhatsapp className="w-6 h-6 " />
+      <span className="text-lg hover:text-foreground">Comprar ahora</span>
     </Link>
   );
 };

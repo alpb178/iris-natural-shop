@@ -4,12 +4,13 @@ import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 
 import { useMotionValueEvent, useScroll } from "framer-motion";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, MoonIcon, SunIcon } from "lucide-react";
 import { Link } from "next-view-transitions";
 import { Fragment, useState } from "react";
-import { Button } from "../button/Button";
 import { CloseButton } from "../button/close-button/CloseButton";
 import { Modal } from "../modal/Modal";
+import { useTheme } from "@/context/theme-context";
+import { useAppMode } from "@/hooks/useAppMode";
 
 type Props = {
   leftNavbarItems: {
@@ -37,6 +38,9 @@ export const MobileNavbar = ({
   const { scrollY } = useScroll();
 
   const [showBackground, setShowBackground] = useState(false);
+
+  const { isDark } = useAppMode();
+  const { theme, toggleTheme } = useTheme();
 
   useMotionValueEvent(scrollY, "change", (value) => {
     if (value > 100) {
@@ -110,17 +114,15 @@ export const MobileNavbar = ({
           </div>
 
           <div className="flex flex-row items-start gap-2.5 px-6 py-8 w-full">
-            {rightNavbarItems.map((item, index) => (
-              <Button
-                key={item.text}
-                variant={
-                  index === rightNavbarItems.length - 1 ? "solid" : "outline"
-                }
-                as={Link}
-                href={`/${locale}${item.URL}`}
-                label={item.text}
-              />
-            ))}
+            <button
+              onClick={toggleTheme}
+              className=" flex flex-row items-center gap-2"
+            >
+              {theme === "light" ? <MoonIcon /> : <SunIcon />}
+              {theme === "light"
+                ? "Cambiar a modo oscuro"
+                : "Cambiar a modo claro"}
+            </button>
           </div>
         </>
       </Modal>
