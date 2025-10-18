@@ -31,12 +31,8 @@ export const HowItWorks = ({
     >
       <motion.div variants={entranceAnimationVariants.item}>
         <Container className="z-40 relative mx-auto py-20 max-w-7xl">
-          <FeatureIconContainer className="flex justify-center items-center overflow-hidden">
-            <FlowerIcon className="w-6 h-6 text-foreground" />
-          </FeatureIconContainer>
-
           <Text as="title" className="pt-4 text-center" content={heading} />
-          <Subheading className="mx-auto max-w-3xl">{sub_heading}</Subheading>
+          <Subheading className="mx-auto w-full">{sub_heading}</Subheading>
 
           {steps &&
             steps.map(

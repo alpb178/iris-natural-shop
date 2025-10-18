@@ -28,11 +28,7 @@ export const TestimonialsMarquee = ({
             >
               <div className="flex items-center gap-2 ">
                 <Image
-                  src={strapiImage(
-                    !isDark
-                      ? testimonial?.ImageDark?.url
-                      : testimonial?.Image?.url
-                  )}
+                  src={strapiImage(testimonial?.Image?.url)}
                   alt={`${testimonial.title} `}
                   width={40}
                   height={40}
