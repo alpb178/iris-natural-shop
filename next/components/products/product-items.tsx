@@ -88,25 +88,25 @@ const ProductItem = ({
         <Image
           src={strapiImage(service.images?.[0]?.url ?? "")}
           alt={service.name}
-          width={500}
-          height={500}
-          className="w-full h-80 object-cover border-2 border-pink rounded-lg   group-hover:scale-105 transition duration-200"
+          width={300}
+          height={300}
+          className="w-full md:h-60 h-40 object-cover border-2 border-pink rounded-lg   group-hover:scale-105 transition duration-200"
         />
       </div>
 
       <div className="mt-8">
-        <div className="flex justify-between">
-          <span className="font-medium text-foreground text-base">
-            {service.name}
-          </span>
+        <div className="flex flex-col gap-2">
           {service.price !== null && service.price > 0 && (
-            <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-primary text-sm">
+            <span className="bg-primary/10 shadow-sm px-2 py-1 rounded-full text-primary text-sm w-fit">
               {formatPrice({
                 price: service.price ?? 0,
                 currency: service.currency ?? "BOB"
               }).toString()}
             </span>
           )}
+          <span className="font-medium text-foreground text-base">
+            {service.name}
+          </span>
         </div>
         <p className="mt-4 text-muted-foreground text-sm">
           {truncate(service.description, 100)}
