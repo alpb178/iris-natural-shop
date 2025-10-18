@@ -48,7 +48,7 @@ export const SingleService = ({ service }: { service: Service }) => {
               alt={service.name}
               width={600}
               height={600}
-              className="rounded border-2 border-pink object-cover"
+              className="rounded border-2 border-pink object-cover  md:h-[800px] h-[400px]"
             />
           </motion.div>
 
@@ -76,17 +76,20 @@ export const SingleService = ({ service }: { service: Service }) => {
         </div>
 
         <div>
-          <h2 className="mb-4 font-semibold text-foreground text-2xl">
-            {service.name}
-          </h2>
-          {service.price !== null && service.price > 0 && (
-            <p className="bg-primary/10 mb-6 px-4 py-1 rounded-full w-fit font-medium text-primary text-sm">
-              {formatPrice({
-                price: service.price ?? 0,
-                currency: service.currency ?? "BOB"
-              }).toString()}
-            </p>
-          )}
+          <div className="flex justify-between items-center">
+            <h2 className="mb-4 font-semibold text-foreground text-2xl">
+              {service.name}
+            </h2>
+            {service.price !== null && service.price > 0 && (
+              <p className="bg-primary/10 mb-6 px-4 py-1 rounded-full w-fit font-medium text-primary text-sm">
+                {formatPrice({
+                  price: service.price ?? 0,
+                  currency: service.currency ?? "BOB"
+                }).toString()}
+              </p>
+            )}
+          </div>
+
           <FormattedText
             content={service.description}
             className="mb-4 font-normal text-base"
