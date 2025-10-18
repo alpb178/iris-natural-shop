@@ -37,7 +37,7 @@ export const Testimonials = ({
         isPageLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
       )}
     >
-      <div className="mt-20 pb-20">
+      <div className="mt-20   ">
         <motion.div variants={entranceAnimationVariants.item}>
           <Text as="title" className="pt-4 text-center" content={heading} />
 
@@ -50,7 +50,7 @@ export const Testimonials = ({
           variants={entranceAnimationVariants.content}
           className="relative md:py-20 pb-20"
         >
-          <div className="mt-20 w-full h-full">
+          <div className=" w-full h-full">
             <TestimonialsSlider testimonials={testimonials} />
           </div>
 
