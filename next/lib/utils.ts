@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const truncate = (text: string, length: number) => {
-  return text.length > length ? text.slice(0, length) + "..." : text;
+  return text?.length > length ? text?.slice(0, length) + "..." : text;
 };
 
 export const formatNumber = (
@@ -16,6 +16,6 @@ export const formatNumber = (
   return new Intl.NumberFormat(locale, {
     style: "decimal",
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 2
   }).format(number);
 };
