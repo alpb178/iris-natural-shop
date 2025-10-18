@@ -12,12 +12,20 @@ import { FormattedText } from "../formatted-text";
 import { Link } from "next-view-transitions";
 import { IconBrandWhatsapp } from "@tabler/icons-react";
 import { QuantitySelector } from "./quantity-selector";
+import { DeliveryOptions, DeliveryOption } from "./delivery-options";
+import { useDeliveryOption } from "@/hooks/useDeliveryOption";
 
 export const SingleService = ({ service }: { service: Service }) => {
   const [activeThumbnail, setActiveThumbnail] = useState(
     strapiImage(service.images[0].url)
   );
   const [quantity, setQuantity] = useState(1);
+  const {
+    deliveryOption,
+    handleDeliveryChange,
+    getDeliveryText,
+    getButtonText
+  } = useDeliveryOption();
 
   return (
     <div className="">
@@ -93,6 +101,13 @@ export const SingleService = ({ service }: { service: Service }) => {
               className="mb-4"
             />
 
+            {/* Opciones de entrega */}
+            <DeliveryOptions
+              value={deliveryOption}
+              onChange={handleDeliveryChange}
+              className="mb-4"
+            />
+
             {quantity > 1 && service.price && (
               <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
                 <div className="flex justify-between items-center">
@@ -112,7 +127,13 @@ export const SingleService = ({ service }: { service: Service }) => {
 
           <Divider />
 
-          <WhatsappLink service={service} quantity={quantity} />
+          <WhatsappLink
+            service={service}
+            quantity={quantity}
+            deliveryOption={deliveryOption}
+            getDeliveryText={getDeliveryText}
+            getButtonText={getButtonText}
+          />
         </div>
       </div>
     </div>
@@ -121,10 +142,16 @@ export const SingleService = ({ service }: { service: Service }) => {
 
 const WhatsappLink = ({
   service,
-  quantity
+  quantity,
+  deliveryOption,
+  getDeliveryText,
+  getButtonText
 }: {
   service: Service;
   quantity: number;
+  deliveryOption: DeliveryOption;
+  getDeliveryText: () => string;
+  getButtonText: () => string;
 }) => {
   const totalPrice = service.price ? service.price * quantity : 0;
 
@@ -132,7 +159,9 @@ const WhatsappLink = ({
     quantity === 1 ? "unidad" : "unidades"
   } del producto ${service.name}${
     service.price ? ` a ${service.price} ${service.currency} cada uno` : ""
-  }${totalPrice > 0 ? ` (Total: ${totalPrice} ${service.currency})` : ""}`;
+  }${
+    totalPrice > 0 ? ` (Total: ${totalPrice} ${service.currency})` : ""
+  }. Prefiero ${getDeliveryText()}.`;
 
   return (
     <Link
@@ -142,7 +171,7 @@ const WhatsappLink = ({
       className="flex justify-center items-center gap-2 border border-primary rounded-full px-4 py-2 hover:bg-primary text-primary hover:text-foreground hover:border-foreground"
     >
       <IconBrandWhatsapp className="w-6 h-6 " />
-      <span className="text-lg hover:text-foreground">Comprar ahora </span>
+      <span className="text-lg hover:text-foreground">{getButtonText()}</span>
     </Link>
   );
 };
