@@ -11,19 +11,21 @@
       "type": "string"
     },
     "sub_heading": {
-      "type": "string"
+      "type": "text"
     },
     "backgroundMedia": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images", "videos"]
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
     },
     "CTAs": {
-      "displayName": "Button",
       "type": "component",
-      "repeatable": true,
-      "component": "shared.button"
+      "component": "shared.button",
+      "repeatable": true
     }
   }
 }
